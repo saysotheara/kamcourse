@@ -8,8 +8,8 @@ $app = new \Slim\Slim();
 
 function getConnection() {
     try {
-        $db_username = "usr_kamcourse";
-        $db_password = "pwd_kamcourse";
+        $db_username = "root";
+        $db_password = "root";
         $conn = new PDO('mysql:host=localhost;dbname=nkk-db-kamcourse;charset=utf8', $db_username, $db_password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
@@ -35,10 +35,10 @@ function responseJSON($sql_query) {
 function responseJSON_ID($sql_query, $id) {
     try {
         $dbCon = getConnection();
-        $stmt = $dbCon->prepare($sql_query);  
+        $stmt = $dbCon->prepare($sql_query);
         $stmt->bindParam("id", $id);
         $stmt->execute();
-        $results = $stmt->fetchObject();  
+        $results = $stmt->fetchObject();
         $dbCon = null;
         echo json_encode($results, JSON_NUMERIC_CHECK);
     }
