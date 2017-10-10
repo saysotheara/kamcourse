@@ -60,21 +60,26 @@ $app->get('/course/:id', function($id) {
 $app->post('/course', function() {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
+    $date = date('Y-m-d H:i:s');
     try {
-        $sql_query = "INSERT INTO kc_tbl_course (course_name, course_summary, course_category, course_outline, course_duration, course_fee, course_media, course_video, course_create_date, course_update_date, course_other_info) VALUES (:name, :summary, :category, :outline, :duration, :fee, :photo_url, :video_url, :create_date, :update_date, :other_info)";
+        $sql_query = "INSERT INTO kc_tbl_course (course_name,description , course_category, course_outline,study_time,start_date,schedule,lecturer, course_duration, course_fee, course_media, course_video, course_create_date, course_update_date, course_other_info) VALUES (:name, :description, :category, :outline,:study_time,:start_date,:schedule,:lecturer, :duration, :fee, :photo_url, :video_url, '$date', '$date', :other_info)";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
         $stmt->bindParam("id", $request->id);
         $stmt->bindParam("name", $request->name);
-        $stmt->bindParam("summary", $request->summary);
+        $stmt->bindParam("description", $request->description);
         $stmt->bindParam("category", $request->category);
         $stmt->bindParam("outline", $request->outline);
+        $stmt->bindParam("study_time", $request->study_time);
+        $stmt->bindParam("start_date", $request->start_date);
+        $stmt->bindParam("schedule", $request->schedule);
+
+        $stmt->bindParam("lecturer", $request->lecturer);
         $stmt->bindParam("duration", $request->duration);
         $stmt->bindParam("fee", $request->fee);
         $stmt->bindParam("photo_url", $request->photo_url);
         $stmt->bindParam("video_url", $request->video_url);
-        $stmt->bindParam("create_date", NOW());
-        $stmt->bindParam("update_date", NOW());
+
         $stmt->bindParam("other_info", $request->other_info);
         $stmt->execute();
         $dbCon = null;
