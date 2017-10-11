@@ -51,13 +51,20 @@
        <div class="form-group row">
          <label for="example-text-input" class="col-3 col-form-label"> Study Time</label>
          <div class="col-9">
-           <input class="form-control" ng-model="study_time" type="text" placeholder="Study Time">
+           <input class="form-control " ng-model="study_time" type="text" placeholder="Study Time">
          </div>
        </div>
        <div class="form-group row">
          <label for="example-text-input" class="col-3 col-form-label"> Start Date</label>
          <div class="col-9">
-           <input class="form-control" ng-model="start_date" type="text" placeholder="Start Date">
+           <input class="form-control mydate" ng-model="start_date" type="text" placeholder="Start Date">
+           <script type="text/javascript">
+           $('.mydate').datepicker({
+              format: "yyyy-mm-dd",
+              clearBtn: true,
+              autoclose: true
+            });
+           </script>
          </div>
        </div>
        <div class="form-group row">
