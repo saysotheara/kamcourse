@@ -62,10 +62,10 @@ $app->post('/course', function() {
     $request = json_decode($postdata);
     $date = date('Y-m-d H:i:s');
     try {
-        $sql_query = "INSERT INTO kc_tbl_course (course_name,description , course_category, course_outline,study_time,start_date,schedule,lecturer, course_duration, course_fee, course_media, course_video, course_create_date, course_update_date, course_other_info) VALUES (:name, :description, :category, :outline,:study_time,:start_date,:schedule,:lecturer, :duration, :fee, :photo_url, :video_url, '$date', '$date', :other_info)";
+        $sql_query = "INSERT INTO kc_tbl_course (course_name,description , course_category, course_outline,study_time, start_date, schedule, lecturer, course_duration, course_fee, course_media, course_video, course_create_date, course_update_date) VALUES (:name, :description, :category, :outline, :study_time, :start_date, :schedule, :lecturer, :duration, :fee, :photo_url, :video_url, '$date', '$date')";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
-        $stmt->bindParam("id", $request->id);
+        
         $stmt->bindParam("name", $request->name);
         $stmt->bindParam("description", $request->description);
         $stmt->bindParam("category", $request->category);
@@ -80,7 +80,7 @@ $app->post('/course', function() {
         $stmt->bindParam("photo_url", $request->photo_url);
         $stmt->bindParam("video_url", $request->video_url);
 
-        $stmt->bindParam("other_info", $request->other_info);
+
         $stmt->execute();
         $dbCon = null;
     }

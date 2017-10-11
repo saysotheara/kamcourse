@@ -7,6 +7,9 @@ app.config(function($routeProvider){
     templateUrl: "templates/courses/create.html",
     controller: "courseCtl"
 
+  }).when('/update',{
+    templateUrl: "templates/courses/update.html",
+    controller: "courseCtl"
   }).otherwise({
         redirectTo: '/course'
     });;
@@ -14,8 +17,14 @@ app.config(function($routeProvider){
 app.controller("courseCtl",function($scope,$http,$location,$routeParams){
   $scope.activePath = null;
   var baseUrl = window.location.origin;
+  var url = $location.absUrl();
+  $scope.getCourse = function(){
+    $http.get(baseUrl+'/api/course').then(function(response){
+      $scope.courseData = response.data;
+    });
+    },
     $scope.btnCreate = function(){
-      var url = $location.absUrl();
+
       $scope.activePath = url+$location.path('/create');
     },
     $scope.btnSaveNext = function(){
@@ -33,10 +42,9 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
         'fee':$scope.fee,
         'photo_url':$scope.photo,
         'video_url':$scope.video,
-        'other_info':$scope.other_info
 
-      },
-      {
+
+      },{
     headers: {
             'Content-Type': 'application/json; charset=utf-8'}
           }).then(function(response){
@@ -48,4 +56,10 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
           });
 
     };
+    $scope.btnUpdate = function () {
+
+    $scope.name ='Hello';
+
+      $scope.activePath = url+$location.path('/update');
+    }
 });

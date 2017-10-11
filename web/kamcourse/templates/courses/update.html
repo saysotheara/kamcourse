@@ -4,7 +4,7 @@
       <div class="row main form"  >
 
           <div class="col-sm-12">
-            <h4 style="color:#17A2B8; margin-top:1%;">Create New Course</h4>
+            <h4 style="color:#17A2B8; margin-top:1%;">Update Course</h4>
             <hr>
           </div>
 
@@ -14,14 +14,15 @@
           <div class="form-group row">
             <label for="example-text-input" class="col-3 col-form-label">Course Title</label>
             <div class="col-9">
-              <input class="form-control" ng-model="title" type="text" placeholder="Course Title">
+              <input type="hidden"  ng-model="id"  value="">
+              <input class="form-control" ng-model="name" type="text" placeholder="Course Title">
             </div>
           </div>
 
          <div class="form-group row">
           <label class="col-3 col-form-label" for="exampleSelect1">Category</label>
           <div class="col-9">
-            <select class="form-control" ng-model="category" >
+            <select class="form-control" ng-model="" >
               <option >Choose...</option>
               <option>IT Engineering</option>
               <option>Civil Engineering</option>
