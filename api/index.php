@@ -46,6 +46,11 @@ function responseJSON_ID($sql_query, $id) {
         echo '{"error": {"text":'. $e->getMessage() .'}}';
     }
 }
+$app->get('/gallery', function() {
+    $sql_query = "SELECT * FROM kc_tbl_gallery";
+    responseJSON( $sql_query );
+});
+
 
 $app->get('/course', function() {
     $sql_query = "SELECT * FROM kc_tbl_course";
@@ -56,7 +61,11 @@ $app->get('/course/:id', function($id) {
     $sql_query = "SELECT * FROM kc_tbl_course WHERE course_id = :id";
     responseJSON_ID( $sql_query, $id);
 });
-
+$app->post('/gallery',function(){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+  echo $request->image;
+});
 $app->post('/course', function() {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);

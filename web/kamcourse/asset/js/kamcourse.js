@@ -12,14 +12,14 @@ app.config(function($routeProvider){
     controller: "courseCtl"
   }).otherwise({
         redirectTo: '/course'
-    });;
+    });
 });
 app.controller("courseCtl",function($scope,$http,$location,$routeParams){
   $scope.activePath = null;
   var baseUrl = window.location.origin;
   var url = $location.absUrl();
   var dataId = null;
-  this.myDate = new Date();
+
 
   $scope.getCourse = function(){
     $http.get(baseUrl+'/api/course').then(function(response){
@@ -112,5 +112,35 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
     },function(response){
       console.log(ERROR);
     });
-  }
+  };
+  $scope.deleteCourse = function(id){
+    var deleteData = confirm('Are you sure want to delete ID '+id+' ?');
+    var url = baseUrl+'/api/course/'+id;
+    if(deleteData){
+      $http.delete(url).then(function(response){
+        $scope.getCourse();
+      });
+    }
+  };
+  // $scope.getGallery = function(){
+  //   $http.get(baseUrl+'/api/gallery').then(function(response){
+  //     $scope.dataGallery = response.data;
+  //   });
+  // };
+  // $scope.uploadImg = function(){
+  //
+  //   $http.post(baseUrl+'/api/gallery',{'image': $('#file').val()}
+  // ,{
+  //   withCredentials : false,
+  //
+  //      headers : {
+  //       'Content-Type' : undefined
+  //      },
+  //    transformRequest : angular.identity
+  //     }).then(function(response){
+  //       console.log(response);
+  //   },function(response){
+  //     console.log(ERROR);
+  //   });
+  // }
 });
