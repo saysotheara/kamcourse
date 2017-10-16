@@ -62,9 +62,30 @@ $app->get('/course/:id', function($id) {
     responseJSON_ID( $sql_query, $id);
 });
 $app->post('/gallery',function(){
-  $postdata = file_get_contents("php://input");
-  $request = json_decode($postdata);
-  echo $request->image;
+  if(!empty($_FILES['file'])){
+      $ext = pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
+              $file = time().'.'.$ext;
+              $image = '/web/kamcourse/asset/img/'.$file;
+              move_uploaded_file($_FILES["file"]["tmp_name"],'../web/kamcourse/asset/img/'.$file);
+
+      try {
+        $sql_query = "INSERT INTO kc_tbl_gallery (image) VALUES (:image)";
+        $dbCon = getConnection();
+        $stmt = $dbCon->prepare($sql_query);
+
+        $stmt->bindParam("image",$image);
+
+
+        $stmt->execute();
+        $dbCon = null;
+
+      } catch (Exception $e) {
+        echo '{"error": {"text":'. $e->getMessage() .'}}';
+      }
+
+  }else{
+      echo "Invalid File or Empty File";
+  }
 });
 $app->post('/course', function() {
     $postdata = file_get_contents("php://input");
@@ -130,7 +151,7 @@ $app->put('/course/:id', function($id) {
 });
 
 $app->delete('/course/:id', function($id) {
-    $sql_query = "DELETE * FROM kc_tbl_course WHERE course_id = :id";
+    $sql_query = "DELETE  FROM kc_tbl_course WHERE course_id = :id";
     responseJSON_ID( $sql_query, $id);
 });
 

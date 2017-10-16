@@ -14,7 +14,21 @@ app.config(function($routeProvider){
         redirectTo: '/course'
     });
 });
-app.controller("courseCtl",function($scope,$http,$location,$routeParams){
+app.service('uploadFile',function($http){
+  this.uploadtoServer = function(file,url){
+    var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+          transformRequest: angular.identity,
+          headers: {'Content-Type': undefined,'Process-Data': false}
+        }).then(function(data){
+          alert(data);
+        },function(data){
+          alert("Error");
+        });
+  }
+});
+app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFile){
   $scope.activePath = null;
   var baseUrl = window.location.origin;
   var url = $location.absUrl();
@@ -122,25 +136,36 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
       });
     }
   };
-  // $scope.getGallery = function(){
-  //   $http.get(baseUrl+'/api/gallery').then(function(response){
-  //     $scope.dataGallery = response.data;
-  //   });
-  // };
-  // $scope.uploadImg = function(){
-  //
-  //   $http.post(baseUrl+'/api/gallery',{'image': $('#file').val()}
-  // ,{
-  //   withCredentials : false,
-  //
-  //      headers : {
-  //       'Content-Type' : undefined
-  //      },
-  //    transformRequest : angular.identity
-  //     }).then(function(response){
-  //       console.log(response);
-  //   },function(response){
-  //     console.log(ERROR);
-  //   });
-  // }
+  $scope.getGallery = function(){
+    $http.get(baseUrl+'/api/gallery').then(function(response){
+      $scope.dataGallery = response.data;
+    });
+  };
+  $scope.uploadFile = function() {
+              $scope.image = $scope.files[0];
+             var file = $scope.image;
+            var uploadUrl = baseUrl+'/api/gallery';
+            var fd = new FormData();
+                fd.append('file', file);
+                $http.post(uploadUrl, fd, {
+                  transformRequest: angular.identity,
+                  headers: {'Content-Type': undefined,'Process-Data': false}
+                }).then(function(response){
+                  console.log(response.data);
+                },function(data){
+                  alert("Error");
+                });
+
+          };
+     $scope.uploadedFile = function(element) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+             $scope.$apply(function($scope) {
+                $scope.files = element.files;
+                 $scope.src = event.target.result
+             });
+            }
+            reader.readAsDataURL(element.files[0]);
+          }
+
 });

@@ -160,14 +160,19 @@
                     <label for="inputPassword3" class="col-sm-2 col-form-label">file Image</label>
                     <div class="col-sm-10">
                       <label class="custom-file col-sm-10">
-                        <input type="file" id="file" ng-model="image" class="form-control custom-file-input ">
+                        <input type="file" id="file" ng-model="image" onchange="angular.element(this).scope().uploadedFile(this)" class="form-control custom-file-input ">
                         <span class="custom-file-control namefile"></span>
                       </label>
                     </div>
                   </div>
                   <div class="form-group row">
+                    <div class=" col-sm-4">
+                      <img ng-src="{{src}}" alt="" class="offset-sm-4" width="100%" height="200">
+                    </div>
+                  </div>
+                  <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
-                      <button type="submit" class="btn btn-primary upload" ng-click="uploadImg()">Upload</button>
+                      <button type="submit" class="btn btn-primary " ng-click="uploadFile()">Upload</button>
                     </div>
                   </div>
                 </form>
@@ -200,7 +205,7 @@
       </div>
     </div>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 $('#pic').on('click',function(){
   $('#exampleModal').modal('show');
 
@@ -230,7 +235,7 @@ function Close(){
   $('.form-upload').attr('style','display:none');
 }
 </script>
- -->
+
 
 
 
