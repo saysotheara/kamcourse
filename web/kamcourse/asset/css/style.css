@@ -171,3 +171,19 @@ border: none;
 .col-form-label{
   color: #222;
 }
+.pic-course{
+  padding: 10px;
+}
+.pic-course:hover{
+  background: #80b3ff;
+}
+.pic-course img{
+  margin-top: -11%;
+
+}
+.remove-pic,.remove-pic:hover i{
+  color:#e4423e;
+  position: relative;
+  padding-right: -10%;
+
+}

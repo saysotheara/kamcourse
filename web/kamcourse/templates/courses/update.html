@@ -58,7 +58,14 @@
        <div class="form-group row">
          <label for="example-text-input" class="col-3 col-form-label"> Start Date</label>
          <div class="col-9">
-           <input class="form-control" ng-model="start_date" type="text" placeholder="Start Date">
+           <input class="form-control mydate" ng-model="start_date" type="text" placeholder="Start Date">
+           <script type="text/javascript">
+           $('.mydate').datepicker({
+              format: "yyyy-mm-dd",
+              clearBtn: true,
+              autoclose: true
+            });
+           </script>
          </div>
        </div>
        <div class="form-group row">
@@ -82,7 +89,7 @@
        <div class="form-group row">
          <label for="example-text-input" class="col-3 col-form-label">Picture</label>
          <div class="col-9">
-           <input class="form-control" ng-model="photo" type="text" placeholder="Picture url">
+           <input class="form-control" ng-model="photo"  id="pic" type="text" placeholder="Picture url">
          </div>
        </div>
 
@@ -131,6 +138,109 @@
 
     </div>
     <br>
+    <!-- Modal -->
+    <div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="position:fixed;" >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" >
+            <div class="container">
+              <form class="form-upload " style="display:none;">
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Url Image</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" ng-model="urlPic" id="url" ng-change="changePic()"  placeholder="url Image">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">file Image</label>
+                    <div class="col-sm-10">
+                      <label class="custom-file col-sm-10">
+                        <input type="file" id="file" ng-model="image" onchange="angular.element(this).scope().uploadedFile(this)" class="form-control custom-file-input ">
+                        <span class="custom-file-control namefile"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-4">
+                      <img ng-src="{{src}}" alt="" width="100%" height="200">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                      <button type="submit" class="btn btn-primary upload" ng-click="uploadFile()">Upload</button>
+                    </div>
+                  </div>
+                </form>
+                <div class="row list-Gallery">
+                  <div class="row">
+                    <div class="form-group">
+                      <button type="button" class="btn btn-info form-control addImage" name="button">Add image</button>
+
+                    </div>
+                  </div>
+                  <div class="row" ng-init="getGallery()">
+
+
+                        <div class="col-sm-3 pic-course " ng-repeat="gallery in dataGallery">
+                          <a href="" class="float-right remove-pic" ng-click="deletePic(gallery.id)">
+                            <i class="fa fa-times-circle-o  fa-lg" aria-hidden="true"></i>
+
+                          </a>
+
+                          <img src="{{gallery.image}}" ng-click="selectPic(gallery.image)"  data-dismiss="modal" width="100%" height="150" alt="">
+                        </div>
+
+                  </div>
+
+                </div>
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+    $('#pic').on('click',function(){
+      $('#exampleModal').modal('show');
+
+    });
+    $('#url').on('click',function(){
+      $('.file').val(null);
+      $('.namefile').text(null);
+    });
+    $('#file').change(function(e){
+        $('#url').val(null);
+        var fileName = e.target.files[0].name;
+        $('.namefile').text(fileName);
+
+    });
+    $('.addImage').on('click',function(){
+        $('.list-Gallery').attr('style','display:none');
+        $('.form-upload').attr('style','display:block');
+    });
+    $('.upload').on('click',function(){
+        Close();
+    });
+    $('.close').on('click',function(){
+        Close();
+    });
+    function Close(){
+      $('.list-Gallery').attr('style','display:block');
+      $('.form-upload').attr('style','display:none');
+      $('.file').val(null);
+      $('.namefile').text(null);
+      $('#url').val(null);
+    }
+    </script>
+
 
 
 

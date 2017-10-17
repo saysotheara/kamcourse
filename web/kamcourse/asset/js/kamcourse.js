@@ -141,31 +141,66 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
       $scope.dataGallery = response.data;
     });
   };
+  $scope.hasFile = null;
   $scope.uploadFile = function() {
-              $scope.image = $scope.files[0];
-             var file = $scope.image;
-            var uploadUrl = baseUrl+'/api/gallery';
-            var fd = new FormData();
-                fd.append('file', file);
-                $http.post(uploadUrl, fd, {
-                  transformRequest: angular.identity,
-                  headers: {'Content-Type': undefined,'Process-Data': false}
-                }).then(function(response){
-                  console.log(response.data);
-                },function(data){
-                  alert("Error");
-                });
 
-          };
+             var uploadUrl = baseUrl+'/api/gallery';
+
+             if($scope.hasFile){
+               $scope.image = $scope.files[0];
+                var file = $scope.image;
+               var fd = new FormData();
+               fd.append('file', file);
+               var con = {
+                 transformRequest: angular.identity,
+                 headers: {'Content-Type': undefined,'Process-Data': false}
+               };
+               $scope.postGallery(uploadUrl,fd,con);
+               }else if($scope.urlPic){
+              var data = {'image': $scope.urlPic};
+              var con = {
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                  };
+                $scope.postGallery(uploadUrl,data,con);
+              }
+            };
+    $scope.postGallery = function(url,data,con){
+      $http.post(url,data,con).then(function(response){
+        $scope.getGallery();
+        $scope.src = null;
+        console.log(response.data);
+      },function(data){
+        alert("Error");
+      });
+    };
      $scope.uploadedFile = function(element) {
             var reader = new FileReader();
             reader.onload = function(event) {
              $scope.$apply(function($scope) {
                 $scope.files = element.files;
-                 $scope.src = event.target.result
+                 $scope.src = event.target.result;
+                 $scope.hasFile = 'file';
              });
             }
             reader.readAsDataURL(element.files[0]);
-          }
+          };
+    $scope.changePic = function(){
+      $scope.src = $scope.urlPic;
+      $scope.files = null;
+
+    };
+    $scope.deletePic = function(id){
+      var remove = confirm('delete picture id '+id);
+      var url =  baseUrl+'/api/gallery/'+id;
+      if(remove){
+        $http.delete(url).then(function(response){
+          $scope.getGallery();
+        });
+      }
+    };
+    $scope.selectPic = function (img) {
+      $scope.photo = img;
+      
+    }
 
 });
