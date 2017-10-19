@@ -42,12 +42,12 @@ body {
       z-index: 2;
       position: relative;
       color: #fff;
-      padding-top: 6%;
+      padding-top: 5%;
 
 }
 .menu ul{
     margin: auto;
-    margin-top: 20%;
+    margin-top: 10%;
 
 }
 .navbar-blue{
@@ -75,7 +75,7 @@ body {
 
 }
 .home{
-    margin-top:-8%;
+    margin-top:-12%;
     z-index: 2;
     position: relative;
 }
@@ -86,18 +86,23 @@ body {
   background:white;
   margin-top:1%;
   margin-left:1%;
-  margin-bottom: 1%;
+
+
+
 
 }
+
 .course{
   margin-left:-7%;
+
+
 }
 .price{
-  width: 94%;
+  width: 105.5%;
   height: 50px;
   position: absolute;
 
-  margin-top: -20%;
+  margin-top: -23%;
 
 
       background-color: rgba(0, 0, 0, 0.7);
@@ -185,5 +190,10 @@ border: none;
   color:#e4423e;
   position: relative;
   padding-right: -10%;
+
+}
+.slider{
+  border: 12px solid transparent;
+   border-image:   url('../img/border.png')  30 round;
 
 }

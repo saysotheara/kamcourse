@@ -1,15 +1,18 @@
-var app = angular.module("myApp",["ngRoute"]);
+var app = angular.module("myApp",["ngRoute","angular-thumbnails"]);
 app.config(function($routeProvider){
-  $routeProvider.when("/course",{
+  $routeProvider.when("/admin/course",{
     templateUrl: "templates/courses/course.html",
     controller: "courseCtl"
-  }).when('/create',{
+  }).when('/admin/create',{
     templateUrl: "templates/courses/create.html",
     controller: "courseCtl"
 
-  }).when('/update/:id',{
+  }).when('/admin/update/:id',{
     templateUrl: "templates/courses/update.html",
     controller: "courseCtl"
+  }).when('/course',{
+    templateUrl: "templates/courses/frontEnd/course1.html",
+    controller: "userCtrl"
   }).otherwise({
         redirectTo: '/course'
     });
@@ -42,10 +45,11 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
     },
     $scope.btnCreate = function(){
 
-      $scope.activePath = url+$location.path('/create');
+      $scope.activePath = url+$location.path('/admin/create');
     },
     $scope.btnSaveNext = function(){
       var url = baseUrl+'/api/course';
+      var youtube = $scope.video;
        $http.post(url,{
         'name':$scope.title,
         'description':$scope.description,
@@ -58,7 +62,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
         'duration':$scope.duration,
         'fee':$scope.fee,
         'photo_url':$scope.photo,
-        'video_url':$scope.video,
+        'video_url':youtube.split('https://www.youtube.com/watch?v=')[1],
 
 
       },{
@@ -75,7 +79,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
     };
     $scope.btnUpdate = function (id) {
 
-      $scope.activePath = $location.path('/update/'+id);
+      $scope.activePath = $location.path('/admin/update/'+id);
     };
     $scope.filterCourse = function(){
       var id = $routeParams.id;
@@ -91,7 +95,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
           $scope.lecturer = response.data.lecturer;
           $scope.fee = response.data.course_fee;
           $scope.photo = response.data.course_media;
-          $scope.video = response.data.course_video;
+          $scope.video = 'https://www.youtube.com/watch?v='+response.data.course_video;
           $scope.description = response.data.description;
           $scope.outline = response.data.course_outline;
           console.log('Success');
@@ -103,6 +107,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
     };
   $scope.updateCourse = function(){
     var id = $scope.id;
+    var youtube = $scope.video;
     $http.put(baseUrl+'/api/course/'+id,{
       'id': id,
       'name':$scope.name,
@@ -116,13 +121,13 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
       'duration':$scope.duration,
       'fee':$scope.fee,
       'photo_url':$scope.photo,
-      'video_url':$scope.video,
+      'video_url':youtube.split('https://www.youtube.com/watch?v=')[1],
     },{
   headers: {
           'Content-Type': 'application/json; charset=utf-8'}
         }).then(function (response) {
       console.log('Success');
-      $scope.activePath = $location.path('/course');
+      $scope.activePath = $location.path('/admin/course');
     },function(response){
       console.log(ERROR);
     });
@@ -200,7 +205,20 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
     };
     $scope.selectPic = function (img) {
       $scope.photo = img;
-      
-    }
+
+    };
+
+
+});
+app.controller("userCtrl",function($http,$scope,$location,$routeParams){
+  $scope.activePath = null;
+  var baseUrl = window.location.origin;
+  var url = $location.absUrl();
+  $scope.getListCourse = function(){
+    $http.get(baseUrl+'/api/course').then(function(response){
+      $scope.listCourse = response.data;
+    });
+  }
+
 
 });
