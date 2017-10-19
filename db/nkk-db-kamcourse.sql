@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Oct 06, 2017 at 01:46 AM
+-- Generation Time: Oct 19, 2017 at 02:13 AM
 -- Server version: 5.6.36-cll-lve
 -- PHP Version: 5.6.30
 
@@ -62,14 +62,7 @@ CREATE TABLE IF NOT EXISTS `kc_tbl_course` (
   `course_update_date` datetime NOT NULL,
   `course_other_info` varchar(255) NOT NULL,
   PRIMARY KEY (`course_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `kc_tbl_course`
---
-
-INSERT INTO `kc_tbl_course` (`course_id`, `course_name`, `course_summary`, `course_category`, `course_outline`, `course_duration`, `course_fee`, `course_media`, `course_video`, `course_create_date`, `course_update_date`, `course_other_info`) VALUES
-(1, 'Visual Basic', 'Visual Basic is a third-generation event-driven programming language and integrated development environment (IDE) from Microsoft for its Component Object Model (COM) programming model first released in 1991 and declared legacy during 2008.', 'Computer Science', 'Outline Visual Basic is a third-generation event-driven programming language and integrated development environment (IDE) from Microsoft for its Component Object Model (COM) programming model first released in 1991 and declared legacy during 2008', '3', 75, '', '', '2017-09-26 00:00:00', '2017-09-26 00:00:00', '');
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -124,6 +117,20 @@ CREATE TABLE IF NOT EXISTS `kc_tbl_facilitator` (
   `facilitator_other_info` varchar(255) NOT NULL,
   PRIMARY KEY (`facilitator_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kc_tbl_gallery`
+--
+
+CREATE TABLE IF NOT EXISTS `kc_tbl_gallery` (
+  `gallery_id` int(11) NOT NULL AUTO_INCREMENT,
+  `gallery_image` varchar(200) NOT NULL,
+  `gallery_upload_date` datetime NOT NULL,
+  `gallery_other_info` varchar(255) NOT NULL,
+  PRIMARY KEY (`gallery_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
