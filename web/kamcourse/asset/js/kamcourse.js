@@ -13,6 +13,9 @@ app.config(function($routeProvider){
   }).when('/course',{
     templateUrl: "templates/courses/frontEnd/course1.html",
     controller: "userCtrl"
+  }).when('/course/:id',{
+    templateUrl: "templates/courses/frontEnd/detail.html",
+    controller: "userCtrl"
   }).otherwise({
         redirectTo: '/course'
     });
@@ -218,7 +221,17 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     $http.get(baseUrl+'/api/course').then(function(response){
       $scope.listCourse = response.data;
     });
-  }
+  };
+  $scope.detail = function(id){
+    $scope.activePath = $location.path('/course/'+id);
+  };
+  $scope.showDetail = function(){
+    var id = $routeParams.id;
+    var url = baseUrl+'/api/course/'+id;
+    $http.get(url).then(function(response){
+      $scope.courseData = response.data;
+    });
+  };
 
 
 });
