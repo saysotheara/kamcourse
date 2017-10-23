@@ -86,9 +86,10 @@
             </div>
           </div>
           <!-- list-course -->
-          <div class="row subject" ng-repeat="course in listCourse" >
-                <div class="col-sm-4" >
-                  <div class="course">
+          <div class="row subject" ng-repeat="course in listCourse"  ng-click="detail(course.course_id)">
+                <div class="col-sm-4"  >
+
+                  <div class="course" >
                     <thumbnail file-type="image" source="{{course.course_media}}" max-height="260"  max-width="260"></thumbnail>
 
                     <div class=" text-center price ">

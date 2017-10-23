@@ -1,0 +1,216 @@
+    <header  class="bg-header">
+      <div class="menu">
+        <nav class=" navbar-expand-lg ">
+
+          <div class="container">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ">
+                <li class="nav-item ">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-home " aria-hidden="true"></i>
+
+                      Home
+
+                  </a>
+                </li>
+                <br>
+                <li class="nav-item active">
+
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+
+                    Courses </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-id-badge" aria-hidden="true"></i>
+
+                    Students</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+
+                    Contacts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
+
+                    Traning</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+    </header>
+    <!-- Page Content -->
+    <div class="container"  >
+      <div class="row main home"  >
+
+        <div class="col-sm-8 ">
+
+          <!-- list-course -->
+          <div class="row subject" ng-init="showDetail()" >
+            <div class="col-sm-12  " >
+              <h3 style="color:#333;">{{courseData.course_name}}</h3>
+              <hr>
+            </div>
+                <div class="col-sm-4" >
+                  <div class="course" style="margin-left:1%;">
+                    <thumbnail file-type="image" source="{{courseData.course_media}}" max-height="260"  max-width="260"></thumbnail>
+
+                    <div class=" text-center price ">
+                      <p >{{courseData.course_fee}}$/course</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-8 "  >
+                  <div class=" " style="margin-left:14%; color: #333;">
+                    <p><strong>Start Date: </strong>{{courseData.start_date | date:'dd-MM-yyyy' }}</p>
+                    <p><strong>Duration: </strong>{{courseData.course_duration }}</p>
+                    <p><strong>Shedule: </strong> {{courseData.schedule}}</p>
+                    <p><strong>Study Time: </strong>{{courseData.study_time }}</p>
+
+                  </div>
+              </div>
+
+          <div class="col-sm-12" style=" color: #333;">
+            <p style="padding-top:5%;"><strong>Outline:</strong></p>
+            <p>{{courseData.course_outline}}</p>
+
+          </div>
+
+        </div>
+        <br>
+        <div class="row" style="margin-left:5%;">
+          <h4>Recommended Coures</h4>
+        </div>
+
+
+
+        <div class="row course-slider" style="margin-bottom:1%;">
+
+            <div class="col-sm-12 text-center  ">
+
+
+            <div id="course" class="carousel slide" style="margin-top:-4px; margin-bottom:-3px;" data-ride="carousel">
+
+              <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                  <div class="row carousel-course">
+                    <div class="col-sm-4">
+                      <thumbnail file-type="image" source="{{courseData.course_media}}"  max-width="200"></thumbnail>
+                    </div>
+                    <div class="col-sm-4">
+                      <thumbnail file-type="image" source="{{courseData.course_media}}"  max-width="200"></thumbnail>
+                    </div>
+                    <div class="col-sm-4">
+                      <thumbnail file-type="image" source="{{courseData.course_media}}"  max-width="200"></thumbnail>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="carousel-item">
+                  <div class="row carousel-course">
+                    <div class="col-sm-4">
+                      <thumbnail file-type="image" source="{{courseData.course_media}}"  max-width="200"></thumbnail>
+                    </div>
+                    <div class="col-sm-4">
+                      <thumbnail file-type="image" source="{{courseData.course_media}}"  max-width="200"></thumbnail>
+                    </div>
+                    <div class="col-sm-4">
+                      <thumbnail file-type="image" source="{{courseData.course_media}}"  max-width="200"></thumbnail>
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="" id="prev" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="" id="nextCon" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+
+              </div>
+
+              </div>
+            </div>
+
+        </div>
+
+
+
+      </div>
+
+        <!-- right-bar -->
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style=" margin-top:2%;">
+                <div class="card-header text-center" style="height:6%;background:#0275D8;">
+                  <p >Top Course</p>
+                </div>
+                <div class="card-block top-course">
+
+
+                    <!-- <div  class ="row "  >
+                      <div class="col-sm-12 text-center" ng-repeat="top in listCourse">
+                        <thumbnail file-type="image" source="{{top.course_media}}"  max-width="200"></thumbnail>
+                        <div class="logo-price">
+                          <p>{{top.course_fee}}$</p>
+                        </div> -->
+                        <!-- <img src="{{top.course_media}}"  width="60%" height="150" alt=""> -->
+                        <!-- <a href="#"><p>{{top.course_name | limitTo:18 }}</a></p>
+                        <hr style="width:60%; margin-top:-5%;">
+                      </div> -->
+
+                    </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card " style="height:400px; margin-top:2%;">
+                  <div class="card-block">
+
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+      <!-- /.row -->
+
+<script type="text/javascript">
+$('#nextCon').on('click',function(){
+  $('#course').carousel('next');
+});
+$('#prev').on('click', function(){
+  $('#course').carousel('prev');
+})
+
+</script>
+
+
+
+
+
+
+    <!-- /.container -->
+
+    <!-- Footer -->
