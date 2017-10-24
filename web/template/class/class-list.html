@@ -1,0 +1,128 @@
+    <header  class="bg-header">
+      <div class="menu">
+        <nav class=" navbar-expand-lg ">
+
+          <div class="container">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ">
+                <li class="nav-item ">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-home " aria-hidden="true"></i>
+
+                      Home
+
+                  </a>
+                </li>
+                <br>
+                <li class="nav-item active">
+
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+
+                    Courses </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-id-badge" aria-hidden="true"></i>
+
+                    Students</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+
+                    Contacts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
+
+                    Traning</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+    </header>
+    <!-- Page Content -->
+    <div class="container"  >
+      <div class="row main home"  >
+        <div class="col-sm-8" ng-init="getCourse()" >
+          <!-- list-course -->
+          <div class="row subject" ng-repeat="course in courseData" >
+                <div class="col-sm-4" >
+                  <div class="course">
+                    <thumbnail file-type="image" source="{{course.course_media}}" max-height="260"  max-width="260"></thumbnail>
+                    
+                    <div class=" text-center price ">
+                      <p >{{course.course_fee}}$/course</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6"  >
+                  <div class="short-info ">
+                    <p><strong>Course: </strong> {{course.course_name}}</p>
+                    <hr>
+                    <p><strong>Shedule: </strong> {{course.schedule}}</p>
+                    <p><strong>Start Date: </strong>{{course.start_date | date:'dd-MM-yyyy' }}</p>
+                  </div>
+                </div>
+                <div class="col-sm-2 ">
+                  <div class="admin-btn text-center">
+                    <button ng-click="btnUpdate(course.course_id)" class="btn btn-sm bg-blue float-sm-right">Update</button>
+                    <button type="button" ng-click="deleteCourse(course.course_id)" class="btn btn-sm  bg-danger float-sm-right" >Delete</button>
+                  </div>
+                </div>
+          </div>
+
+
+
+
+        </div>
+        <!-- right-bar -->
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style="height:100px; margin-top:2%;">
+                <div class="card-block text-center">
+                    <button type="button" class="btn bg-success" ng-click="onNewClassClick()" > Add New Class</button>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style="height:400px; margin-top:2%;">
+                <div class="card-block">
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <br>
+
+
+
+
+
+
+
+    <!-- /.container -->
+
+    <!-- Footer -->

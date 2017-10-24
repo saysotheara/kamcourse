@@ -1,4 +1,6 @@
-var app = angular.module("myApp",["ngRoute","angular-thumbnails"]);
+
+var app = angular.module("KamcourseApp", ["ngRoute", "angular-thumbnails"]);
+
 app.config(function($routeProvider){
     $routeProvider.when("/admin/course",{
         templateUrl: "template/course/course.html",
@@ -16,10 +18,26 @@ app.config(function($routeProvider){
     }).when('/course/:id',{
         templateUrl: "template/course/frontEnd/detail.html",
         controller: "userCtrl"
+
+
+    // Class Management
+    }).when('/admin/class',{
+        templateUrl: "template/class/class-list.html",
+        controller: "ClassController"
+    }).when('/admin/class/add',{
+        templateUrl: "template/class/class-add.html",
+        controller: "ClassController"
+    }).when('/admin/class/update',{
+        templateUrl: "template/class/class-update.html",
+        controller: "ClassController"
+
+    // URL Path Not Found        
     }).otherwise({
         redirectTo: '/course'
     });
 });
+
+
 app.service('uploadFile',function($http){
   this.uploadtoServer = function(file,url){
     var fd = new FormData();
