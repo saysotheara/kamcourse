@@ -1,28 +1,4 @@
-var app = angular.module("myApp",["ngRoute","angular-thumbnails"]);
-app.config(function($routeProvider){
-    $routeProvider.when("/admin/course",{
-        templateUrl: "template/course/course.html",
-        controller: "courseCtl"
-    }).when('/admin/create',{
-        templateUrl: "template/course/create.html",
-        controller: "courseCtl"
-
-    }).when('/admin/update/:id',{
-        templateUrl: "template/course/update.html",
-        controller: "courseCtl"
-    }).when('/course',{
-        templateUrl: "template/course/frontEnd/course1.html",
-        controller: "userCtrl"
-    }).when('/course/:id',{
-        templateUrl: "template/course/frontEnd/detail.html",
-        controller: "userCtrl"
-    }).when('/home',{
-      templateUrl: 'template/home.html'
-    }).otherwise({
-        redirectTo: '/home'
-    });
-});
-
+var app = angular.module("KamcourseApp", ["ngRoute", "angular-thumbnails"]);
 
 app.controller("courseCtl",function($scope,$http,$location,$routeParams){
     $scope.activePath = null;
