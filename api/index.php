@@ -91,30 +91,26 @@ $app->post('/gallery',function(){
     echo '{"error": {"text":'. $e->getMessage() .'}}';
   }
 });
+
 $app->post('/course', function() {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
-    $date = date('Y-m-d H:i:s');
     try {
-        $sql_query = "INSERT INTO kc_tbl_course (course_name,description , course_category, course_outline,study_time, start_date, schedule, lecturer, course_duration, course_fee, course_media, course_video, course_create_date, course_update_date) VALUES (:name, :description, :category, :outline, :study_time, :start_date, :schedule, :lecturer, :duration, :fee, :photo_url, :video_url, '$date', '$date')";
+        $sql_query = "INSERT INTO kc_tbl_course (course_name, course_summary, course_category, course_outline, course_duration, course_fee, course_media, course_video, course_create_date, course_update_date, course_other_info) VALUES (:name, :summary, :category, :outline, :duration, :fee, :photo_url, :video_url, :create_date, :update_date, :other_info)";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
-
+        $stmt->bindParam("id", $request->id);
         $stmt->bindParam("name", $request->name);
-        $stmt->bindParam("description", $request->description);
+        $stmt->bindParam("summary", $request->summary);
         $stmt->bindParam("category", $request->category);
         $stmt->bindParam("outline", $request->outline);
-        $stmt->bindParam("study_time", $request->study_time);
-        $stmt->bindParam("start_date", $request->start_date);
-        $stmt->bindParam("schedule", $request->schedule);
-
-        $stmt->bindParam("lecturer", $request->lecturer);
         $stmt->bindParam("duration", $request->duration);
         $stmt->bindParam("fee", $request->fee);
         $stmt->bindParam("photo_url", $request->photo_url);
         $stmt->bindParam("video_url", $request->video_url);
-
-
+        $stmt->bindParam("create_date", NOW());
+        $stmt->bindParam("update_date", NOW());
+        $stmt->bindParam("other_info", $request->other_info);
         $stmt->execute();
         $dbCon = null;
     }
@@ -126,26 +122,21 @@ $app->post('/course', function() {
 $app->put('/course/:id', function($id) {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
-    $date = date('Y-m-d H:i:s');
     try {
-        $sql_query = "UPDATE kc_tbl_course SET course_name = :name, description = :description, course_category = :category, course_outline = :outline, study_time = :study_time, start_date = :start_date, schedule = :schedule, lecturer = :lecturer, course_duration = :duration, course_fee = :fee, course_media = :photo_url,course_video = :video_url, course_update_date = '$date' WHERE course_id = :id";
+        $sql_query = "UPDATE kc_tbl_course SET course_name = :name, course_summary = :summary, course_category = :category, course_outline = :outline, course_duration = :duration, course_fee = :fee, course_media = :photo_url, course_update_date = :update_date, course_other_info = :other_info WHERE course_id = :id";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
         $stmt->bindParam("id", $request->id);
         $stmt->bindParam("name", $request->name);
-        $stmt->bindParam("description", $request->description);
+        $stmt->bindParam("summary", $request->summary);
         $stmt->bindParam("category", $request->category);
         $stmt->bindParam("outline", $request->outline);
-        $stmt->bindParam("study_time", $request->study_time);
-        $stmt->bindParam("start_date", $request->start_date);
-        $stmt->bindParam("schedule", $request->schedule);
-
-        $stmt->bindParam("lecturer", $request->lecturer);
         $stmt->bindParam("duration", $request->duration);
         $stmt->bindParam("fee", $request->fee);
         $stmt->bindParam("photo_url", $request->photo_url);
         $stmt->bindParam("video_url", $request->video_url);
-
+        $stmt->bindParam("update_date", NOW());
+        $stmt->bindParam("other_info", $request->other_info);
         $stmt->execute();
         $dbCon = null;
     }
@@ -163,6 +154,44 @@ $app->delete('/gallery/:id', function($id) {
     responseJSON_ID( $sql_query, $id);
 });
 
+$app->post('/student', function() {
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+
+    try {
+        $sql_query = "INSERT INTO kc_tbl_student (student_firstname, student_lastname, student_phone, student_email, student_sex, student_media, student_address, student_via_platform, student_create_date, student_update_date, student_other_info) VALUES ( :fname, :lname, :phone, :email, :sex, :media, :address, :platform, :create_date, :update_date, :other_info)";
+        $dbCon = getConnection();
+        $stmt = $dbCon->prepare($sql_query);
+
+
+        $stmt->bindParam("fname", $request->fname);
+        $stmt->bindParam("lname", $request->lname);
+        $stmt->bindParam("phone", $request->phone);
+        $stmt->bindParam("email", $request->email);
+        $stmt->bindParam("sex", $request->sex);
+        $stmt->bindParam("media", $request->media);
+        $stmt->bindParam("address", $request->address);
+        $stmt->bindParam("platform", $request->platform);
+        $stmt->bindParam("create_date", NOW());
+        $stmt->bindParam("update_date", NOW());
+        $stmt->bindParam("other_info", $request->other_info);
+        $stmt->execute();
+        $dbCon = null;
+    }
+    catch(PDOException $e) {
+        echo '{"error": {"text":'. $e->getMessage() .'}}';
+    }
+});
+
+$app->get('/student', function() {
+    $sql_query = "SELECT * FROM kc_tbl_student";
+    responseJSON( $sql_query );
+});
+
+$app->get('/student/:id', function($id) {
+    $sql_query = "SELECT * FROM kc_tbl_student WHERE student_id = :id";
+    responseJSON_ID( $sql_query, $id);
+});
 
 $app->run();
 
