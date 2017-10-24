@@ -1,6 +1,4 @@
-
-var app = angular.module("KamcourseApp", ["ngRoute", "angular-thumbnails"]);
-
+var app = angular.module("myApp",["ngRoute","angular-thumbnails"]);
 app.config(function($routeProvider){
     $routeProvider.when("/admin/course",{
         templateUrl: "template/course/course.html",
@@ -18,42 +16,15 @@ app.config(function($routeProvider){
     }).when('/course/:id',{
         templateUrl: "template/course/frontEnd/detail.html",
         controller: "userCtrl"
-
-
-    // Class Management
-    }).when('/admin/class',{
-        templateUrl: "template/class/class-list.html",
-        controller: "ClassController"
-    }).when('/admin/class/add',{
-        templateUrl: "template/class/class-add.html",
-        controller: "ClassController"
-    }).when('/admin/class/update',{
-        templateUrl: "template/class/class-update.html",
-        controller: "ClassController"
-
-    // URL Path Not Found        
+    }).when('/home',{
+      templateUrl: 'template/home.html'
     }).otherwise({
-        redirectTo: '/course'
+        redirectTo: '/home'
     });
 });
 
 
-app.service('uploadFile',function($http){
-  this.uploadtoServer = function(file,url){
-    var fd = new FormData();
-        fd.append('file', file);
-        $http.post(uploadUrl, fd, {
-          transformRequest: angular.identity,
-          headers: {'Content-Type': undefined,'Process-Data': false}
-        }).then(function(data){
-          alert(data);
-        },function(data){
-          alert("Error");
-        });
-  }
-});
-
-app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFile){
+app.controller("courseCtl",function($scope,$http,$location,$routeParams){
     $scope.activePath = null;
     var baseUrl = window.location.origin;
     var url = $location.absUrl();
@@ -73,18 +44,18 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
     $scope.btnSaveNext = function(){
         var url = baseUrl+'/api/course';
         var youtube = $scope.video;
-         
+
         $http.post(
             url,
             {
                 'name':$scope.title,
-                'description':$scope.description,
+                'summary':$scope.summary,
                 'category':$scope.category,
                 'outline':$scope.outline,
                 'duration':$scope.duration,
                 'fee':$scope.fee,
                 'photo_url':$scope.photo,
-                'video_url':youtube.split('https://www.youtube.com/watch?v=')[1]
+                'video_url':youtube
             },
             {
                 headers: {
@@ -92,7 +63,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
                 }
             }).then( function(response){
                 console.log('Success!');
-                $scope.activePath = $location.path('/');
+                $scope.activePath = $location.path('/admin/course');
                 alert("Successfully created a new course");
             },function(response){
                 console.log(ERROR);
@@ -113,15 +84,13 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
           $scope.id = response.data.course_id;
           $scope.name = response.data.course_name;
           $scope.category = response.data.course_category;
-          $scope.schedule = response.data.schedule;
-          $scope.study_time = response.data.study_time;
-          $scope.start_date = response.data.start_date;
+
           $scope.duration = response.data.course_duration;
-          $scope.lecturer = response.data.lecturer;
+
           $scope.fee = response.data.course_fee;
           $scope.photo = response.data.course_media;
-          $scope.video = 'https://www.youtube.com/watch?v='+response.data.course_video;
-          $scope.description = response.data.description;
+          $scope.video = response.data.course_video;
+          $scope.description = response.data.course_summary;
           $scope.outline = response.data.course_outline;
           console.log('Success');
 
@@ -137,17 +106,13 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
     $http.put(baseUrl+'/api/course/'+id,{
       'id': id,
       'name':$scope.name,
-      'description':$scope.description,
+      'summary':$scope.description,
       'category':$scope.category,
       'outline':$scope.outline,
-      'study_time':$scope.study_time,
-      'start_date':$scope.start_date,
-      'lecturer':$scope.lecturer,
-      'schedule':$scope.schedule,
       'duration':$scope.duration,
       'fee':$scope.fee,
       'photo_url':$scope.photo,
-      'video_url':youtube.split('https://www.youtube.com/watch?v=')[1],
+      'video_url':youtube,
     },{
   headers: {
           'Content-Type': 'application/json; charset=utf-8'}
@@ -257,6 +222,14 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
       $scope.courseData = response.data;
     });
   };
+  $scope.category = [{name:'IT Engineering'},{name:'Civil Engineering'},{name:'Architechture'},{name:'Mechanical Engineering'},{name:'Electrical Engineering'}
+                      ,{name:'Japanes Languages'}];
+  angular.foreach($scpoe.category,function(value,index){
+
+  });
+
+
+
 
 
 });
