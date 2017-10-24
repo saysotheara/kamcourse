@@ -34,6 +34,7 @@ app.service('uploadFile',function($http){
         });
   }
 });
+
 app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFile){
   $scope.activePath = null;
   var baseUrl = window.location.origin;
@@ -45,11 +46,13 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
     $http.get(baseUrl+'/api/course').then(function(response){
       $scope.courseData = response.data;
     });
-    },
+    };
+
     $scope.btnCreate = function(){
 
       $scope.activePath = url+$location.path('/admin/create');
-    },
+    };
+
     $scope.btnSaveNext = function(){
       var url = baseUrl+'/api/course';
       var youtube = $scope.video;
@@ -58,15 +61,10 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams,uploadFi
         'description':$scope.description,
         'category':$scope.category,
         'outline':$scope.outline,
-        'study_time':$scope.study_time,
-        'start_date':$scope.start_date,
-        'lecturer':$scope.lecturer,
-        'schedule':$scope.schedule,
         'duration':$scope.duration,
         'fee':$scope.fee,
         'photo_url':$scope.photo,
         'video_url':youtube.split('https://www.youtube.com/watch?v=')[1],
-
 
       },{
     headers: {
