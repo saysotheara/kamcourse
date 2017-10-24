@@ -8,8 +8,8 @@ $app = new \Slim\Slim();
 
 function getConnection() {
     try {
-        $db_username = "root";
-        $db_password = "root";
+        $db_username = "usr_kamcourse";
+        $db_password = "pwd_kamcourse";
         $conn = new PDO('mysql:host=localhost;dbname=nkk-db-kamcourse;charset=utf8', $db_username, $db_password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
