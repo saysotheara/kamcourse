@@ -1,22 +1,22 @@
 var app = angular.module("myApp",["ngRoute","angular-thumbnails"]);
 app.config(function($routeProvider){
-  $routeProvider.when("/admin/course",{
-    templateUrl: "templates/courses/course.html",
-    controller: "courseCtl"
-  }).when('/admin/create',{
-    templateUrl: "templates/courses/create.html",
-    controller: "courseCtl"
+    $routeProvider.when("/admin/course",{
+        templateUrl: "template/course/course.html",
+        controller: "courseCtl"
+    }).when('/admin/create',{
+        templateUrl: "template/course/create.html",
+        controller: "courseCtl"
 
-  }).when('/admin/update/:id',{
-    templateUrl: "templates/courses/update.html",
-    controller: "courseCtl"
-  }).when('/course',{
-    templateUrl: "templates/courses/frontEnd/course1.html",
-    controller: "userCtrl"
-  }).when('/course/:id',{
-    templateUrl: "templates/courses/frontEnd/detail.html",
-    controller: "userCtrl"
-  }).otherwise({
+    }).when('/admin/update/:id',{
+        templateUrl: "template/course/update.html",
+        controller: "courseCtl"
+    }).when('/course',{
+        templateUrl: "template/course/frontEnd/course1.html",
+        controller: "userCtrl"
+    }).when('/course/:id',{
+        templateUrl: "template/course/frontEnd/detail.html",
+        controller: "userCtrl"
+    }).otherwise({
         redirectTo: '/course'
     });
 });

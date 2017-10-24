@@ -2,7 +2,7 @@
 PPIT Platform for Training Future Engineers in Cambodia
 
 
-# How to use git for source code management among team members
+# Instruction for code management among team
 1. Always pull the latest update before making a commit, to avoid conflict
 	- git pull
 2. Follow instructions below to commit code
