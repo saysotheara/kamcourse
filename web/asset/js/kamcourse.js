@@ -198,12 +198,12 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
       $scope.courseData = response.data;
     });
   };
-  $scope.category = [{name:'IT Engineering'},{name:'Civil Engineering'},{name:'Architechture'},{name:'Mechanical Engineering'},{name:'Electrical Engineering'}
-                      ,{name:'Japanes Languages'}];
-  angular.foreach($scpoe.category,function(value,index){
-
-  });
-
+  // $scope.category = [{name:'IT Engineering'},{name:'Civil Engineering'},{name:'Architechture'},{name:'Mechanical Engineering'},{name:'Electrical Engineering'}
+  //                     ,{name:'Japanes Languages'}];
+  // angular.foreach($scpoe.category,function(value,index){
+  //
+  // });
+  //
 
 
 

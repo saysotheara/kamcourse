@@ -77,7 +77,8 @@ $app->post('/gallery',function(){
       $image = $request->image;
   }
   try {
-    $sql_query = "INSERT INTO kc_tbl_gallery (image) VALUES (:image)";
+    $date = date('Y-m-d H:i:s');
+    $sql_query = "INSERT INTO kc_tbl_gallery (gallery_image,gallery_upload_date,gallery_other_info) VALUES (:image,'$date','$date')";
     $dbCon = getConnection();
     $stmt = $dbCon->prepare($sql_query);
 
@@ -97,20 +98,17 @@ $app->post('/course', function() {
     $request = json_decode($postdata);
     $date = date('Y-m-d H:i:s');
     try {
-        $sql_query = "INSERT INTO kc_tbl_course (course_name, course_summary, course_category, course_outline, course_duration, course_fee, course_media, course_video, course_create_date, course_update_date) VALUES (:name, :summary, :category, :outline, :duration, :fee, :photo_url, :video_url, '$date', '$date')";
+        $sql_query = "INSERT INTO kc_tbl_course (course_name, course_description, course_category, course_outline, course_duration, course_fee, course_cover, course_video, course_create_date, course_update_date) VALUES (:name, :description, :category, :outline, :duration, :fee, :photo_url, :video_url, '$date', '$date')";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
-
         $stmt->bindParam("name", $request->name);
-        $stmt->bindParam("summary", $request->summary);
+        $stmt->bindParam("description", $request->description);
         $stmt->bindParam("category", $request->category);
         $stmt->bindParam("outline", $request->outline);
         $stmt->bindParam("duration", $request->duration);
         $stmt->bindParam("fee", $request->fee);
         $stmt->bindParam("photo_url", $request->photo_url);
         $stmt->bindParam("video_url", $request->video_url);
-
-
         $stmt->execute();
         $dbCon = null;
     }
@@ -124,12 +122,12 @@ $app->put('/course/:id', function($id) {
     $request = json_decode($postdata);
     $date = date('Y-m-d H:i:s');
     try {
-        $sql_query = "UPDATE kc_tbl_course SET course_name = :name, course_summary = :summary, course_category = :category, course_outline = :outline, course_duration = :duration, course_fee = :fee, course_media = :photo_url, course_update_date = :'$date' WHERE course_id = :id";
+        $sql_query = "UPDATE kc_tbl_course SET course_name = :name, course_description = :description, course_category = :category, course_outline = :outline, course_duration = :duration, course_fee = :fee, course_cover = :photo_url, course_update_date = :'$date' WHERE course_id = :id";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
         $stmt->bindParam("id", $request->id);
         $stmt->bindParam("name", $request->name);
-        $stmt->bindParam("summary", $request->summary);
+        $stmt->bindParam("description", $request->description);
         $stmt->bindParam("category", $request->category);
         $stmt->bindParam("outline", $request->outline);
         $stmt->bindParam("duration", $request->duration);
@@ -150,7 +148,7 @@ $app->delete('/course/:id', function($id) {
     responseJSON_ID( $sql_query, $id);
 });
 $app->delete('/gallery/:id', function($id) {
-    $sql_query = "DELETE  FROM kc_tbl_gallery WHERE id = :id";
+    $sql_query = "DELETE  FROM kc_tbl_gallery WHERE gallery_id = :id";
     responseJSON_ID( $sql_query, $id);
 });
 
@@ -162,8 +160,6 @@ $app->post('/student', function() {
         $sql_query = "INSERT INTO kc_tbl_student (student_firstname, student_lastname, student_phone, student_email, student_sex, student_media, student_address, student_via_platform, student_create_date, student_update_date, student_other_info) VALUES ( :fname, :lname, :phone, :email, :sex, :media, :address, :platform, :create_date, :update_date, :other_info)";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
-
-
         $stmt->bindParam("fname", $request->fname);
         $stmt->bindParam("lname", $request->lname);
         $stmt->bindParam("phone", $request->phone);
