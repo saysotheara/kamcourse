@@ -8,8 +8,8 @@ $app = new \Slim\Slim();
 
 function getConnection() {
     try {
-        $db_username = "usr_kamcourse";
-        $db_password = "pwd_kamcourse";
+        $db_username = "root";
+        $db_password = "root";
         $conn = new PDO('mysql:host=localhost;dbname=nkk-db-kamcourse;charset=utf8', $db_username, $db_password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
@@ -66,8 +66,8 @@ $app->post('/gallery',function(){
   if(!empty($_FILES['file'])){
       $ext = pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
               $file = time().'.'.$ext;
-              $image = '/web/kamcourse/asset/img/'.$file;
-              move_uploaded_file($_FILES["file"]["tmp_name"],'../web/kamcourse/asset/img/'.$file);
+              $image = '/web/asset/img/'.$file;
+              move_uploaded_file($_FILES["file"]["tmp_name"],'../web/asset/img/'.$file);
 
 
 
@@ -95,11 +95,12 @@ $app->post('/gallery',function(){
 $app->post('/course', function() {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
+    $date = date('Y-m-d H:i:s');
     try {
-        $sql_query = "INSERT INTO kc_tbl_course (course_name, course_summary, course_category, course_outline, course_duration, course_fee, course_media, course_video, course_create_date, course_update_date, course_other_info) VALUES (:name, :summary, :category, :outline, :duration, :fee, :photo_url, :video_url, :create_date, :update_date, :other_info)";
+        $sql_query = "INSERT INTO kc_tbl_course (course_name, course_summary, course_category, course_outline, course_duration, course_fee, course_media, course_video, course_create_date, course_update_date) VALUES (:name, :summary, :category, :outline, :duration, :fee, :photo_url, :video_url, '$date', '$date')";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
-        $stmt->bindParam("id", $request->id);
+
         $stmt->bindParam("name", $request->name);
         $stmt->bindParam("summary", $request->summary);
         $stmt->bindParam("category", $request->category);
@@ -108,9 +109,8 @@ $app->post('/course', function() {
         $stmt->bindParam("fee", $request->fee);
         $stmt->bindParam("photo_url", $request->photo_url);
         $stmt->bindParam("video_url", $request->video_url);
-        $stmt->bindParam("create_date", NOW());
-        $stmt->bindParam("update_date", NOW());
-        $stmt->bindParam("other_info", $request->other_info);
+
+
         $stmt->execute();
         $dbCon = null;
     }
@@ -122,8 +122,9 @@ $app->post('/course', function() {
 $app->put('/course/:id', function($id) {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
+    $date = date('Y-m-d H:i:s');
     try {
-        $sql_query = "UPDATE kc_tbl_course SET course_name = :name, course_summary = :summary, course_category = :category, course_outline = :outline, course_duration = :duration, course_fee = :fee, course_media = :photo_url, course_update_date = :update_date, course_other_info = :other_info WHERE course_id = :id";
+        $sql_query = "UPDATE kc_tbl_course SET course_name = :name, course_summary = :summary, course_category = :category, course_outline = :outline, course_duration = :duration, course_fee = :fee, course_media = :photo_url, course_update_date = :'$date' WHERE course_id = :id";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
         $stmt->bindParam("id", $request->id);
@@ -135,8 +136,7 @@ $app->put('/course/:id', function($id) {
         $stmt->bindParam("fee", $request->fee);
         $stmt->bindParam("photo_url", $request->photo_url);
         $stmt->bindParam("video_url", $request->video_url);
-        $stmt->bindParam("update_date", NOW());
-        $stmt->bindParam("other_info", $request->other_info);
+
         $stmt->execute();
         $dbCon = null;
     }

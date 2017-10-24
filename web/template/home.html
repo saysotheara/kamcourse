@@ -1,0 +1,160 @@
+<header  class="bg-header">
+      <div class="menu">
+        <nav class=" navbar-expand-lg ">
+
+          <div class="container">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-home " aria-hidden="true"></i>
+
+                      Home
+
+                  </a>
+                </li>
+                <br>
+                <li class="nav-item ">
+
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+
+                    Courses </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-id-badge" aria-hidden="true"></i>
+
+                    Students</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+
+                    Contacts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
+
+                    Traning</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+    </header>
+    <!-- Page Content -->
+    <div class="container"  >
+      <div class="row main home"  ng-init="getListCourse()" >
+        <div class="col-sm-8" >
+          <div class="row" style="margin-top:1%;margin-left:1%;">
+            <div class="col-sm-12 text-center slider ">
+
+
+            <div id="carouselExampleIndicators" class="carousel slide" style="margin-top:-4px; margin-bottom:-3px;" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+
+              </ol>
+              <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                  <img src="http://iifmwebtraining.com/wp-content/uploads/2016/08/mobile-develop.jpg" height="300" width="100%" alt="...">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h3>Hello world</h3>
+                    <p>...</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="https://static.vinepair.com/wp-content/uploads/2015/12/japanese-whisky-inside-header.jpg" height="300" width="100%"  alt="...">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h3>Hi my world</h3>
+                    <p>...</p>
+                  </div>
+                </div>
+
+              </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row" ng-init="getListCourse()" style="margin-top:1%;">
+            <div class="col-sm-3 " ng-repeat="course in listCourse">
+              <thumbnail file-type="image" source="{{course.course_media}}"  max-width="180"></thumbnail>
+              <div class="courseTitle text-center">
+                <p>{{course.course_name}}</p>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+        <!-- right-bar -->
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style=" margin-top:2%;">
+                <div class="card-header text-center" style="height:6%;background:#0275D8;">
+                  <p >Top Course</p>
+                </div>
+                <div class="card-block top-course">
+
+
+                    <div  class ="row "  >
+                      <div class="col-sm-12 text-center" ng-repeat="top in listCourse">
+                        <thumbnail file-type="image" source="{{top.course_media}}"  max-width="200"></thumbnail>
+                        <div class="logo-price">
+                          <p>{{top.course_fee}}$</p>
+                        </div>
+                          <a href="#"><p>{{top.course_name | limitTo:18 }}</a></p>
+                        <hr style="width:60%; margin-top:-5%;">
+                      </div>
+
+                    </div>
+                </div>
+
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style=" margin-top:5%;">
+                <div class="card-block">
+                    Hello
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <br>
+
+
+<script type="text/javascript">
+  $('.carousel').carousel();
+</script>
+
+
+
+
+    <!-- /.container -->
+
+<!-- Footer -->
