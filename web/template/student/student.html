@@ -1,0 +1,130 @@
+    <header  class="bg-header">
+      <div class="menu">
+        <nav class=" navbar-expand-lg ">
+
+          <div class="container">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ">
+                <li class="nav-item ">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-home " aria-hidden="true"></i>
+
+                      Home
+
+                  </a>
+                </li>
+                <br>
+                <li class="nav-item ">
+
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+
+                    Courses </a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-id-badge" aria-hidden="true"></i>
+
+                    Students</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+
+                    Contacts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
+
+                    Traning</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+    </header>
+    <!-- Page Content -->
+   
+
+          <body class="container">
+            <br>
+  
+<section id="contact " style="">
+            <div class=" " style="padding-left: 20px;">
+            <div class="" style="float: left; ">
+               <button type="button"  ng-click="btnAdd()"  class="btn btn-info top bg-success" name="button"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Insert</button>
+             </div>
+            <div style="padding-left: 100px;"><h3><input type="text" ng-model="search" placeholder="search Here...." class="form-control" style="width: 300px;" /></h3></div>
+            </div>
+            <br>
+          <div class="table-responsive">
+          <table class="table table-bordered ">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Sex</th>
+              <th>Media</th>
+              <th>address</th>
+              <th>Via Platform</th>
+              <th>Creat Date</th>
+              <th>Update Date</th>
+              <th>Active Date</th>
+              <th>Info</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody  ng-init="getAll()">
+            <tr ng-repeat="school in studentData | filter:search | orderBy : 'id'"">
+              <td>{{school.student_id}}</td>
+              <td>{{school.student_firstname}}</td>
+              <td>{{school.student_lastname}}</td>
+              <td>{{school.student_phone}}</td>
+              <td>{{school.student_email}}</td>
+              <td>{{school.student_sex}}</td>
+              <td>{{school.student_media}}</td>
+              <td>{{school.student_address}}</td>
+              <td>{{school.student_via_platform}}</td>
+              <td>{{school.student_create_date}}</td>
+              <td>{{school.student_update_date}}</td>
+              <td>{{school.student_active_date}}</td>
+              <td>{{school.student_other_info}}</td>
+              <td>
+                <a href="" ng-click="btnUpdates(school.student_id)" >
+                  <i class="fa fa-pencil-square-o  text-primary" aria-hidden="true" style=""></i>
+                </a>
+                  </td>
+                  <td>
+                <a href="#" ng-click="removeStudent(school.student_id)">
+                  <i class="fa fa-trash  text-primary" aria-hidden="true" ></i>
+                </a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      </section>
+</body>
+          
+
+
+
+
+
+
+
+    <!-- /.container -->
+
+    <!-- Footer -->
