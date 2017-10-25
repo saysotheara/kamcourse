@@ -60,7 +60,7 @@ app.controller("CourseController", function($scope,$http,$location,$routeParams)
         $scope.duration = response.data.course_duration;
 
         $scope.fee = response.data.course_fee;
-        $scope.photo = response.data.course_media;
+        $scope.photo = response.data.course_cover;
         $scope.video = response.data.course_video;
         $scope.description = response.data.course_description;
         $scope.outline = response.data.course_outline;
@@ -84,7 +84,7 @@ $scope.updateCourse = function(){
     'duration':$scope.duration,
     'fee':$scope.fee,
     'photo_url':$scope.photo,
-    'video_url':youtube,
+    'video_url':youtube
   },{
 headers: {
         'Content-Type': 'application/json; charset=utf-8'}

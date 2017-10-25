@@ -122,7 +122,7 @@ $app->put('/course/:id', function($id) {
     $request = json_decode($postdata);
     $date = date('Y-m-d H:i:s');
     try {
-        $sql_query = "UPDATE kc_tbl_course SET course_name = :name, course_description = :description, course_category = :category, course_outline = :outline, course_duration = :duration, course_fee = :fee, course_cover = :photo_url, course_update_date = :'$date' WHERE course_id = :id";
+        $sql_query = "UPDATE kc_tbl_course SET course_name = :name, course_description = :description, course_category = :category, course_outline = :outline, course_duration = :duration, course_fee = :fee, course_cover = :photo_url, course_video = :video_url, course_update_date = '$date' WHERE course_id = :id";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
         $stmt->bindParam("id", $request->id);
