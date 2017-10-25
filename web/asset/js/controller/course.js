@@ -190,12 +190,26 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
         $scope.courseData = response.data;
       });
     };
-    // $scope.category = [{name:'IT Engineering'},{name:'Civil Engineering'},{name:'Architechture'},{name:'Mechanical Engineering'},{name:'Electrical Engineering'}
-    //                     ,{name:'Japanes Languages'}];
-    // angular.foreach($scpoe.category,function(value,index){
-    //
-    // });
-    //
+    var category = [{name:'IT Engineering',color:'bg-primary'},{name:'Civil Engineering',color:'bg-warning'},{name:'Architechture',color:'bg-success'},{name:'Mechanical Engineering',color:''},{name:'Electrical Engineering',color:'bg-info'}
+                        ,{name:'Japanes Languages',color:'bg-danger'}];
+    var row = '';
+    angular.forEach(category,function(value,index){
+      if( index < 2){
+
+        row += '<div class="col-sm-6 category '+value.color+'"><div class="category-title"><p>'+value.name+'</p></div></div>';
+
+      }else if(index < 5){
+
+        row += '<div class="col-sm-4 category '+value.color+'" ><div class="category-title"><p>'+value.name+'</p></div></div>';
+
+      }else if(index >= 5){
+
+        row += '<div class="col-sm-12 category  '+value.color+'"><div class="category-title"><p>'+value.name+'</p></div></div>';
+
+      }
+
+    });
+    $scope.myHtml = row;
 
 
 
