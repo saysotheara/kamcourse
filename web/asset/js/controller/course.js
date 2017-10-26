@@ -198,6 +198,4 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     //
 
 
-
-
 });

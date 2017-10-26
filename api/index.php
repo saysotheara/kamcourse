@@ -151,15 +151,17 @@ $app->delete('/gallery/:id', function($id) {
     $sql_query = "DELETE  FROM kc_tbl_gallery WHERE gallery_id = :id";
     responseJSON_ID( $sql_query, $id);
 });
-
 $app->post('/student', function() {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
+    //$date = date('Y-m-d H:i:s');
 
     try {
-        $sql_query = "INSERT INTO kc_tbl_student (student_firstname, student_lastname, student_phone, student_email, student_sex, student_media, student_address, student_via_platform, student_create_date, student_update_date, student_other_info) VALUES ( :fname, :lname, :phone, :email, :sex, :media, :address, :platform, :create_date, :update_date, :other_info)";
+        $sql_query = "INSERT INTO kc_tbl_student (student_firstname, student_lastname, student_phone, student_email, student_sex, student_media, student_address, student_via_platform,student_create_date,student_update_date,student_active_date  , student_other_info) VALUES ( :fname, :lname, :phone, :email, :sex, :media, :address, :platform,:create,:updates,:active ,:other_info)";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
+
+
         $stmt->bindParam("fname", $request->fname);
         $stmt->bindParam("lname", $request->lname);
         $stmt->bindParam("phone", $request->phone);
@@ -168,8 +170,39 @@ $app->post('/student', function() {
         $stmt->bindParam("media", $request->media);
         $stmt->bindParam("address", $request->address);
         $stmt->bindParam("platform", $request->platform);
-        $stmt->bindParam("create_date", NOW());
-        $stmt->bindParam("update_date", NOW());
+        $stmt->bindParam("create", $request->create);
+        $stmt->bindParam("updates", $request->updates);
+        $stmt->bindParam("active", $request->active);
+
+        $stmt->bindParam("other_info", $request->other_info);
+        $stmt->execute();
+        $dbCon = null;
+    }
+    catch(PDOException $e) {
+        echo '{"error": {"text":'. $e->getMessage() .'}}';
+    }
+});
+
+$app->put('/student/:id', function($id) {
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+
+    try {
+        $sql_query = "UPDATE kc_tbl_student SET student_firstname = :fname, student_lastname = :lname, student_phone = :phone, student_email = :email, student_sex = :sex, student_media = :media, student_address = :address, student_via_platform= :platform,student_create_date=:create,student_update_date=:updates,student_active_date=:active ,student_other_info = :other_info WHERE student_id = :id";
+        $dbCon = getConnection();
+        $stmt = $dbCon->prepare($sql_query);
+        $stmt->bindParam("id", $request->id);
+        $stmt->bindParam("fname", $request->fname);
+        $stmt->bindParam("lname", $request->lname);
+        $stmt->bindParam("phone", $request->phone);
+        $stmt->bindParam("email", $request->email);
+        $stmt->bindParam("sex", $request->sex);
+        $stmt->bindParam("media", $request->media);
+        $stmt->bindParam("address", $request->address);
+        $stmt->bindParam("platform", $request->platform);
+        $stmt->bindParam("create", $request->create);
+        $stmt->bindParam("updates", $request->updates);
+        $stmt->bindParam("active", $request->active);
         $stmt->bindParam("other_info", $request->other_info);
         $stmt->execute();
         $dbCon = null;
@@ -186,6 +219,11 @@ $app->get('/student', function() {
 
 $app->get('/student/:id', function($id) {
     $sql_query = "SELECT * FROM kc_tbl_student WHERE student_id = :id";
+    responseJSON_ID( $sql_query, $id);
+});
+$app->delete('/student/:id', function($id) {
+    $sql_query = "DELETE FROM kc_tbl_student WHERE student_id = :id ";
+
     responseJSON_ID( $sql_query, $id);
 });
 
