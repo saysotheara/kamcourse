@@ -342,7 +342,7 @@ border: none;
 }
 .figure-12{
   width: 400px;
-  
+
 }
 figure,.figure-6,.figure-4{
   height: 130px;
@@ -398,7 +398,7 @@ figure img{
 }
 
 figure:hover figcaption{
- background: rgba(255,255,255,0.3);
+ background: rgba(118, 141, 160,0.3);
 }
 
 figcaption:hover div{
@@ -443,4 +443,17 @@ figure:hover img{
   font-style: normal;
   font-weight: 700;
   src: local('Lato Bold'), local('Lato-Bold'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
+}
+.col-left{
+  left: -1.4%;
+  padding-right: 0.1%;
+}
+.lastest{
+  margin-top:4%;
+  margin-left:0.1%;
+  background:white;
+  border-top: #17A2B8 dashed 5px;
+  border-bottom: #17A2B8 dashed 5px;
+
+
 }
