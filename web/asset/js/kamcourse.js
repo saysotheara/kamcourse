@@ -8,7 +8,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
 
 
     $scope.getCourse = function(){
-        $http.get(baseUrl+'/api/course').then(function(response){
+        $http.get(baseUrl+'kamcourse/api/course').then(function(response){
             $scope.courseData = response.data;
         });
     };
@@ -18,7 +18,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
     };
 
     $scope.btnSaveNext = function(){
-        var url = baseUrl+'/api/course';
+        var url = baseUrl+'kamcourse/api/course';
         var youtube = $scope.video;
 
         $http.post(
@@ -55,7 +55,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
 
     $scope.filterCourse = function(){
       var id = $routeParams.id;
-      var url = baseUrl+'/api/course/'+id;
+      var url = baseUrl+'kamcourse/api/course/'+id;
         $http.get(url).then(function(response){
           $scope.id = response.data.course_id;
           $scope.name = response.data.course_name;
@@ -79,7 +79,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
   $scope.updateCourse = function(){
     var id = $scope.id;
     var youtube = $scope.video;
-    $http.put(baseUrl+'/api/course/'+id,{
+    $http.put(baseUrl+'kamcourse/api/course/'+id,{
       'id': id,
       'name':$scope.name,
       'summary':$scope.description,
@@ -101,7 +101,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
   };
   $scope.deleteCourse = function(id){
     var deleteData = confirm('Are you sure want to delete ID '+id+' ?');
-    var url = baseUrl+'/api/course/'+id;
+    var url = baseUrl+'kamcourse/api/course/'+id;
     if(deleteData){
       $http.delete(url).then(function(response){
         $scope.getCourse();
@@ -109,14 +109,14 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
     }
   };
   $scope.getGallery = function(){
-    $http.get(baseUrl+'/api/gallery').then(function(response){
+    $http.get(baseUrl+'kamcourse/api/gallery').then(function(response){
       $scope.dataGallery = response.data;
     });
   };
   $scope.hasFile = null;
   $scope.uploadFile = function() {
 
-             var uploadUrl = baseUrl+'/api/gallery';
+             var uploadUrl = baseUrl+'kamcourse/api/gallery';
 
              if($scope.hasFile){
                $scope.image = $scope.files[0];
@@ -163,7 +163,7 @@ app.controller("courseCtl",function($scope,$http,$location,$routeParams){
     };
     $scope.deletePic = function(id){
       var remove = confirm('delete picture id '+id);
-      var url =  baseUrl+'/api/gallery/'+id;
+      var url =  baseUrl+'kamcourse/api/gallery/'+id;
       if(remove){
         $http.delete(url).then(function(response){
           $scope.getGallery();
@@ -184,7 +184,7 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
   var baseUrl = window.location.origin;
   var url = $location.absUrl();
   $scope.getListCourse = function(){
-    $http.get(baseUrl+'/api/course').then(function(response){
+    $http.get(baseUrl+'kamcourse/api/course').then(function(response){
       $scope.listCourse = response.data;
     });
   };
@@ -193,7 +193,7 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
   };
   $scope.showDetail = function(){
     var id = $routeParams.id;
-    var url = baseUrl+'/api/course/'+id;
+    var url = baseUrl+'kamcourse/api/course/'+id;
     $http.get(url).then(function(response){
       $scope.courseData = response.data;
     });
