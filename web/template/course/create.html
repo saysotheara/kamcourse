@@ -63,7 +63,7 @@
          <div class="row">
            <div class="col-sm-12  text-center ">
              <button type="button" id="btnOk" ng-click="btnSaveNext()" ng-model="btnSave" class="btn btn-success " name="button">Save & Next</button>
-             <button type="button" class="btn btn-info " name="button">Save & Close</button>
+             <button type="button" class="btn btn-info " id="saveColse" name="button">Save & Close</button>
            </div>
 
 
@@ -199,6 +199,10 @@ function Close(){
   $('.namefile').text(null);
   $('#url').val(null);
 }
+$('#saveColse').on('click',function(){
+  var uri = location.protocol + "//" + location.host;
+  alert(uri);
+});
 </script>
 
 
