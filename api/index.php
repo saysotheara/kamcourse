@@ -66,8 +66,8 @@ $app->post('/gallery',function(){
   if(!empty($_FILES['file'])){
       $ext = pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
               $file = time().'.'.$ext;
-              $image = '/web/asset/img/'.$file;
-              move_uploaded_file($_FILES["file"]["tmp_name"],'../web/asset/img/'.$file);
+              $image = '/kamcourse/web/asset/img/'.$file;
+              move_uploaded_file($_FILES["file"]["tmp_name"],'../kamcourse/web/asset/img/'.$file);
 
 
 
@@ -151,6 +151,9 @@ $app->delete('/gallery/:id', function($id) {
     $sql_query = "DELETE  FROM kc_tbl_gallery WHERE gallery_id = :id";
     responseJSON_ID( $sql_query, $id);
 });
+
+// _________________student________________________
+
 $app->post('/student', function() {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
@@ -227,6 +230,87 @@ $app->delete('/student/:id', function($id) {
     responseJSON_ID( $sql_query, $id);
 });
 
+//___________facilitator___________
+
+$app->get('/facilitator', function() {
+    $sql_query = "SELECT * FROM kc_tbl_facilitator";
+    responseJSON( $sql_query );
+});
+
+$app->get('/facilitator/:id', function($id) {
+    $sql_query = "SELECT * FROM kc_tbl_facilitator WHERE facilitator_id = :id";
+    responseJSON_ID( $sql_query, $id);
+});
+
+$app->post('/facilitator', function() {
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+    //$date = date('Y-m-d H:i:s');
+
+    try {
+        $sql_query = "INSERT INTO kc_tbl_facilitator (facilitator_firstname, facilitator_lastname, facilitator_phone, facilitator_email, facilitator_sex, facilitator_media, facilitator_address, facilitator_profile, facilitator_via_platform, facilitator_create_date, facilitator_update_date, facilitator_active_date, facilitator_other_info) VALUES ( :fname, :lname, :phone, :email, :sex, :media, :address, :profile,:platform,:create,:updates,:active ,:other_info)";
+        $dbCon = getConnection();
+        $stmt = $dbCon->prepare($sql_query);
+
+
+        $stmt->bindParam("fname", $request->fname);
+        $stmt->bindParam("lname", $request->lname);
+        $stmt->bindParam("phone", $request->phone);
+        $stmt->bindParam("email", $request->email);
+        $stmt->bindParam("sex", $request->sex);
+        $stmt->bindParam("media", $request->media);
+        $stmt->bindParam("address", $request->address);
+        $stmt->bindParam("profile", $request->profile);
+        $stmt->bindParam("platform", $request->platform);
+        $stmt->bindParam("create", $request->create);
+        $stmt->bindParam("updates", $request->updates);
+        $stmt->bindParam("active", $request->active);
+
+        $stmt->bindParam("other_info", $request->other_info);
+        $stmt->execute();
+        $dbCon = null;
+    }
+    catch(PDOException $e) {
+        echo '{"error": {"text":'. $e->getMessage() .'}}';
+    }
+});
+
+$app->put('/facilitator/:id', function($id) {
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+
+    try {
+        $sql_query = "UPDATE kc_tbl_facilitator SET facilitator_firstname=:fname,facilitator_lastname=:lname,facilitator_phone=:phone,facilitator_email=:email,facilitator_sex=:sex,facilitator_media=:media,facilitator_address=:address,facilitator_profile=:profile,facilitator_via_platform=:platform,facilitator_create_date=:create,facilitator_update_date=:updates,facilitator_active_date=:active,facilitator_other_info=:info WHERE facilitator_id = :id";
+
+        $dbCon = getConnection();
+        $stmt = $dbCon->prepare($sql_query);
+        $stmt->bindParam("id", $request->id);
+        $stmt->bindParam("fname", $request->fname);
+        $stmt->bindParam("lname", $request->lname);
+        $stmt->bindParam("phone", $request->phone);
+        $stmt->bindParam("email", $request->email);
+        $stmt->bindParam("sex", $request->sex);
+        $stmt->bindParam("media", $request->media);
+        $stmt->bindParam("address", $request->address);
+        $stmt->bindParam("platform", $request->platform);
+        $stmt->bindParam("profile", $request->profile);
+        $stmt->bindParam("create", $request->create);
+        $stmt->bindParam("updates", $request->updates);
+        $stmt->bindParam("active", $request->active);
+        $stmt->bindParam("other_info", $request->other_info);
+        $stmt->execute();
+        $dbCon = null;
+    }
+    catch(PDOException $e) {
+        echo '{"error": {"text":'. $e->getMessage() .'}}';
+    }
+});
+
+$app->delete('/facilitator/:id', function($id) {
+    $sql_query = "DELETE FROM kc_tbl_facilitator WHERE facilitator_id = :id ";
+
+    responseJSON_ID( $sql_query, $id);
+});
 $app->run();
 
 ?>

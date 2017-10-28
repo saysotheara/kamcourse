@@ -14,14 +14,18 @@ app.controller("StudentController", function($scope, $http, $location, $routePar
       };
 
       $scope.removeStudent = function(id){
-      var deleteItem = confirm('Are you sure want to delete It?');
+      var deL = confirm('Are you sure want to delete It?');
       var url = baseUrl+'/kamcourse/api/student/'+id;
-      if(deleteItem){
+      if(deL){
         $http.delete(url).then(function(response){
       $scope.activePath = $location.path('/admin/student/');
           $scope.getAll();
             });
+          }else if(!deL){
+          
+            $scope.activePath = $location.path('/admin/student/');
           }
+          ;
         };
 
         $scope.btnSaveNexts = function(){

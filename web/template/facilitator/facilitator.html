@@ -73,7 +73,7 @@
           <div class="main home">
 
           <section id="contact " style="height:6%;background:#fff;">
-            <h1 class="text-center text-primary font">STUDENT</h1>
+            <h1 class="text-center text-primary font">FACILIFATOR</h1>
             <div class=" " style="padding-left: 30px;">
               <div class="" style="float: left; ">
                <button type="button"  ng-click="btnAdd()"  class="btn btn-info top bg-success" name="button"><i class="fa fa-id-badge" aria-hidden="true"></i> INSERT</button>
@@ -96,36 +96,38 @@
               <th>Media</th>
               <th>address</th>
               <th>Via Platform</th>
-              <th>Create Date</th>
+              <th>Profile</th>
+              <th>Creat Date</th>
               <th>Update Date</th>
               <th>Active Date</th>
               <th>Info</th>
-            <th>Edit</th>
+              <th>Edit</th>
             <th>Delete</th>
             </tr>
           </thead>
           <tbody  ng-init="getAll()">
-            <tr ng-repeat="school in studentData | filter:search | orderBy : 'id'"">
-              <td>{{school.student_id}}</td>
-              <td>{{school.student_firstname}}</td>
-              <td>{{school.student_lastname}}</td>
-              <td>(+885){{school.student_phone}}</td>
-              <td>{{school.student_email}}</td>
-              <td>{{school.student_sex}}</td>
-              <td>{{school.student_media}}</td>
-              <td>{{school.student_address}}</td>
-              <td>{{school.student_via_platform}}</td>
-              <td>{{school.student_create_date}}</td>
-              <td>{{school.student_update_date}}</td>
-              <td>{{school.student_active_date}}</td>
-              <td>{{school.student_other_info}}</td>
+            <tr ng-repeat="school in facilitatorData | filter:search | orderBy : 'id'"">
+              <td>{{school.facilitator_id}}</td>
+              <td>{{school.facilitator_firstname}}</td>
+              <td>{{school.facilitator_lastname}}</td>
+              <td>{{school.facilitator_phone}}</td>
+              <td>{{school.facilitator_email}}</td>
+              <td>{{school.facilitator_sex}}</td>
+              <td>{{school.facilitator_media}}</td>
+              <td>{{school.facilitator_address}}</td>
+              <td>{{school.facilitator_via_platform}}</td>
+              <td>{{school.facilitator_profile}}</td>
+              <td>{{school.facilitator_create_date}}</td>
+              <td>{{school.facilitator_update_date}}</td>
+              <td>{{school.facilitator_active_date}}</td>
+              <td>{{school.facilitator_other_info}}</td>
               <td>
-                <a href="" ng-click="btnUpdates(school.student_id)" >
+                <a href="" ng-click="btnUpdates(school.facilitator_id)" >
                   <i class="fa fa-pencil-square-o  text-primary" aria-hidden="true" style=""></i>
                 </a>
                   </td>
                   <td>
-                <a href="#" ng-click="removeStudent(school.student_id)">
+                <a href="#" ng-click="removeStudent(school.facilitator_id)">
                   <i class="fa fa-trash  text-danger" aria-hidden="true" ></i>
                 </a>
               </td>
