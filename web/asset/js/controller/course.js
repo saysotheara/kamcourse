@@ -1,15 +1,17 @@
 
 app.controller("CourseController", function($scope,$http,$location,$routeParams){
   $scope.activePath = null;
-  var baseUrl = window.location.origin;
+  var baseUrl = window.location.origin+'/kamcourse';
   var currentUrl = $location.absUrl();
   $scope.getCourse = function(){
+
       $http.get(baseUrl+'/api/course').then(function(response){
           $scope.courseData = response.data;
       });
   };
 
   $scope.btnCreate = function(){
+
     $scope.activePath = currentUrl+$location.path('/admin/create');
   };
 
@@ -46,7 +48,7 @@ app.controller("CourseController", function($scope,$http,$location,$routeParams)
 
   $scope.btnUpdate = function (id) {
 
-    $scope.activePath = $location.path('kamcourse/admin/update/'+id);
+    $scope.activePath = $location.path('/admin/update/'+id);
   };
 
   $scope.filterCourse = function(){
@@ -173,7 +175,7 @@ $scope.getGallery = function(){
 
 app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     $scope.activePath = null;
-    var baseUrl = window.location.origin;
+    var baseUrl = window.location.origin+'/kamcourse';
     var url = $location.absUrl();
 
     $scope.getListCourse = function(){
@@ -212,17 +214,17 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     angular.forEach(category,function(value,index){
         if( index < 2){
           row +=  '<div class="col-sm-6 category "><figure class="figure-6">'+
-                  '<img src="'+value.color+'" alt="Thumb" width="100%" height="130" />'+
+                  '<img src="/kamcourse/'+value.color+'" alt="Thumb" width="100%" height="130" />'+
                   '<figcaption><div>'+value.name+'</div></figcation>'+
                   '</figure></div>';
         }else if(index < 5){
           row +=  '<div class="col-sm-4 category " ><figure class="figure-4">'+
-                  '<img src="'+value.color+'" alt="Thumb" width="100%" height="130" />'+
+                  '<img src="/kamcourse/'+value.color+'" alt="Thumb" width="100%" height="130" />'+
                   '<figcaption><div>'+value.name+'</div></figcation>'+
                   '</figure></div>';
         }else if(index >= 5){
           row +=  '<div class="col-sm-6  category  " ><figure class="figure-6 ">'+
-                  '<img src="'+value.color+'" alt="Thumb" width="100%" height="130" />'+
+                  '<img src="/kamcourse/'+value.color+'" alt="Thumb" width="100%" height="130" />'+
                   '<figcaption><div>'+value.name+'</div></figcation>'+
                   '</figure></div>';
         }

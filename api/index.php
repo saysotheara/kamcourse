@@ -64,31 +64,33 @@ $app->get('/course/:id', function($id) {
 $app->post('/gallery',function(){
 
   if(!empty($_FILES['file'])){
+
       $ext = pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
               $file = time().'.'.$ext;
-              $image = '/web/asset/img/'.$file;
+              $image = '/kamcourse/web/asset/img/'.$file;
               move_uploaded_file($_FILES["file"]["tmp_name"],'../web/asset/img/'.$file);
 
-
+             
 
   }else{
       $postdata = file_get_contents("php://input");
       $request = json_decode($postdata);
       $image = $request->image;
+      
   }
   try {
-    $date = date('Y-m-d H:i:s');
+     $date = date('Y-m-d H:i:s');
     $sql_query = "INSERT INTO kc_tbl_gallery (gallery_image,gallery_upload_date,gallery_other_info) VALUES (:image,'$date','$date')";
     $dbCon = getConnection();
-    $stmt = $dbCon->prepare($sql_query);
-
+     $stmt = $dbCon->prepare($sql_query);
+  
     $stmt->bindParam("image",$image);
-
-
+  
+  
     $stmt->execute();
-    $dbCon = null;
-
-  } catch (Exception $e) {
+     $dbCon = null;
+  
+   } catch (Exception $e) {
     echo '{"error": {"text":'. $e->getMessage() .'}}';
   }
 });
