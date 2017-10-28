@@ -28,6 +28,27 @@ app.config(function($routeProvider){
         templateUrl: "template/class/class-update.html",
         controller: "ClassController"
 
+        // Student
+    }).when('/admin/createstudent',{
+    templateUrl: "template/student/create_student.html",
+    controller: "StudentController"
+     }).when('/admin/student',{
+    templateUrl: "template/student/student.html",
+    controller: "StudentController"
+     }).when('/admin/studentup/:id',{
+    templateUrl: "template/student/update_student.html",
+    controller: "StudentController"
+
+   }).when('/admin/createfacilitator',{
+    templateUrl: "template/facilitator/create_facilitator.html",
+    controller: "FacilitatorController"
+     }).when('/admin/facilitator',{
+    templateUrl: "template/facilitator/facilitator.html",
+    controller: "FacilitatorController"
+     }).when('/admin/updatefacilitator/:id',{
+    templateUrl: "template/facilitator/update_facilitator.html",
+    controller: "FacilitatorController"
+
     // URL Path Not Found
     }).when('/home',{
       templateUrl: 'template/home.html',

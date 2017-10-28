@@ -64,7 +64,7 @@
           </div>
               <div class="col-sm-4" >
                 <div class="course" style="margin-left:1%;">
-                  <thumbnail file-type="image" source="{{courseData.course_cover}}" max-height="260"  max-width="260"></thumbnail>
+                  <thumbnail file-type="image" source="{/kamcourse/{courseData.course_cover}}" max-height="260"  max-width="260"></thumbnail>
 
                   <div class=" text-center price ">
                     <p >{{courseData.course_fee}}$/course</p>
@@ -106,7 +106,7 @@
                 <div class="col-sm-12 " >
                   <div class="row " >
                     <div class="col-sm-4 course-recommend" data-ng-repeat="recommend in listCourse " ng-click="detail(recommend.course_id)" >
-                      <thumbnail file-type="image" source="{{recommend.course_cover}}"  max-width="213"></thumbnail>
+                      <thumbnail file-type="image" source="/kamcourse/{{recommend.course_cover}}"  max-width="213"></thumbnail>
 
 
                         <div class="titleRecommend text-center">

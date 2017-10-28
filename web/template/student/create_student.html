@@ -1,0 +1,150 @@
+
+    <!-- Page Content -->
+    <div class="container" >
+      <div class="row main form"  >
+
+          <div class="col-sm-12">
+            <h4 style="color:#17A2B8; margin-top:1%;">Create New Student</h4>
+            <hr>
+          </div>
+
+
+
+        <div class="col-sm-6"  >
+          <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">First Name</label>
+            <div class="col-9">
+              <input class="form-control" ng-model="fname" type="text" placeholder="First Name">
+            </div>
+          </div>
+
+         <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Last Name</label>
+            <div class="col-9">
+              <input class="form-control" ng-model="lname" type="text" placeholder="Last Name">
+            </div>
+          </div>
+
+       <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Phone Number</label>
+            <div class="col-9">
+              <input class="form-control" ng-model="phone" type="text" placeholder="Phone Number">
+            </div>
+          </div>
+       <div class="form-group row">
+         <label for="example-text-input" class="col-3 col-form-label"> Email</label>
+         <div class="col-9">
+           <input class="form-control " ng-model="email" type="text" placeholder="Email">
+         </div>
+       </div>
+      <div class="form-group row">
+          <label class="col-3 col-form-label" for="exampleSelect1">Sex</label>
+          <div class="col-9">
+            <select class="form-control" ng-model="sex" >
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+
+        </div>
+       
+       <div class="form-group row">
+         <label for="example-text-input" class="col-3 col-form-label"> Via platform</label>
+         <div class="col-9">
+           <input class="form-control" ng-model="platform" type="text" placeholder="Via Plaform">
+         </div>
+       </div>
+       <div class="form-group row">
+         <label for="example-text-input" class="col-3 col-form-label">Create Date</label>
+         <div class="col-9">
+           <input class="form-control mydate" ng-model="create" type="text" placeholder="Create Date">
+           <script type="text/javascript">
+           $('.mydate').datepicker({
+              format: "yyyy-mm-dd",
+              clearBtn: true,
+              autoclose: true
+            });
+           </script>
+         </div>
+       </div>
+       
+<div class="form-group row">
+         <label for="example-text-input" class="col-3 col-form-label">Update Date</label>
+         <div class="col-9">
+           <input class="form-control mydate" ng-model="updates" type="text" placeholder="Update Date">
+           <script type="text/javascript">
+           $('.mydate').datepicker({
+              format: "yyyy-mm-dd",
+              clearBtn: true,
+              autoclose: true
+            });
+           </script>
+         </div>
+       </div>
+
+<div class="form-group row">
+         <label for="example-text-input" class="col-3 col-form-label"  >Active Date</label>
+         <div class="col-9">
+           <input class="form-control mydate1" ng-model="active" type="text" placeholder="Active Date" >
+           <script type="text/javascript">
+           $('.mydate1').datepicker({
+              format: "yyyy-mm-dd",
+              clearBtn: true,
+              autoclose: true
+            });
+           </script>
+         </div>
+       </div>
+
+        </div>
+        <!-- right-bar -->
+        <div class="col-sm-6">
+
+
+
+          <div class="form-group row" style="margin-top:-3%;">
+           <label class="col-8 col-form-label" for="exampleTextarea">Media</label>
+           <div class="col-12">
+             <textarea class="form-control " ng-model="media" id="exampleTextarea" rows="7"></textarea>
+
+           </div>
+         </div>
+          <div class="form-group row" style="margin-top:-3%;">
+           <label class="col-8 col-form-label" for="exampleTextarea">Address</label>
+           <div class="col-12">
+             <textarea class="form-control " ng-model="address" id="exampleTextarea" rows="6"></textarea>
+
+           </div>
+         </div>
+
+         <div class="form-group row">
+         <label class="col-8 col-form-label" for="exampleTextarea">Other Info</label>
+         <div class="col-9">
+           <input class="form-control " ng-model="s" type="text" placeholder="Info">
+         </div>
+       </div>
+         
+              <div class="row">
+           <div class="col-sm-12  text-center ">
+             <button type="button" id="btnOk" ng-click="btnSaveNexts()" ng-model="btnSave" class="btn btn-success " name="button">Save & Next</button>
+             <button type="button" class="btn btn-info " name="button">Close</button>
+           </div>
+
+
+         </div>
+         <br>
+       </div>
+
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+  
+
+ <br>
+   
+
+    <!-- /.container -->
+
+    <!-- Footer -->
