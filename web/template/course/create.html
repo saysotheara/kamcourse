@@ -48,9 +48,9 @@
          </div>
        </div>
        <div class="form-group row">
-         <label for="example-text-input" class="col-3 col-form-label">Cover Photo</label>
+         <label for="example-text-input" class="col-3 col-form-label">Picture</label>
          <div class="col-9">
-           <input class="form-control" ng-model="photo" type="text" id="pic" placeholder="Input Course Cover Photo" >
+           <input class="form-control" ng-model="photo"  id="pic" type="text" placeholder="Picture url">
          </div>
        </div>
           <div class="form-group row" >
@@ -152,7 +152,7 @@
 
                           </a>
 
-                          <img src="{{gallery.gallery_image}}" ng-click="selectPic(gallery.gallery_name)"  data-dismiss="modal" width="100%" height="150" alt="">
+                          <img src="{{gallery.gallery_image}}" ng-click="selectPic(gallery.gallery_image)"  data-dismiss="modal" width="100%" height="150" alt="">
                         </div>
 
                   </div>
@@ -167,50 +167,39 @@
       </div>
     </div>
 
-<script type="text/javascript">
-$('#pic').on('click',function(){
-  $('#exampleModal').modal('show');
+    <script type="text/javascript">
+    $('#pic').on('click',function(){
+      $('#exampleModal').modal('show');
 
-});
-$('#url').on('click',function(){
-  $('.file').val(null);
-  $('.namefile').text(null);
-});
-$('#file').change(function(e){
-    $('#url').val(null);
-    var fileName = e.target.files[0].name;
-    $('.namefile').text(fileName);
+    });
+    $('#url').on('click',function(){
+      $('.file').val(null);
+      $('.namefile').text(null);
+    });
+    $('#file').change(function(e){
+        $('#url').val(null);
+        var fileName = e.target.files[0].name;
+        $('.namefile').text(fileName);
 
-});
-$('.addImage').on('click',function(){
-    $('.list-Gallery').attr('style','display:none');
-    $('.form-upload').attr('style','display:block');
-    $('#preview').attr('src','');
-});
-$('.upload').on('click',function(){
-    Close();
-});
-$('.close').on('click',function(){
-    Close();
-});
-function Close(){
-  $('.list-Gallery').attr('style','display:block');
-  $('.form-upload').attr('style','display:none');
-  $('.file').val(null);
-  $('.namefile').text(null);
-  $('#url').val(null);
-}
-$('#saveColse').on('click',function(){
-<<<<<<< HEAD
-  var uri = window.location.origin+'/kamcourse';
-=======
-  var uri = location.protocol + "//" + location.host;
->>>>>>> b96d2eb0d32388aaea378227da983137975bf227
-  alert(uri);
-});
-</script>
-
-
+    });
+    $('.addImage').on('click',function(){
+        $('.list-Gallery').attr('style','display:none');
+        $('.form-upload').attr('style','display:block');
+    });
+    $('.upload').on('click',function(){
+        Close();
+    });
+    $('.close').on('click',function(){
+        Close();
+    });
+    function Close(){
+      $('.list-Gallery').attr('style','display:block');
+      $('.form-upload').attr('style','display:none');
+      $('.file').val(null);
+      $('.namefile').text(null);
+      $('#url').val(null);
+    }
+    </script>
 
 
     <!-- /.container -->

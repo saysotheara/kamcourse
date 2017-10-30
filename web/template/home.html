@@ -88,15 +88,8 @@
           <div class="row"   style="margin-top:2%; margin-left:0.2%;" ng-bind-html="myHtml" ></div>
           <div class="row lastest" ng-init="getListCourse()" >
             <div class="col-sm-3 col-left " ng-repeat="last in lastCourse" ng-click="detail(last.course_id)">
-<<<<<<< HEAD
+
                 <thumbnail file-type="image" source="{{last.course_cover}}"  max-width="178"></thumbnail>
-=======
-<<<<<<< HEAD
-                <thumbnail file-type="image" source="/kamcourse/{{last.course_cover}}"  max-width="180"></thumbnail>
-=======
-                <thumbnail file-type="image" source="{/kamcourse/{last.course_cover}}"  max-width="178"></thumbnail>
->>>>>>> 53e34fc8a8b9ff005c49f98085f0189e681f717a
->>>>>>> b96d2eb0d32388aaea378227da983137975bf227
                     <div class="courseTitle text-center">
                     <p>{{last.course_name}}</p></div></div>
 
@@ -118,18 +111,9 @@
 
 
                     <div  class ="row "  >
-<<<<<<< HEAD
                       <div class="col-sm-12 text-center " ng-repeat="top in listCourse" ng-click="detail(top.course_id)">
                         <thumbnail  file-type="image" source="{{top.course_cover}}"  max-width="200"></thumbnail>
-=======
-<<<<<<< HEAD
-                      <div class="col-sm-12 text-center" ng-repeat="top in listCourse" ng-click="detail(top.course_id)">
-                        <thumbnail file-type="image" source="/kamcourse/{{top.course_cover}}"  max-width="200"></thumbnail>
-=======
-                      <div class="col-sm-12 text-center " ng-repeat="top in listCourse" ng-click="detail(top.course_id)">
-                        <thumbnail  file-type="image" source="/kamcourse/{{top.course_cover}}"  max-width="200"></thumbnail>
->>>>>>> 53e34fc8a8b9ff005c49f98085f0189e681f717a
->>>>>>> b96d2eb0d32388aaea378227da983137975bf227
+
                         <div class="logo-price">
                           <p>{{top.course_fee}}$</p>
                         </div>

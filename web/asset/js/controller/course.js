@@ -4,13 +4,8 @@ app.controller("CourseController", function($scope,$http,$location,$routeParams)
   var baseUrl = window.location.origin+'/kamcourse';
   var currentUrl = $location.absUrl();
   $scope.getCourse = function(){
-<<<<<<< HEAD
-
       $http.get(baseUrl+'/api/course').then(function(response){
-=======
-      $http.get(baseUrl+'/kamcourse/api/course').then(function(response){
->>>>>>> b96d2eb0d32388aaea378227da983137975bf227
-          $scope.courseData = response.data;
+        $scope.courseData = response.data;
       });
   };
 
@@ -20,7 +15,7 @@ app.controller("CourseController", function($scope,$http,$location,$routeParams)
   };
 
   $scope.btnSaveNext = function(){
-      var url = baseUrl+'/kamcourse/api/course';
+      var url = baseUrl+'/api/course';
       var youtube = $scope.video;
 
       $http.post(
@@ -57,7 +52,7 @@ app.controller("CourseController", function($scope,$http,$location,$routeParams)
 
   $scope.filterCourse = function(){
     var id = $routeParams.id;
-    var url = baseUrl+'/kamcourse/api/course/'+id;
+    var url = baseUrl+'/api/course/'+id;
       $http.get(url).then(function(response){
         $scope.id = response.data.course_id;
         $scope.name = response.data.course_name;
@@ -81,7 +76,7 @@ app.controller("CourseController", function($scope,$http,$location,$routeParams)
 $scope.updateCourse = function(){
   var id = $scope.id;
   var youtube = $scope.video;
-  $http.put(baseUrl+'/kamcourse/api/course/'+id,{
+  $http.put(baseUrl+'/api/course/'+id,{
     'id': id,
     'name':$scope.name,
     'description':$scope.description,
@@ -103,7 +98,7 @@ headers: {
 };
 $scope.deleteCourse = function(id){
   var deleteData = confirm('Are you sure want to delete ID '+id+' ?');
-  var url = baseUrl+'/kamcourse/api/course/'+id;
+  var url = baseUrl+'/api/course/'+id;
   if(deleteData){
     $http.delete(url).then(function(response){
       $scope.getCourse();
@@ -111,13 +106,13 @@ $scope.deleteCourse = function(id){
   }
 };
 $scope.getGallery = function(){
-  $http.get(baseUrl+'/kamcourse/api/gallery').then(function(response){
+  $http.get(baseUrl+'/api/gallery').then(function(response){
     $scope.dataGallery = response.data;
   });
 };
     $scope.hasFile = null;
     $scope.uploadFile = function() {
-      var uploadUrl = baseUrl+'/kamcourse/api/gallery';
+      var uploadUrl = baseUrl+'/api/gallery';
       if($scope.hasFile){
           $scope.image = $scope.files[0];
           var file = $scope.image;
@@ -162,7 +157,7 @@ $scope.getGallery = function(){
     };
     $scope.deletePic = function(id){
       var remove = confirm('delete picture id '+id);
-      var url =  baseUrl+'/kamcourse/api/gallery/'+id;
+      var url =  baseUrl+'/api/gallery/'+id;
       if(remove){
         $http.delete(url).then(function(response){
           $scope.getGallery();
@@ -183,7 +178,7 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     var url = $location.absUrl();
 
     $scope.getListCourse = function(){
-      $http.get(baseUrl+'/kamcourse/api/course').then(function(response){
+      $http.get(baseUrl+'/api/course').then(function(response){
         $scope.listCourse = response.data;
 
         $scope.lastCourse = [];
@@ -207,28 +202,28 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     };
     $scope.showDetail = function(){
       var id = $routeParams.id;
-      var url = baseUrl+'/kamcourse/api/course/'+id;
+      var url = baseUrl+'/api/course/'+id;
       $http.get(url).then(function(response){
         $scope.courseData = response.data;
       });
     };
-    var category = [{name:'Mechanical Engineering',color:'/web/asset/img/web1.png'},{name:'Civil Engineering',color:'/web/asset/img/web.png'},{name:'Architechture',color:'/web/asset/img/web3.png'},{name:'IT Engineering',color:'/web/asset/img/web1.png'},{name:'Electrical Engineering',color:'/web/asset/img/web3.png'}
-                    ,{name:'Japanes Languages',color:'/web/asset/img/web.png'}];
+    var category = [{name:'Mechanical Engineering',color:'/kamcourse/web/asset/img/web1.png'},{name:'Civil Engineering',color:'/kamcourse/web/asset/img/web.png'},{name:'Architechture',color:'/kamcourse/web/asset/img/web3.png'},{name:'IT Engineering',color:'/kamcourse/web/asset/img/web1.png'},{name:'Electrical Engineering',color:'/kamcourse/web/asset/img/web3.png'}
+                    ,{name:'Japanes Languages',color:'/kamcourse/web/asset/img/web.png'}];
     var row = '';
     angular.forEach(category,function(value,index){
         if( index < 2){
           row +=  '<div class="col-sm-6 category "><figure class="figure-6">'+
-                  '<img src="/kamcourse/'+value.color+'" alt="Thumb" width="100%" height="130" />'+
+                  '<img src="'+value.color+'" alt="Thumb" width="100%" height="130" />'+
                   '<figcaption><div>'+value.name+'</div></figcation>'+
                   '</figure></div>';
         }else if(index < 5){
           row +=  '<div class="col-sm-4 category " ><figure class="figure-4">'+
-                  '<img src="/kamcourse/'+value.color+'" alt="Thumb" width="100%" height="130" />'+
+                  '<img src="'+value.color+'" alt="Thumb" width="100%" height="130" />'+
                   '<figcaption><div>'+value.name+'</div></figcation>'+
                   '</figure></div>';
         }else if(index >= 5){
           row +=  '<div class="col-sm-6  category  " ><figure class="figure-6 ">'+
-                  '<img src="/kamcourse/'+value.color+'" alt="Thumb" width="100%" height="130" />'+
+                  '<img src="'+value.color+'" alt="Thumb" width="100%" height="130" />'+
                   '<figcaption><div>'+value.name+'</div></figcation>'+
                   '</figure></div>';
         }
