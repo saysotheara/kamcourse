@@ -282,7 +282,7 @@ $app->put('/facilitator/:id', function($id) {
     $request = json_decode($postdata);
 
     try {
-        $sql_query = "UPDATE kc_tbl_facilitator SET facilitator_firstname=:fname,facilitator_lastname=:lname,facilitator_phone=:phone,facilitator_email=:email,facilitator_sex=:sex,facilitator_media=:media,facilitator_address=:address,facilitator_profile=:profile,facilitator_via_platform=:platform,facilitator_create_date=:create,facilitator_update_date=:updates,facilitator_active_date=:active,facilitator_other_info=:info WHERE facilitator_id = :id";
+        $sql_query = "UPDATE kc_tbl_facilitator SET facilitator_firstname= :fname,facilitator_lastname=:lname,facilitator_phone= :phone,facilitator_email= :email,facilitator_sex= :sex,facilitator_media= :media,facilitator_address= :address,facilitator_profile=:profile,facilitator_via_platform=:platform,facilitator_create_date=:create,facilitator_update_date=:updates,facilitator_active_date=:active,facilitator_other_info=:other_info WHERE facilitator_id = :id";
 
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
@@ -304,7 +304,7 @@ $app->put('/facilitator/:id', function($id) {
         $dbCon = null;
     }
     catch(PDOException $e) {
-        echo '{"error": {"text":'. $e->getMessage() .'}}';
+        echo '{"error": {"text":'. $e->getMessage().'}}';
     }
 });
 

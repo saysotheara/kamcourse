@@ -12,7 +12,7 @@ $scope.activePath = null;
         });
       };
 
-      $scope.removeStudent = function(id){
+      $scope.removefacilitator = function(id){
       var deL = confirm('Are you sure want to delete It?');
       var url = baseUrl+'/kamcourse/api/facilitator/'+id;
       if(deL){
@@ -80,15 +80,16 @@ $scope.filterfacilitator= function(){
         $scope.create = response.data.facilitator_create_date;
         $scope.updates = response.data.facilitator_update_date;
         $scope.active = response.data.facilitator_active_date;
-        $scope.info = response.data.facilitator_other_info;
+        $scope.other_info = response.data.facilitator_other_info;
 
       });
     };
 
-$scope.updatesfacilitator = function(){
+$scope.updatefacilitator = function(){
       var id = $scope.id;
       var url = baseUrl+'/kamcourse/api/facilitator/'+id;
       $http.put(url,{
+
         'id':id,
         'fname':$scope.fname,
         'lname':$scope.lname,
@@ -107,9 +108,9 @@ $scope.updatesfacilitator = function(){
       }).then(function(response){
         console.log('success!');
         $scope.activePath = $location.path('/admin/facilitator');
-        $scope.backUp();
       },function(response){
         console.log('error');
       });
     };
+    
 });
