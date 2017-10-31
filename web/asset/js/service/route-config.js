@@ -1,6 +1,8 @@
 
 app.config(function($routeProvider){
-    $routeProvider.when("/admin/course",{
+    $routeProvider.when("/admin",{
+      templateUrl:'template/login.html'
+    }).when("/admin/course",{
         templateUrl: "template/course/course.html",
         controller: "CourseController"
     }).when('/admin/create',{
