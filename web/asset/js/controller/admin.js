@@ -1,11 +1,10 @@
-app.controller("loginCtrl",function($scope,$routeParams,$http,$location){
+app.controller("loginCtrl",function($scope,$routeParams,$http,$location,$rootScope){
 
   $scope.loginAdmin = function(){
-    var username = $scope.username;
-    var pass = $scope.password;
-    
     if($scope.username == 'admin' && $scope.password == '1234'){
+      $rootScope.loggedIn = true;
       $location.path('/admin/course');
+
     }
   };
 

@@ -1,10 +1,13 @@
 <?php
 
-require 'Slim/Slim.php';
+require 'vendor/autoload.php';
 
-\Slim\Slim::registerAutoloader();
+use Slim\Http\Request;
+use Slim\Http\Response;
+use Slim\Http\UploadedFile;
 
-$app = new \Slim\Slim();
+$app = new \Slim\App();
+
 
 function getConnection() {
     try {
