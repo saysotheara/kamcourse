@@ -5,7 +5,7 @@
   padding: 8% 0 0;
   margin: auto;
 }
-.form {
+.form-login {
   position: relative;
   z-index: 1;
   background: #FFFFFF;
@@ -15,7 +15,7 @@
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-.form input {
+.form-login input {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -26,7 +26,7 @@
   box-sizing: border-box;
   font-size: 14px;
 }
-.form #login {
+.form-login #login {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
@@ -40,7 +40,7 @@
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form #forget {
+.form-login #forget {
   margin-top: 2%;
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
@@ -55,23 +55,21 @@
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form #login:hover,.form #login:active,.form #login:focus {
+.form-login #login:hover,.form-login #login:active,.form-login #login:focus {
   background: #43A047;
 }
-.form #forget:hover,.form #forget:active,.form #forget:focus {
+.form-login #forget:hover,.form-login #forget:active,.form-login #forget:focus {
   background:#0b62ba;
 }
-.form .message {
+.form-login .message {
   margin: 15px 0 0;
   color: #b3b3b3;
   font-size: 12px;
 }
-.form .message a {
+.form-login .message a {
   color: #4CAF50;
   text-decoration: none;
 }
-.form .register-form {
+.form-login .register-form {
   display: none;
 }
-
-  
