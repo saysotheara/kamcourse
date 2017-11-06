@@ -7,8 +7,6 @@ use Slim\Http\Response;
 use Slim\Http\UploadedFile;
 
 $app = new \Slim\App();
-
-
 function getConnection() {
     try {
         $db_username = "usr_kamcourse";
@@ -60,39 +58,36 @@ $app->get('/course', function() {
     responseJSON( $sql_query );
 });
 
-$app->get('/course/:id', function($id) {
-    $sql_query = "SELECT * FROM kc_tbl_course WHERE course_id = :id";
+$app->get('/course/{id}', function($request, $response, $args) {
+    $id = $args['id'];
+    $sql_query = "SELECT * FROM kc_tbl_course WHERE course_id = $id";
     responseJSON_ID( $sql_query, $id);
 });
-$app->post('/gallery',function(){
-
-  if(!empty($_FILES['file'])){
-
-      $ext = pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
-              $file = time().'.'.$ext;
-              $image = '/kamcourse/web/asset/img/'.$file;
-              move_uploaded_file($_FILES["file"]["tmp_name"],'../web/asset/img/'.$file);
-
-
-
-  }else{
+$app->post('/gallery',function(Request $request, Response $response){
+  $file = $request->getUploadedFiles();
+  // handle single input with single file upload
+   $filename = $file['file'];
+   if ($filename->getError() === UPLOAD_ERR_OK) {
+       $extension = pathinfo($filename->getClientFilename(), PATHINFO_EXTENSION);
+       $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
+       $rename = sprintf('%s.%0.8s', $basename, $extension);
+       $imgFile = "/web/asset/img/".$rename;
+       $image = dirname($_SERVER['PHP_SELF'],2).$imgFile;
+       $filename->moveTo('..'.$imgFile);
+    }else{
       $postdata = file_get_contents("php://input");
       $request = json_decode($postdata);
       $image = $request->image;
-
-  }
+    }
   try {
      $date = date('Y-m-d H:i:s');
-    $sql_query = "INSERT INTO kc_tbl_gallery (gallery_image,gallery_upload_date,gallery_other_info) VALUES (:image,'$date','$date')";
-    $dbCon = getConnection();
+     $sql_query = "INSERT INTO kc_tbl_gallery (gallery_image,gallery_upload_date,gallery_other_info) VALUES (:image,'$date','$date')";
+     $dbCon = getConnection();
      $stmt = $dbCon->prepare($sql_query);
-
-    $stmt->bindParam("image",$image);
-
-
-    $stmt->execute();
+     $stmt->bindParam("image",$image);
+     $stmt->execute();
      $dbCon = null;
-
+     $response->write('uploaded');
    } catch (Exception $e) {
     echo '{"error": {"text":'. $e->getMessage() .'}}';
   }
@@ -122,7 +117,8 @@ $app->post('/course', function() {
     }
 });
 
-$app->put('/course/:id', function($id) {
+$app->put('/course/{id}', function($request, $response, $args) {
+
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
     $date = date('Y-m-d H:i:s');
@@ -148,12 +144,14 @@ $app->put('/course/:id', function($id) {
     }
 });
 
-$app->delete('/course/:id', function($id) {
-    $sql_query = "DELETE  FROM kc_tbl_course WHERE course_id = :id";
+$app->delete('/course/{id}', function($request, $response, $args) {
+    $id = $args['id'];
+    $sql_query = "DELETE  FROM kc_tbl_course WHERE course_id = $id";
     responseJSON_ID( $sql_query, $id);
 });
-$app->delete('/gallery/:id', function($id) {
-    $sql_query = "DELETE  FROM kc_tbl_gallery WHERE gallery_id = :id";
+$app->delete('/gallery/{id}', function($request, $response, $args) {
+    $id = $args['id'];
+    $sql_query = "DELETE  FROM kc_tbl_gallery WHERE gallery_id = $id";
     responseJSON_ID( $sql_query, $id);
 });
 
