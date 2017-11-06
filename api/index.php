@@ -1,12 +1,44 @@
 <?php
 
 require 'vendor/autoload.php';
-
+use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\UploadedFile;
+use Slim\Middleware\TokenAuthentication;
+$config = [
+    'settings' => [
+        'displayErrorDetails' => true
+    ]
+];
 
-$app = new \Slim\App();
+$app = new App($config);
+$authenticator = function($request, TokenAuthentication $tokenAuth){
+    /**
+     * Try find authorization token via header, parameters, cookie or attribute
+     * If token not found, return response with status 401 (unauthorized)
+     */
+    $token = $tokenAuth->findToken($request);
+    /**
+     * Call authentication logic class
+     */
+    $auth = new \app\Auth();
+    /**
+     * Verify if token is valid on database
+     * If token isn't valid, must throw an UnauthorizedExceptionInterface
+     */
+    $auth->getUserByToken($token);
+};
+/**
+ * Add token authentication middleware
+ */
+$app->add(new TokenAuthentication([
+    'path' =>   '/apiTest',
+    'authenticator' => $authenticator
+]));
+$app->get('/apiTest',function($request, $response){
+  $response->write('token');
+});
 function getConnection() {
     try {
         $db_username = "usr_kamcourse";
@@ -63,7 +95,7 @@ $app->get('/course/{id}', function($request, $response, $args) {
     $sql_query = "SELECT * FROM kc_tbl_course WHERE course_id = $id";
     responseJSON_ID( $sql_query, $id);
 });
-$app->post('/gallery',function(Request $request, Response $response){
+$app->post('/gallery',function($request, $response){
   $file = $request->getUploadedFiles();
   // handle single input with single file upload
    $filename = $file['file'];
