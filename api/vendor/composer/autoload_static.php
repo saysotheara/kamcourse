@@ -8,6 +8,7 @@ class ComposerStaticInit41ab8424d73ec1c510e1a9176453ed3f
 {
     public static $files = array (
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -28,6 +29,10 @@ class ComposerStaticInit41ab8424d73ec1c510e1a9176453ed3f
         'F' => 
         array (
             'FastRoute\\' => 10,
+        ),
+        'A' => 
+        array (
+            'Adbar\\' => 6,
         ),
     );
 
@@ -55,6 +60,11 @@ class ComposerStaticInit41ab8424d73ec1c510e1a9176453ed3f
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'Adbar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/adbario/php-dot-notation/src',
+            1 => __DIR__ . '/..' . '/adbario/slim-secure-session-middleware/src',
         ),
     );
 

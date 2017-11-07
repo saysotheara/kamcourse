@@ -33,11 +33,15 @@ $authenticator = function($request, TokenAuthentication $tokenAuth){
  * Add token authentication middleware
  */
 $app->add(new TokenAuthentication([
-    'path' =>   '/apiTest',
-    'authenticator' => $authenticator
+    'path' =>   '/api/course',
+    'authenticator' => $authenticator,
+
 ]));
 $app->get('/apiTest',function($request, $response){
   $response->write('token');
+});
+$app->get('/testprs',function($request,$response){
+  $response->write('Hello')->withAttribute('name','who');
 });
 function getConnection() {
     try {
@@ -105,7 +109,7 @@ $app->post('/gallery',function($request, $response){
        $rename = sprintf('%s.%0.8s', $basename, $extension);
        $imgFile = "/web/asset/img/".$rename;
        $image = dirname($_SERVER['PHP_SELF'],2).$imgFile;
-       $filename->moveTo('..'.$imgFile);
+       $filename->moveTo(dirname(__FILE__,2).$imgFile);
     }else{
       $postdata = file_get_contents("php://input");
       $request = json_decode($postdata);

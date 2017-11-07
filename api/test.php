@@ -1,3 +1,5 @@
 <?php
-echo dirname($_SERVER['PHP_SELF'],2);
-?>
+
+  echo  dirname(__FILE__,2) ;
+
+ ?>

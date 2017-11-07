@@ -12,4 +12,5 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
     'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
+    'Adbar\\' => array($vendorDir . '/adbario/php-dot-notation/src', $vendorDir . '/adbario/slim-secure-session-middleware/src'),
 );

@@ -19,7 +19,7 @@ class Auth
         }
 
         $user = [
-            'name' => 'Ratana',
+            'name' => 'Dyorg',
             'id' => 1,
             'permisssion' => 'admin'
         ];
