@@ -105,11 +105,10 @@ $app->post('/gallery',function($request, $response){
    $filename = $file['file'];
    if ($filename->getError() === UPLOAD_ERR_OK) {
        $extension = pathinfo($filename->getClientFilename(), PATHINFO_EXTENSION);
-       $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
-       $rename = sprintf('%s.%0.8s', $basename, $extension);
-       $imgFile = "/web/asset/img/".$rename;
-       $image = dirname($_SERVER['PHP_SELF'],2).$imgFile;
-       $filename->moveTo(dirname(__FILE__,2).$imgFile);
+       $rename = time().'.'.$extension;
+      $imgFile = "/web/asset/img/".$rename;
+      $image = '/kamcourse'.$imgFile;
+       $filename->moveTo('..'.$imgFile);
     }else{
       $postdata = file_get_contents("php://input");
       $request = json_decode($postdata);
