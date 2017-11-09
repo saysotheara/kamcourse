@@ -1,0 +1,163 @@
+<header  class="bg-header">
+  <div class="menu">
+    <nav class=" navbar-expand-lg ">
+
+      <div class="container">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ">
+            <li class="nav-item ">
+              <a class="nav-link" href="#">
+                <i class="fa fa-home " aria-hidden="true"></i>
+
+                  Home
+
+              </a>
+            </li>
+            <br>
+            <li class="nav-item ">
+
+              <a class="nav-link" href="#">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+
+                Courses </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-id-badge" aria-hidden="true"></i>
+
+                Students</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">
+                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                Category
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+
+                Contacts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
+
+                Traning</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+</header>
+<!-- Page Content -->
+<div class="container"  >
+  <div class="row main home " style="background:#fff;" >
+    <div class="col-sm-12 ">
+
+        <div class="row" ng-init="getCategory()">
+          <div class="col-sm-12" >
+            <form class="form-inline" style="margin-top:2%; color:#333;">
+              <button type="submit" class="btn btn-info" ng-click="btnInsertCate()">Insert</button>
+
+              <div class="form-group mx-sm-3">
+                <label for="inputPassword2" class="sr-only"></label>
+                <input type="text" class="form-control" ng-model="searchCategory.category_name" placeholder="Filter category....">
+              </div>
+            </form>
+            <hr>
+
+          </div>
+        </div>
+        <table class=" table table-bordered table-responsive" style=" color:#333;">
+          <thead class="table-success">
+            <tr>
+
+              <th>Category Name</th>
+              <th>Description</th>
+              <th>Category Cover</th>
+              <th>Other Info</th>
+              <th>Action</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="category in categoryList | filter:searchCategory | orderBy:'category_name'">
+              <td >{{category.category_name}}</td>
+              <td>{{category.category_description}}</td>
+              <td>
+                <a href="#">
+                  <i class="fa fa-picture-o" aria-hidden="true"></i>
+                  {{category.category_cover.substring(25)}}
+                </a>
+              </td>
+              <td>{{category.category_other_info}}</td>
+              <td>
+                <a href="" ng-click="btnEditCate(category.category_id)">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <a href="" ng-click="deleteCategory(category.category_id)">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- list-course -->
+      <!-- <div class="row subject" ng-repeat="course in courseData" >
+            <div class="col-sm-4" >
+              <div class="course">
+                <thumbnail file-type="image" source="{{course.course_cover}}" max-height="260"  max-width="260"></thumbnail>
+
+                <div class=" text-center price ">
+                  <p >{{course.course_fee}}$/course</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6"  >
+              <div class="short-info ">
+                <p><strong>Course: </strong> {{course.course_name}}</p>
+                <hr >
+                <p><strong>Shedule: </strong> {{course.schedule}}</p>
+                <p><strong>Start Date: </strong>{{course.start_date | date:'dd-MM-yyyy' }}</p>
+              </div>
+            </div>
+            <div class="col-sm-2 ">
+              <div class="admin-btn text-center">
+                <button ng-click="btnUpdate(course.course_id)" class="btn btn-sm bg-blue float-sm-right">Update</button>
+                <button type="button" ng-click="deleteCourse(course.course_id)" class="btn btn-sm  bg-danger float-sm-right" >Delete</button>
+              </div>
+            </div>
+      </div> -->
+
+
+
+
+
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<br>
+
+
+
+
+
+
+
+<!-- /.container -->
+
+<!-- Footer -->

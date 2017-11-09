@@ -80,4 +80,22 @@ app.config(function($routeProvider){
     }).otherwise({
         redirectTo: '/home'
     });
+    //category
+    $routeProvider.when('/admin/category/create',{
+      // resolve:{
+      //   "check": function($location,$rootScope){
+      //     if(!$rootScope.loggedIn){
+      //       $location.path('/admin');
+      //     }
+      //   }
+      // },
+      templateUrl: "template/category/create.html",
+      controller: "categoryCtl"
+    }).when('/admin/category',{
+      templateUrl: "template/category/category.html",
+      controller: "categoryCtl"
+    }).when('/admin/category/update/:id',{
+      templateUrl: 'template/category/update.html',
+      controller: 'categoryCtl'
+    });
 });
