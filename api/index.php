@@ -353,6 +353,118 @@ $app->delete('/facilitator/{id}', function($request, $response, $args) {
 
     responseJSON_ID( $sql_query, $id);
 });
+//category
+$app->get('/category',function(){
+  $sql_query = "SELECT * FROM kc_tbl_course_category";
+  responseJSON( $sql_query );
+});
+$app->get('/category/{id}',function($request, $response, $args){
+  $id = $args['id'];
+  $sql_query = "SELECT * FROM kc_tbl_course_category WHERE category_id = $id";
+  responseJSON_ID( $sql_query, $id);
+
+});
+$app->post('/category',function(){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+
+  try {
+      $sql_query = "INSERT INTO kc_tbl_course_category (category_name,category_description, category_cover, category_other_info) VALUES (:name, :description, :cover, :other_info)";
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("name", $request->name);
+      $stmt->bindParam("description", $request->description);
+      $stmt->bindParam("cover", $request->cover);
+      $stmt->bindParam("other_info", $request->other_info);
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+});
+$app->put('/category',function(){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+
+  try {
+      $sql_query = "UPDATE kc_tbl_course_category SET category_name= :name,category_description=:description,category_cover= :cover,category_other_info= :other_info WHERE category_id = :category_id";
+
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("category_id", $request->category_id);
+      $stmt->bindParam("name", $request->name);
+      $stmt->bindParam("description", $request->description);
+      $stmt->bindParam("cover", $request->cover);
+      $stmt->bindParam("other_info", $request->other_info);
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage().'}}';
+  }
+});
+$app->delete('/category/{id}',function($request, $response, $args){
+  $id = $args['id'];
+  $sql_query = "DELETE FROM kc_tbl_course_category WHERE category_id = $id ";
+  responseJSON_ID( $sql_query, $id);
+
+});
+//schedule
+$app->get('/schedule',function(){
+  $sql_query = "SELECT * FROM kc_tbl_course_schedule";
+  responseJSON( $sql_query );
+});
+$app->post('/schedule',function(){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+
+  try {
+      $sql_query = "INSERT INTO kc_tbl_course_schedule (schedule_time,schedule_description, schedule_cover, schedule_other_info) VALUES (:schedule_time, :description, :cover, :other_info)";
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("schedule_time", $request->time);
+      $stmt->bindParam("description", $request->description);
+      $stmt->bindParam("cover", $request->cover);
+      $stmt->bindParam("other_info", $request->other_info);
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+});
+$app->get('/schedule/{id}',function($request,$response,$args){
+  $id = $args['id'];
+  $sql_query = "SELECT * FROM kc_tbl_course_schedule WHERE schedule_id = $id";
+  responseJSON_ID( $sql_query, $id);
+});
+$app->put('/schedule',function(){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+
+  try {
+      $sql_query = "UPDATE kc_tbl_course_schedule SET schedule_time= :schedule_time,schedule_description=:description,schedule_cover= :cover,schedule_other_info= :other_info WHERE schedule_id = :schedule_id";
+
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("schedule_id", $request->schedule_id);
+      $stmt->bindParam("schedule_time", $request->time);
+      $stmt->bindParam("description", $request->description);
+      $stmt->bindParam("cover", $request->cover);
+      $stmt->bindParam("other_info", $request->other_info);
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage().'}}';
+  }
+});
+$app->delete('/schedule/{id}',function($request,$response,$args){
+  $id = $args['id'];
+  $sql_query = "DELETE FROM kc_tbl_course_schedule WHERE schedule_id = $id ";
+  responseJSON_ID( $sql_query, $id);
+});
 $app->run();
 
 ?>

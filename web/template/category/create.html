@@ -4,7 +4,7 @@
       <div class="row main form"  >
 
           <div class="col-sm-12">
-            <h4 style="color:#17A2B8; margin-top:1%;">Create New Course</h4>
+            <h4 style="color:#17A2B8; margin-top:1%;">Create Category</h4>
             <hr>
           </div>
 
@@ -12,75 +12,44 @@
 
         <div class="col-sm-6"  >
           <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Course Name</label>
+            <label for="example-text-input" class="col-3 col-form-label">Name</label>
             <div class="col-9">
-              <input class="form-control" ng-model="title" type="text" placeholder="Course Name">
+              <input class="form-control" ng-model="name" type="text" placeholder="Category Name">
             </div>
           </div>
-
-         <div class="form-group row">
-          <label class="col-3 col-form-label" for="exampleSelect1">Category</label>
-          <div class="col-9" ng-init="getCategory()">
-            <select class="form-control" name="category" ng-model="category" >
-              <option  ng-selected="true" value="">--Select Category--</option>
-              <option ng-repeat="cate in categoryData" value="{{cate.category_id}}">{{cate.category_name}}</option>
-
-
-            </select>
-          </div>
-
-        </div>
-
        <div class="form-group row">
-         <label for="example-text-input" class="col-3 col-form-label"> Duration</label>
-         <div class="col-9">
-           <input class="form-control" ng-model="duration" type="text" placeholder="Course Duration">
+         <label class="col-8 col-form-label" for="exampleTextarea">Description</label>
+         <div class="col-12">
+           <textarea class="form-control " ng-model="description" id="exampleTextarea" rows="8"></textarea>
+
          </div>
        </div>
-       <div class="form-group row">
-         <label for="example-text-input" class="col-3 col-form-label">Course Fee</label>
-         <div class="col-9">
-           <input class="form-control" ng-model="fee" type="text" placeholder="Input Course Fee">
-         </div>
-       </div>
-       <div class="form-group row">
-         <label for="example-text-input" class="col-3 col-form-label">Picture</label>
-         <div class="col-9">
-           <input class="form-control" ng-model="photo"  id="pic" type="text" placeholder="Picture url">
-         </div>
-       </div>
-          <div class="form-group row" >
-            <label for="example-text-input" class="col-3 col-form-label">Video URL</label>
-            <div class="col-9">
-              <input class="form-control" ng-model="video" type="text"  placeholder="Input Course Video URL">
-            </div>
-          </div>
-
-         <div class="row">
-           <div class="col-sm-12  text-center ">
-             <button type="button" id="btnOk" ng-click="btnSaveNext()" ng-model="btnSave" class="btn btn-success " name="button">Save & Next</button>
-             <button type="button" class="btn btn-info " id="saveColse" name="button">Save & Close</button>
-           </div>
 
 
-         </div>
+
 
         </div>
         <!-- right-bar -->
         <div class="col-sm-6">
 
-          <div class="form-group row" style="margin-top:-3%;">
-           <label class="col-8 col-form-label" for="exampleTextarea">Course Description</label>
+          <div class="form-group row" >
+            <label for="example-text-input" class="col-3 col-form-label">Picture</label>
+            <div class="col-9">
+              <input class="form-control" ng-model="photo"  id="pic" type="text" placeholder="Picture url">
+            </div>
+
+         </div>
+          <div class="form-group row" >
+           <label class="col-8 col-form-label" for="exampleTextarea">other Info</label>
            <div class="col-12">
-             <textarea class="form-control " ng-model="description" id="exampleTextarea" rows="8"></textarea>
+             <textarea class="form-control " ng-model="other_info" id="exampleTextarea" rows="8"></textarea>
 
            </div>
          </div>
-          <div class="form-group row" style="margin-top:-3%;">
-           <label class="col-8 col-form-label" for="exampleTextarea">Course Outline</label>
-           <div class="col-12">
-             <textarea class="form-control " ng-model="outline" id="exampleTextarea" rows="8"></textarea>
-
+         <div class=" form-group row">
+           <div class="col-sm-12  text-center ">
+             <button type="button" id="btnOk" ng-click="insertCategory()" ng-model="btnSave" class="btn btn-success " name="button">Save</button>
+             <button type="button" class="btn btn-info " id="saveColse" name="button">cancel</button>
            </div>
          </div>
        </div>

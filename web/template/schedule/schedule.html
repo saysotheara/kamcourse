@@ -1,0 +1,142 @@
+<header  class="bg-header">
+  <div class="menu">
+    <nav class=" navbar-expand-lg ">
+
+      <div class="container">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ">
+            <li class="nav-item ">
+              <a class="nav-link" href="#">
+                <i class="fa fa-home " aria-hidden="true"></i>
+
+                  Home
+
+              </a>
+            </li>
+            <br>
+            <li class="nav-item ">
+
+              <a class="nav-link" href="#">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+
+                Courses </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-id-badge" aria-hidden="true"></i>
+
+                Students</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="#">
+                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                Category
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                Schedule
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
+
+                Traning</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+</header>
+<!-- Page Content -->
+<div class="container"  >
+  <div class="row main home " style="background:#fff;" >
+    <div class="col-sm-12 ">
+
+        <div class="row" ng-init="getSchedule()">
+          <div class="col-sm-12" >
+            <form class="form-inline" style="margin-top:2%; color:#333;">
+              <button type="submit" class="btn btn-info" ng-click="btnInsertSche()">Insert</button>
+
+              <div class="form-group mx-sm-3">
+                <label for="inputPassword2" class="sr-only"></label>
+                <input type="text" class="form-control mydate" ng-model="searchSchedule.schedule_time" placeholder="Filter schedule time....">
+              </div>
+            </form>
+            <hr>
+
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <table class=" table table-bordered table-responsive" style=" color:#333;">
+            <thead class="table-success">
+              <tr>
+
+                <th>Schedule Time</th>
+                <th>Description</th>
+                <th>Schedule Cover</th>
+                <th>Other Info</th>
+                <th>Action</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="schedule in scheduleList | filter:searchSchedule | orderBy:'schedule_time'">
+                <td >{{schedule.schedule_time}}</td>
+                <td><p>{{schedule.schedule_description}}</p></td>
+                <td>
+                  <a href="" >
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    {{schedule.schedule_cover.substring(25)}}
+                  </a>
+                </td>
+                <td><p>{{schedule.schedule_other_info}}</p></td>
+                <td>
+                  <a href="" ng-click="btnEditSche(schedule.schedule_id)" >
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </a>
+                  <a href="" ng-click="deleteSche(schedule.schedule_id)">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </a>
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+
+
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<br>
+
+
+
+<script type="text/javascript">
+$('.mydate').datepicker({
+   format: "yyyy-mm-dd",
+   clearBtn: true,
+   autoclose: true
+ });
+</script>
+
+
+<!-- /.container -->
+
+<!-- Footer -->
