@@ -56,7 +56,7 @@
       font-size: 0.8em;
      }
      th{
-      font-size: 0.8em;
+      font-size: 0.9em;
      }
      .scroll{
       width: 100%;
@@ -72,60 +72,60 @@
       <div class="container ">
           <div class="main home">
 
-          <section id="contact " style="height:6%;background:#fff;">
+          <section id="contact " class="table-warning" style="height:6%;">
             <h1 class="text-center text-primary font">STUDENT</h1>
             <div class=" " style="padding-left: 30px;">
               <div class="" style="float: left; ">
                <button type="button"  ng-click="btnAdd()"  class="btn btn-info top bg-success" name="button"><i class="fa fa-id-badge" aria-hidden="true"></i> INSERT</button>
               </div>
               <div style="padding-left: 130px;"><h3>
-                <input  type="text" ng-model="search" placeholder="Search Here...." class="form-control col-lg-3"/></h3></div>
+                <input  type="text" ng-model="search.student_id" placeholder="Search Here...." class="form-control col-lg-3"/></h3></div>
             </div><br>
           <div class="container">
           <div class="scroll">
           <div class="table-responsive">
-          <table class="table  table-inverse" >
-          <thead >
+          <table class="table  table-inverse   table-bordered" >
+          <thead class="bg-success" >
             <tr>
               <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>First_Name</th>
+              <th>Last_Name</th>
               <th>Phone</th>
               <th>Email</th>
               <th>Sex</th>
               <th>Media</th>
-              <th>address</th>
-              <th>Via Platform</th>
-              <th>Create Date</th>
-              <th>Update Date</th>
-              <th>Active Date</th>
+              <th>Address</th>
+              <th>Via_Platform</th>
+              <th>Create_Date</th>
+              <th>Update_Date</th>
+              <th>Active_Date</th>
               <th>Info</th>
             <th>Edit</th>
             <th>Delete</th>
             </tr>
           </thead>
           <tbody  ng-init="getAll()">
-            <tr ng-repeat="school in studentData | filter:search | orderBy : 'id'"">
-              <td>{{school.student_id}}</td>
-              <td>{{school.student_firstname}}</td>
-              <td>{{school.student_lastname}}</td>
-              <td>(+885){{school.student_phone}}</td>
-              <td>{{school.student_email}}</td>
-              <td>{{school.student_sex}}</td>
-              <td>{{school.student_media}}</td>
-              <td>{{school.student_address}}</td>
-              <td>{{school.student_via_platform}}</td>
-              <td>{{school.student_create_date}}</td>
-              <td>{{school.student_update_date}}</td>
-              <td>{{school.student_active_date}}</td>
-              <td>{{school.student_other_info}}</td>
+            <tr ng-repeat="student in studentData | filter:search | orderBy:'student_id'">
+              <td>{{student.student_id}}</td>
+              <td>{{student.student_firstname}}</td>
+              <td>{{student.student_lastname}}</td>
+              <td>(+885){{student.student_phone}}</td>
+              <td>{{student.student_email}}</td>
+              <td>{{student.student_sex}}</td>
+              <td>{{student.student_media}}</td>
+              <td>{{student.student_address}}</td>
+              <td>{{student.student_via_platform}}</td>
+              <td>{{student.student_create_date}}</td>
+              <td>{{student.student_update_date}}</td>
+              <td>{{student.student_active_date}}</td>
+              <td>{{student.student_other_info}}</td>
               <td>
-                <a href="" ng-click="btnUpdates(school.student_id)" >
+                <a href="" ng-click="btnUpdates(student.student_id)" >
                   <i class="fa fa-pencil-square-o  text-primary" aria-hidden="true" style=" font-size: 1.4em"></i>
                 </a>
                   </td>
                   <td>
-                <a href="#" ng-click="removeStudent(school.student_id)">
+                 <a href="#" ng-click="removeStudent(student.student_id)" class="text-center">
                   <i class="fa fa-trash  text-danger" aria-hidden="true" style=" font-size: 1.4em"></i>
                 </a>
               </td>

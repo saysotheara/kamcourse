@@ -16,16 +16,15 @@ app.controller("StudentController", function($scope, $http, $location, $routePar
       $scope.removeStudent = function(id){
       var deL = confirm('Are you sure want to delete It?');
       var url = baseUrl+'/kamcourse/api/student/'+id;
-      if(deL){
+      if(deL==true){
         $http.delete(url).then(function(response){
-      $scope.activePath = $location.path('/admin/student/');
+        $scope.activePath = $location.path('/admin/student/');
           $scope.getAll();
             });
-          }else if(!deL){
-          
-            $scope.activePath = $location.path('/admin/student/');
           }
-          ;
+          else{
+            $scope.activePath = $location.path('/admin/student');
+          };
         };
 
         $scope.btnSaveNexts = function(){
@@ -61,6 +60,9 @@ app.controller("StudentController", function($scope, $http, $location, $routePar
       };
       $scope.btnAdd = function(id){
         $scope.activePath = $location.path('/admin/createstudent/');
+      };
+       $scope.btnback = function(){
+        $scope.activePath = $location.path('/admin/student');
       };
 $scope.filterstudent= function(){
       var id = $routeParams.id;

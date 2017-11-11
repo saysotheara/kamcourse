@@ -214,7 +214,6 @@ $app->post('/student', function() {
         $stmt->bindParam("create", $request->create);
         $stmt->bindParam("updates", $request->updates);
         $stmt->bindParam("active", $request->active);
-
         $stmt->bindParam("other_info", $request->other_info);
         $stmt->execute();
         $dbCon = null;
@@ -224,7 +223,8 @@ $app->post('/student', function() {
     }
 });
 
-$app->put('/student/:id', function($id) {
+$app->put('/student/{id}', function($request, $response, $args) {
+
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
 
@@ -258,12 +258,14 @@ $app->get('/student', function() {
     responseJSON( $sql_query );
 });
 
-$app->get('/student/:id', function($id) {
-    $sql_query = "SELECT * FROM kc_tbl_student WHERE student_id = :id";
+$app->get('/student/{id}', function($request, $response, $args) {
+    $id = $args['id'];
+    $sql_query = "SELECT * FROM kc_tbl_student WHERE student_id = $id";
     responseJSON_ID( $sql_query, $id);
 });
-$app->delete('/student/:id', function($id) {
-    $sql_query = "DELETE FROM kc_tbl_student WHERE student_id = :id ";
+$app->delete('/student/{id}', function($request, $response, $args) {
+    $id=$args['id'];
+    $sql_query = "DELETE FROM kc_tbl_student WHERE student_id = $id ";
 
     responseJSON_ID( $sql_query, $id);
 });
@@ -275,8 +277,9 @@ $app->get('/facilitator', function() {
     responseJSON( $sql_query );
 });
 
-$app->get('/facilitator/:id', function($id) {
-    $sql_query = "SELECT * FROM kc_tbl_facilitator WHERE facilitator_id = :id";
+$app->get('/facilitator/{id}', function($request, $response, $args) {
+    $id=$args['id'];
+    $sql_query = "SELECT * FROM kc_tbl_facilitator WHERE facilitator_id = $id";
     responseJSON_ID( $sql_query, $id);
 });
 
@@ -344,8 +347,9 @@ $app->put('/facilitator/:id', function($id) {
     }
 });
 
-$app->delete('/facilitator/:id', function($id) {
-    $sql_query = "DELETE FROM kc_tbl_facilitator WHERE facilitator_id = :id ";
+$app->delete('/facilitator/{id}', function($request, $response, $args) {
+    $id=$args['id'];
+    $sql_query = "DELETE FROM kc_tbl_facilitator WHERE facilitator_id = $id ";
 
     responseJSON_ID( $sql_query, $id);
 });

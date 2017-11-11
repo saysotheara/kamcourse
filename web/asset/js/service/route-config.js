@@ -62,7 +62,7 @@ app.config(function($routeProvider){
      }).when('/admin/studentup/:id',{
     templateUrl: "template/student/update_student.html",
     controller: "StudentController"
-
+      // facilitator
    }).when('/admin/createfacilitator',{
     templateUrl: "template/facilitator/create_facilitator.html",
     controller: "FacilitatorController"

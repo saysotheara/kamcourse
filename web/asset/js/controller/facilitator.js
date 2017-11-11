@@ -62,6 +62,9 @@ $scope.activePath = null;
       $scope.btnAdd = function(id){
         $scope.activePath = $location.path('/admin/createfacilitator/');
       };
+      $scope.btnback1 = function(){
+        $scope.activePath = $location.path('/admin/facilitator');
+      };
 $scope.filterfacilitator= function(){
       var id = $routeParams.id;
       var url = baseUrl+'/kamcourse/api/facilitator/'+id;
