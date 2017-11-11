@@ -7,6 +7,7 @@ app.controller('categoryCtl',function($scope,$http,$location,$routeParams){
       $scope.dataGallery = response.data;
     });
   };
+
       $scope.hasFile = null;
       $scope.uploadFile = function() {
         var uploadUrl = baseUrl+'/gallery';
@@ -150,6 +151,81 @@ app.controller('categoryCtl',function($scope,$http,$location,$routeParams){
         }
 
       };
+      // -- schedule --
+      $scope.getSchedule = function(){
+        var url = baseUrl+'/schedule';
+        $http.get(url).then(function(response){
+          $scope.scheduleList = response.data;
+        });
+      };
+      // event btn Insert schedule
+      $scope.btnInsertSche = function(){
+        $scope.activePath = $location.path('/admin/schedule/create');
+      } ;
+      $scope.insertSchedule = function(){
+        var url = baseUrl+'/schedule';
+        $http.post(url,
+          {
+              'time':$scope.time,
+              'description':$scope.description,
+              'cover':$scope.photo,
+              'other_info':$scope.other_info
 
+          },{
+              headers: {
+                  'Content-Type': 'application/json; charset=utf-8'
+                }
+          }).then(function(response){
+            alert('create schedule is successed!');
+            $scope.activePath = $location.path('/admin/schedule');
+          },function(error){
+            alert('bad working!');
+          });
+      };
+      //event edit schedule
+      $scope.btnEditSche = function(id){
+        $scope.activePath = $location.path('/admin/schedule/update/'+id);
+      };
+      $scope.filterSchedule = function(){
+        var id = $routeParams.id;
+        var url = baseUrl+'/schedule/'+id;
+        $http.get(url).then(function(response){
+          $scope.schedule_id = response.data.schedule_id;
+          $scope.time = response.data.schedule_time;
+          $scope.description = response.data.schedule_description;
+          $scope.photo = response.data.schedule_cover;
+          $scope.other_info = response.data.schedule_other_info;
+        });
+      };
+      $scope.updateSchedule = function(){
+        var url = baseUrl+'/schedule';
+        $http.put(url,{
+
+            'schedule_id':$scope.schedule_id,
+            'time':$scope.time,
+            'description':$scope.description,
+            'cover':$scope.photo,
+            'other_info':$scope.other_info
+
+        },{
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+              }
+        }).then(function(response){
+          alert('update is successed!');
+          $scope.activePath = $location.path('/admin/schedule');
+        },function(error){
+          alert('bad working!');
+        });
+      };
+      $scope.deleteSche = function(id){
+        var deleteSchedule  = confirm('Are you sure want to delete schedule ID: '+id);
+        if(deleteSchedule){
+          var url = baseUrl+'/schedule/'+id;
+          $http.delete(url).then(function(response){
+            $scope.getSchedule();
+          });
+        }
+      };
 
 });

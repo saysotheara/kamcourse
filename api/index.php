@@ -406,6 +406,61 @@ $app->delete('/category/{id}',function($request, $response, $args){
   responseJSON_ID( $sql_query, $id);
 
 });
+//schedule
+$app->get('/schedule',function(){
+  $sql_query = "SELECT * FROM kc_tbl_course_schedule";
+  responseJSON( $sql_query );
+});
+$app->post('/schedule',function(){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+
+  try {
+      $sql_query = "INSERT INTO kc_tbl_course_schedule (schedule_time,schedule_description, schedule_cover, schedule_other_info) VALUES (:schedule_time, :description, :cover, :other_info)";
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("schedule_time", $request->time);
+      $stmt->bindParam("description", $request->description);
+      $stmt->bindParam("cover", $request->cover);
+      $stmt->bindParam("other_info", $request->other_info);
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+});
+$app->get('/schedule/{id}',function($request,$response,$args){
+  $id = $args['id'];
+  $sql_query = "SELECT * FROM kc_tbl_course_schedule WHERE schedule_id = $id";
+  responseJSON_ID( $sql_query, $id);
+});
+$app->put('/schedule',function(){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+
+  try {
+      $sql_query = "UPDATE kc_tbl_course_schedule SET schedule_time= :schedule_time,schedule_description=:description,schedule_cover= :cover,schedule_other_info= :other_info WHERE schedule_id = :schedule_id";
+
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("schedule_id", $request->schedule_id);
+      $stmt->bindParam("schedule_time", $request->time);
+      $stmt->bindParam("description", $request->description);
+      $stmt->bindParam("cover", $request->cover);
+      $stmt->bindParam("other_info", $request->other_info);
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage().'}}';
+  }
+});
+$app->delete('/schedule/{id}',function($request,$response,$args){
+  $id = $args['id'];
+  $sql_query = "DELETE FROM kc_tbl_course_schedule WHERE schedule_id = $id ";
+  responseJSON_ID( $sql_query, $id);
+});
 $app->run();
 
 ?>

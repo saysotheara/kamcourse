@@ -21,15 +21,10 @@
 
          <div class="form-group row">
           <label class="col-3 col-form-label" for="exampleSelect1" >Category</label>
-          <div class="col-9">
+          <div class="col-9" ng-init="getCategory()">
             <select class="form-control" ng-model="category" >
-              <option >Choose...</option>
-              <option>IT Engineering</option>
-              <option>Civil Engineering</option>
-              <option>Architechture</option>
-              <option>Mechanical Engineering</option>
-              <option>Electrical Engineering</option>
-              <option>Japanes Languages</option>
+
+              <option ng-repeat="cate in categoryData" ng-value="{{cate.category_id}}">{{cate.category_name}}</option>
 
             </select>
           </div>

@@ -98,4 +98,15 @@ app.config(function($routeProvider){
       templateUrl: 'template/category/update.html',
       controller: 'categoryCtl'
     });
+    //schedule
+    $routeProvider.when('/admin/schedule',{
+      templateUrl:'template/schedule/schedule.html',
+      controller: 'categoryCtl'
+    }).when('/admin/schedule/update/:id',{
+      templateUrl: 'template/schedule/update.html',
+      controller: 'categoryCtl'
+    }).when('/admin/schedule/create',{
+      templateUrl: 'template/schedule/create.html',
+      controller: 'categoryCtl'
+    });
 });

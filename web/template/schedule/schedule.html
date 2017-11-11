@@ -31,17 +31,17 @@
 
                 Students</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item ">
               <a class="nav-link" href="#">
                 <i class="fa fa-id-badge" aria-hidden="true"></i>
                 Category
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#!/admin/schedule">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
-
-                schedule</a>
+                Schedule
+                </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
@@ -61,14 +61,14 @@
   <div class="row main home " style="background:#fff;" >
     <div class="col-sm-12 ">
 
-        <div class="row" ng-init="getCategory()">
+        <div class="row" ng-init="getSchedule()">
           <div class="col-sm-12" >
             <form class="form-inline" style="margin-top:2%; color:#333;">
-              <button type="submit" class="btn btn-info" ng-click="btnInsertCate()">Insert</button>
+              <button type="submit" class="btn btn-info" ng-click="btnInsertSche()">Insert</button>
 
               <div class="form-group mx-sm-3">
                 <label for="inputPassword2" class="sr-only"></label>
-                <input type="text" class="form-control" ng-model="searchCategory.category_name" placeholder="Filter category....">
+                <input type="text" class="form-control mydate" ng-model="searchSchedule.schedule_time" placeholder="Filter schedule time....">
               </div>
             </form>
             <hr>
@@ -80,9 +80,9 @@
             <thead class="table-success">
               <tr>
 
-                <th>Category Name</th>
+                <th>Schedule Time</th>
                 <th>Description</th>
-                <th>Category Cover</th>
+                <th>Schedule Cover</th>
                 <th>Other Info</th>
                 <th>Action</th>
 
@@ -90,21 +90,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="category in categoryList | filter:searchCategory | orderBy:'category_name'">
-                <td >{{category.category_name}}</td>
-                <td><p>{{category.category_description}}</p></td>
+              <tr ng-repeat="schedule in scheduleList | filter:searchSchedule | orderBy:'schedule_time'">
+                <td >{{schedule.schedule_time}}</td>
+                <td><p>{{schedule.schedule_description}}</p></td>
                 <td>
                   <a href="" >
                     <i class="fa fa-picture-o" aria-hidden="true"></i>
-                    {{category.category_cover.substring(25)}}
+                    {{schedule.schedule_cover.substring(25)}}
                   </a>
                 </td>
-                <td><p>{{category.category_other_info}}</p></td>
+                <td><p>{{schedule.schedule_other_info}}</p></td>
                 <td>
-                  <a href="" ng-click="btnEditCate(category.category_id)" >
+                  <a href="" ng-click="btnEditSche(schedule.schedule_id)" >
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                   </a>
-                  <a href="" ng-click="deleteCategory(category.category_id)">
+                  <a href="" ng-click="deleteSche(schedule.schedule_id)">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                   </a>
                 </td>
@@ -128,6 +128,13 @@
 
 
 
+<script type="text/javascript">
+$('.mydate').datepicker({
+   format: "yyyy-mm-dd",
+   clearBtn: true,
+   autoclose: true
+ });
+</script>
 
 
 <!-- /.container -->

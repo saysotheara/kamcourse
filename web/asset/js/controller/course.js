@@ -8,6 +8,11 @@ app.controller("CourseController", function($scope,$http,$location,$routeParams)
         $scope.courseData = response.data;
       });
   };
+  $scope.getCategory = function(){
+    $http.get(baseUrl+'/api/category').then(function(response){
+      $scope.categoryData = response.data;
+    });
+  };
 
   $scope.btnCreate = function(){
 
@@ -229,9 +234,7 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
         }
     });
     $scope.myHtml = row;
-
-
-
+    
 
 
 
