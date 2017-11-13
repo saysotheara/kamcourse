@@ -1,5 +1,5 @@
 
-app.config(function($routeProvider){
+app.config(function($routeProvider,$locationProvider){
     $routeProvider.when("/admin",{
             templateUrl:'template/login.html',
             controller: 'loginCtrl'
@@ -12,7 +12,8 @@ app.config(function($routeProvider){
               }
             },
               templateUrl: "template/course/course.html",
-              controller: "CourseController"
+              controller: "CourseController",
+              activetab: 'course'
     }).when('/admin/create',{
       resolve:{
         "check": function($location,$rootScope){
@@ -24,6 +25,7 @@ app.config(function($routeProvider){
         templateUrl: "template/course/create.html",
         controller: "CourseController"
 
+
     }).when('/admin/update/:id',{
       resolve:{
         "check": function($location,$rootScope){
@@ -34,17 +36,11 @@ app.config(function($routeProvider){
       },
         templateUrl: "template/course/update.html",
         controller: "CourseController"
-    }).when('/course',{
-        templateUrl: "template/course/frontEnd/course1.html",
-        controller: "userCtrl"
-    }).when('/course/:id',{
-        templateUrl: "template/course/frontEnd/detail.html",
-        controller: "userCtrl"
-
     // Class Management
     }).when('/admin/class',{
         templateUrl: "template/class/class-list.html",
         controller: "ClassController"
+
     }).when('/admin/class/add',{
         templateUrl: "template/class/class-add.html",
         controller: "ClassController"
@@ -58,7 +54,8 @@ app.config(function($routeProvider){
     controller: "StudentController"
      }).when('/admin/student',{
     templateUrl: "template/student/student.html",
-    controller: "StudentController"
+    controller: "StudentController",
+    activetab: 'student'
      }).when('/admin/studentup/:id',{
     templateUrl: "template/student/update_student.html",
     controller: "StudentController"
@@ -74,12 +71,7 @@ app.config(function($routeProvider){
     controller: "FacilitatorController"
 
     // URL Path Not Found
-    }).when('/home',{
-      templateUrl: 'template/home.html',
-      controller: 'userCtrl'
-    }).otherwise({
-        redirectTo: '/home'
-    });
+  });
     //category
     $routeProvider.when('/admin/category/create',{
       // resolve:{
@@ -93,7 +85,8 @@ app.config(function($routeProvider){
       controller: "categoryCtl"
     }).when('/admin/category',{
       templateUrl: "template/category/category.html",
-      controller: "categoryCtl"
+      controller: "categoryCtl",
+      activetab: 'category'
     }).when('/admin/category/update/:id',{
       templateUrl: 'template/category/update.html',
       controller: 'categoryCtl'
@@ -101,7 +94,8 @@ app.config(function($routeProvider){
     //schedule
     $routeProvider.when('/admin/schedule',{
       templateUrl:'template/schedule/schedule.html',
-      controller: 'categoryCtl'
+      controller: 'categoryCtl',
+      activetab: 'schedule'
     }).when('/admin/schedule/update/:id',{
       templateUrl: 'template/schedule/update.html',
       controller: 'categoryCtl'
@@ -109,4 +103,20 @@ app.config(function($routeProvider){
       templateUrl: 'template/schedule/create.html',
       controller: 'categoryCtl'
     });
+});
+frontEnd.config(function($routeProvider,$locationProvider){
+    $routeProvider.when('/course',{
+      templateUrl: "template/course/frontEnd/course1.html",
+      controller: "userCtrl",
+      activetab: 'course'
+  }).when('/course/:id',{
+      templateUrl: "template/course/frontEnd/detail.html",
+      controller: "userCtrl"
+  }).when('/home',{
+    templateUrl: 'template/home.html',
+    controller: 'userCtrl'
+  }).otherwise({
+      redirectTo: '/home'
+  });
+
 });

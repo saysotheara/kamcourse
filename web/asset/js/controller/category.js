@@ -1,4 +1,5 @@
-app.controller('categoryCtl',function($scope,$http,$location,$routeParams){
+app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams){
+   $scope.$route = $route;
   $scope.activePath = null;
   var baseUrl = window.location.origin+'/kamcourse/api';
   var currentUrl = $location.absUrl();

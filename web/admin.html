@@ -1,92 +1,94 @@
 <!DOCTYPE html>
-<html ng-app="KamcourseApp" lang="en">
+<html ng-app="KamcourseAdmin" lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>Kamcourse</title>
+  <title>Kamcourse</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="asset/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="asset/font/css/font-awesome.min.css" rel="stylesheet">
-    <link href="asset/css/style.css" rel="stylesheet">
-    <link href="asset/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="asset/css/login.css" rel="stylesheet">
-
-
+  <!-- Bootstrap core CSS -->
+  <link href="asset/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="asset/font/css/font-awesome.min.css" rel="stylesheet">
+  <link href="asset/css/style.css" rel="stylesheet">
+  <link href="asset/css/bootstrap-datepicker.min.css" rel="stylesheet">
+  <link href="asset/css/login.css" rel="stylesheet">
 
 
 
-  </head>
 
-  <body  >
 
-    <!-- Navigation -->
-    <div class="bar navbar-dark bg-info fixed-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-3">
-            <a class="navbar-brand" href="#">Kamcourse</a>
+</head>
 
-          </div>
-          <div class="col-sm-6">
-            <input type="text" class="form-control-sm col-sm-12 search-input" name="" value="" placeholder="search Here.....">
-          </div>
+<body ng-app="KamcourseApp" >
+
+  <!-- Navigation -->
+  <div class="bar navbar-dark bg-info fixed-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <a class="navbar-brand" href="#">Kamcourse</a>
+
         </div>
-
+        <div class="col-sm-6">
+          <input type="text" class="form-control-sm col-sm-12 search-input" name="" value="" placeholder="search Here.....">
+        </div>
       </div>
+
     </div>
-    <div ng-view></div>
+  </div>
+  <div ng-view></div>
 
 
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-info">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 10px;">
+          <a href="/kamcourse/web/#!/admin/course">New Course</a>&nbsp;|&nbsp;
+          <a href="/kamcourse/web/#!/admin/class">New Class</a>&nbsp;|&nbsp;
+          <a href="/kamcourse/web/#!/admin/student">New Student</a>&nbsp;|&nbsp;
+          <a href="/kamcourse/web/#!/admin/facilitator">New Facilitator</a>
+      </div>
+      <p class="m-0 text-center text-white">Copyright &copy; kamcourse 2017</p>
+    </div>
     <!-- /.container -->
 
-    <!-- Footer -->
-    <footer class="py-5 bg-info">
-      <div class="container">
-        <div style="text-align: center; margin-bottom: 10px;">
-            <a href="/kamcourse/web/#!/admin/course">New Course</a>&nbsp;|&nbsp;
-            <a href="/kamcourse/web/#!/admin/class">New Class</a>&nbsp;|&nbsp;
-            <a href="/kamcourse/web/#!/admin/student">New Student</a>&nbsp;|&nbsp;
-            <a href="/kamcourse/web/#!/admin/facilitator">New Facilitator</a>
-        </div>
-        <p class="m-0 text-center text-white">Copyright &copy; kamcourse 2017</p>
-      </div>
-      <!-- /.container -->
+  </footer>
 
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="asset/vendor/jquery/jquery.min.js"></script>
-    <script src="asset/vendor/popper/popper.min.js"></script>
-    <script src="asset/js/bootstrap-datepicker.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="asset/vendor/jquery/jquery.min.js"></script>
+  <script src="asset/vendor/popper/popper.min.js"></script>
+  <script src="asset/js/bootstrap-datepicker.min.js"></script>
 
 
 
-    <script src="asset/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="asset/js/ui-bootstrap-custom-tpls-2.5.0.min" ></script>
+  <script src="asset/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="asset/js/ui-bootstrap-custom-tpls-2.5.0.min" ></script>
 
-    <script src="asset/js/angular-1.6.6/angular.min.js" charset="utf-8"></script>
-    <script src="asset/js/angular-1.6.6/angular-route.min.js" charset="utf-8"></script>
-    <script src="asset/js/angular-1.6.6/angular-animate.min.js" charset="utf-8"></script>
-    <script src="asset/js/angular-1.6.6/angular-sanitize.min.js" charset="utf-8"></script>
-    <script src="asset/js/angular-1.6.6/angular-thumbnails.min.js" charset="utf-8"></script>
-
-
-    <script src="asset/js/service/main-service.js" charset="utf-8"></script>
-    <script src="asset/js/service/route-config.js" charset="utf-8"></script>
-
-    <script src="asset/js/controller/class.js" charset="utf-8"></script>
-    <script src="asset/js/controller/course.js" charset="utf-8"></script>
-    <script src="asset/js/controller/student.js" charset="utf-8"></script>
-    <script src="asset/js/controller/facilitator.js" charset="utf-8"></script>
-    <script src="asset/js/controller/admin.js" charset="utf-8"></script>
+  <script src="asset/js/angular-1.6.6/angular.min.js" charset="utf-8"></script>
+  <script src="asset/js/angular-1.6.6/angular-route.min.js" charset="utf-8"></script>
+  <script src="asset/js/angular-1.6.6/angular-animate.min.js" charset="utf-8"></script>
+  <script src="asset/js/angular-1.6.6/angular-sanitize.min.js" charset="utf-8"></script>
+  <script src="asset/js/angular-1.6.6/angular-thumbnails.min.js" charset="utf-8"></script>
 
 
-  </body>
+  <script src="asset/js/service/main-service.js" charset="utf-8"></script>
+  <script src="asset/js/service/route-config.js" charset="utf-8"></script>
+
+  <script src="asset/js/controller/class.js" charset="utf-8"></script>
+  <script src="asset/js/controller/category.js" charset="utf-8"></script>
+
+  <script src="asset/js/controller/course.js" charset="utf-8"></script>
+  <script src="asset/js/controller/student.js" charset="utf-8"></script>
+  <script src="asset/js/controller/facilitator.js" charset="utf-8"></script>
+  <script src="asset/js/controller/admin.js" charset="utf-8"></script>
+
+
+</body>
 
 </html>

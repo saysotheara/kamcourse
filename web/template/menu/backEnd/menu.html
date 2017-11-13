@@ -17,26 +17,26 @@
             </a>
           </li>
           <br>
-          <li class="nav-item ">
+          <li class="nav-item " ng-class="{'active': $route.current.activetab == 'course'}">
 
             <a class="nav-link" href="#!/admin/course">
               <i class="fa fa-graduation-cap" aria-hidden="true"></i>
 
               Courses </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" ng-class="{'active': $route.current.activetab == 'student'}">
             <a class="nav-link" href="#!/admin/student">
               <i class="fa fa-id-badge" aria-hidden="true"></i>
 
               Students</a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item " ng-class="{'active': $route.current.activetab == 'category'}">
             <a class="nav-link" href="#!/admin/category">
               <i class="fa fa-id-badge" aria-hidden="true"></i>
               Category
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item " ng-class="{'active': $route.current.activetab == 'schedule'}">
             <a class="nav-link" href="#!/admin/schedule">
               <i class="fa fa-envelope" aria-hidden="true"></i>
               Schedule

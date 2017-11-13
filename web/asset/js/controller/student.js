@@ -1,6 +1,6 @@
 
-app.controller("StudentController", function($scope, $http, $location, $routeParams){
-
+app.controller("StudentController", function($scope, $route,$http, $location, $routeParams){
+	 $scope.$route = $route;
 	$scope.activePath = null;
   	var baseUrl = window.location.origin;
     //$config['baseUrl']='http://localhost/kamcourse/';
