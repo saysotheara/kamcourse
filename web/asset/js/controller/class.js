@@ -1,6 +1,6 @@
 
-app.controller("ClassController", function($scope, $http, $location, $routeParams, uploadFile){
-
+app.controller("ClassController", function($scope, $http, $location, $routeParams,$route){
+    $scope.$route = $route;
     $scope.activePath = null;
     var baseUrl = window.location.origin;
     var url = $location.absUrl();
@@ -14,7 +14,7 @@ app.controller("ClassController", function($scope, $http, $location, $routeParam
 	}
 
 	$scope.onNewClassClick = function() {
-      $scope.activePath = url+$location.path('/admin/class/add');		
+      $scope.activePath = url+$location.path('/admin/class/add');
 	}
 
 });

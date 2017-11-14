@@ -21,6 +21,12 @@
                 <label for="example-text-input" class="col-3 col-form-label">Schedule</label>
                 <div class="col-9">
                     <input class="form-control" ng-model="course-schedule" type="text" placeholder="Course Name">
+                    <select class="form-control" name="category" ng-model="category" >
+                      <option  ng-selected="true" value="">--Select schedule--</option>
+                      
+
+
+                    </select>
                 </div>
             </div>
         </div>
@@ -103,8 +109,7 @@
                 <button type="button" class="btn btn-info" ng-click="onSaveCloseClick()" ng-model="btnSaveClose" name="button">Save & Close</button>
             </div>
         </div>
-        
+
 
     </div>
 </div>
-  

@@ -39,7 +39,8 @@ app.config(function($routeProvider,$locationProvider){
     // Class Management
     }).when('/admin/class',{
         templateUrl: "template/class/class-list.html",
-        controller: "ClassController"
+        controller: "ClassController",
+        activetab: 'class'
 
     }).when('/admin/class/add',{
         templateUrl: "template/class/class-add.html",
@@ -71,6 +72,8 @@ app.config(function($routeProvider,$locationProvider){
     controller: "FacilitatorController"
 
     // URL Path Not Found
+  }).otherwise({
+      redirectTo: '/admin/course'
   });
     //category
     $routeProvider.when('/admin/category/create',{
@@ -103,6 +106,7 @@ app.config(function($routeProvider,$locationProvider){
       templateUrl: 'template/schedule/create.html',
       controller: 'categoryCtl'
     });
+
 });
 frontEnd.config(function($routeProvider,$locationProvider){
     $routeProvider.when('/course',{
@@ -118,5 +122,6 @@ frontEnd.config(function($routeProvider,$locationProvider){
   }).otherwise({
       redirectTo: '/home'
   });
+
 
 });

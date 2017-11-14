@@ -465,6 +465,9 @@ $app->delete('/schedule/{id}',function($request,$response,$args){
   $sql_query = "DELETE FROM kc_tbl_course_schedule WHERE schedule_id = $id ";
   responseJSON_ID( $sql_query, $id);
 });
+//--Class
+
+
 $app->run();
 
 ?>
