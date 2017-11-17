@@ -20,10 +20,9 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-3 col-form-label">Schedule</label>
                 <div class="col-9">
-                    <input class="form-control" ng-model="course-schedule" type="text" placeholder="Course Name">
-                    <select class="form-control" name="category" ng-model="category" >
+                    <select class="form-control" name="category" ng-model="course-schedule" >
                       <option  ng-selected="true" value="">--Select schedule--</option>
-                      
+
 
 
                     </select>
@@ -35,7 +34,12 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-3 col-form-label">Facilitator</label>
                 <div class="col-9">
-                    <input class="form-control" ng-model="course-facilitator" type="text" placeholder="Course Name">
+                    <select class="form-control" name="category" ng-model="course-facilitator" >
+                      <option  ng-selected="true" value="">--Select facilitator--</option>
+
+
+
+                    </select>
                 </div>
             </div>
         </div>
@@ -67,14 +71,7 @@
             </div>
         </div>
 
-        <div class="col-sm-6"  >
-            <div class="form-group row">
-                <label for="example-text-input" class="col-3 col-form-label">Description</label>
-                <div class="col-9">
-                    <input class="form-control" ng-model="course-description" type="text" placeholder="Course Name">
-                </div>
-            </div>
-        </div>
+
 
         <div class="col-sm-6"  >
             <div class="form-group row">
@@ -93,17 +90,25 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-6"  >
+            <div class="form-group row">
+                <label for="example-text-input" class="col-3 col-form-label">Description</label>
+                <div class="col-9">
+                    <textarea class="form-control " ng-model="course-description" id="exampleTextarea" rows="8" type="text"></textarea>
+                </div>
+            </div>
+        </div>
 
         <div class="col-sm-6"  >
             <div class="form-group row">
                 <label for="example-text-input" class="col-3 col-form-label">Other Info</label>
                 <div class="col-9">
-                    <input class="form-control" ng-model="course-other-info" type="text" placeholder="Course Name">
+                    <textarea class="form-control " ng-model="course-other-info" id="exampleTextarea" rows="8" type="text"></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        <div class="form-group row">
             <div class="col-sm-12  text-center ">
                 <button type="button" id="btnOk" ng-click="onSaveNextClick()" ng-model="btnSaveNext" class="btn btn-success " name="button">Save & Next</button>
                 <button type="button" class="btn btn-info" ng-click="onSaveCloseClick()" ng-model="btnSaveClose" name="button">Save & Close</button>

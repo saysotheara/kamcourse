@@ -1,55 +1,5 @@
-<header  class="bg-header">
-    <div class="menu">
-      <nav class=" navbar-expand-lg ">
-
-        <div class="container">
-
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ">
-              <li class="nav-item ">
-                <a class="nav-link" href="#">
-                  <i class="fa fa-home " aria-hidden="true"></i>
-
-                    Home
-
-                </a>
-              </li>
-              <br>
-              <li class="nav-item active">
-
-                <a class="nav-link" href="#">
-                  <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-
-                  Courses </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="fa fa-id-badge" aria-hidden="true"></i>
-
-                  Students</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="fa fa-envelope" aria-hidden="true"></i>
-
-                  Contacts</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
-
-                  Traning</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
-
-  </header>
+<header  class="bg-header" ng-include="'template/menu/frontEnd/menu.html'">
+</header>
   <!-- Page Content -->
   <div class="container"  >
     <div class="row main home"  >
@@ -83,8 +33,7 @@
 
         <div class="col-sm-12" style=" color: #333;">
           <p style="padding-top:5%;"><strong>Outline:</strong></p>
-          {{courseData.course_outline}}
-
+          <ANY ng-bind-html="courseData.course_description"></ANY>
         </div>
 
       </div>

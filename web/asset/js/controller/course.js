@@ -20,9 +20,12 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
     $scope.activePath = currentUrl+$location.path('/admin/create');
   };
 
-  $scope.btnSaveNext = function(){
+  $scope.btnSaveClose = function(){
       var url = baseUrl+'/api/course';
-      var youtube = $scope.video;
+      var youtube = 'N/A';
+      if($scope.video != null){
+        youtube = $scope.video;
+      }
 
       $http.post(
           url,
@@ -50,6 +53,49 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
           }
       );
   };
+  $scope.btnSaveNext = function(){
+      var url = baseUrl+'/api/course';
+      var youtube = 'N/A';
+      if($scope.video != null){
+        youtube = $scope.video;
+      }
+
+      $http.post(
+          url,
+          {
+              'name':$scope.title,
+              'description':$scope.description,
+              'category':$scope.category,
+              'outline':$scope.outline,
+              'duration':$scope.duration,
+              'fee':$scope.fee,
+              'photo_url':$scope.photo,
+              'video_url':youtube
+          },
+          {
+              headers: {
+                  'Content-Type': 'application/json; charset=utf-8'
+              }
+          }).then( function(response){
+              console.log('Success!');
+              alert("Successfully created a new course");
+              $scope.title = '';
+              $scope.description = '';
+              $scope.category = '';
+              $scope.outline = '';
+              $scope.duration = '';
+              $scope.fee = '';
+              $scope.photo = '';
+              $scope.video = '';
+          },function(response){
+              console.log(ERROR);
+              alert("Failed to create a new course");
+          }
+      );
+  };
+  $scope.btnCancel = function(){
+    $scope.activePath = $location.path('/admin/course');
+  };
 
   $scope.btnUpdate = function (id) {
 
@@ -71,9 +117,6 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
         $scope.video = response.data.course_video;
         $scope.description = response.data.course_description;
         $scope.outline = response.data.course_outline;
-        console.log('Success');
-
-
       },function(response){
         console.log(ERROR);
       });
@@ -81,7 +124,10 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
 
 $scope.updateCourse = function(){
   var id = $scope.id;
-  var youtube = $scope.video;
+  var youtube = 'N/A';
+  if($scope.video != ''){
+    youtube = $scope.video;
+  }
   $http.put(baseUrl+'/api/course/'+id,{
     'id': id,
     'name':$scope.name,
@@ -96,6 +142,7 @@ $scope.updateCourse = function(){
 headers: {
         'Content-Type': 'application/json; charset=utf-8'}
       }).then(function (response) {
+    alert('Update Successed!');
     console.log('Success');
     $scope.activePath = $location.path('/admin/course');
   },function(response){

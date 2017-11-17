@@ -1,6 +1,7 @@
 
     <!-- Page Content -->
     <div class="container" >
+      <form name="course">
       <div class="row main form"  >
 
           <div class="col-sm-12">
@@ -12,9 +13,10 @@
 
         <div class="col-sm-6"  >
           <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Course Name</label>
+            <label for="example-text-input" class="col-3 col-form-label">Name</label>
             <div class="col-9">
-              <input class="form-control" ng-model="title" type="text" placeholder="Course Name">
+              <input class="form-control"  name="title" ng-model="title"   type="text" required placeholder="Course Name">
+
             </div>
           </div>
 
@@ -24,8 +26,6 @@
             <select class="form-control" name="category" ng-model="category" >
               <option  ng-selected="true" value="">--Select Category--</option>
               <option ng-repeat="cate in categoryData" value="{{cate.category_id}}">{{cate.category_name}}</option>
-
-
             </select>
           </div>
 
@@ -34,61 +34,77 @@
        <div class="form-group row">
          <label for="example-text-input" class="col-3 col-form-label"> Duration</label>
          <div class="col-9">
-           <input class="form-control" ng-model="duration" type="text" placeholder="Course Duration">
-         </div>
-       </div>
-       <div class="form-group row">
-         <label for="example-text-input" class="col-3 col-form-label">Course Fee</label>
-         <div class="col-9">
-           <input class="form-control" ng-model="fee" type="text" placeholder="Input Course Fee">
-         </div>
-       </div>
-       <div class="form-group row">
-         <label for="example-text-input" class="col-3 col-form-label">Picture</label>
-         <div class="col-9">
-           <input class="form-control" ng-model="photo"  id="pic" type="text" placeholder="Picture url">
-         </div>
-       </div>
-          <div class="form-group row" >
-            <label for="example-text-input" class="col-3 col-form-label">Video URL</label>
-            <div class="col-9">
-              <input class="form-control" ng-model="video" type="text"  placeholder="Input Course Video URL">
-            </div>
-          </div>
-
-         <div class="row">
-           <div class="col-sm-12  text-center ">
-             <button type="button" id="btnOk" ng-click="btnSaveNext()" ng-model="btnSave" class="btn btn-success " name="button">Save & Next</button>
-             <button type="button" class="btn btn-info " id="saveColse" name="button">Save & Close</button>
+           <input class="form-control" name="duration" ng-model="duration" ng-pattern="/\s*\w*\s*$/" required type="text" placeholder="Course Duration">
+           <div role="alert">
+             <span class="error" ng-show="course.duration.$error.pattern" style="color:red;">
+               Not valid Text!</span>
            </div>
-
-
          </div>
+       </div>
+       <div class="form-group row" style="margin-top:-3%;">
+        <label class="col-8 col-form-label" for="exampleTextarea">Course Description</label>
+        <div class="col-12">
+          <div text-angular="text-angular" name="htmlcontent" ng-model="description" ta-disabled='false'
+           ta-toolbar="[['bold','underline','italics','undo','redo', 'quote','p','pre','ul','ol', 'insertImage','insertLink','unlink']]"></div>
+
+        </div>
+      </div>
+
+
+
 
         </div>
         <!-- right-bar -->
         <div class="col-sm-6">
+          <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Course Fee</label>
+            <div class="col-9">
+              <input class="form-control" name="fee" ng-model="fee" min="0" max="1000" type="number" required placeholder="Input Course Fee">
+              <div role="alert">
+                <span class="error" ng-show="course.fee.$error.number" style="color:red;">
+                  Not valid Number!</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Picture</label>
+            <div class="col-9">
+              <input class="form-control" ng-model="photo" name="photo"   id="pic" type="text" required placeholder="Picture url">
+              <div role="alert">
+                <span class="error" ng-show="course.photo.$error.text" style="color:red;">
+                  Not valid file!</span>
+              </div>
+            </div>
+          </div>
+             <div class="form-group row" >
+               <label for="example-text-input" class="col-3 col-form-label">Video URL</label>
+               <div class="col-9">
+                 <input class="form-control" name="video" ng-model="video" type="text" placeholder="Input Course Video URL">
 
-          <div class="form-group row" style="margin-top:-3%;">
-           <label class="col-8 col-form-label" for="exampleTextarea">Course Description</label>
-           <div class="col-12">
-             <textarea class="form-control " ng-model="description" id="exampleTextarea" rows="8"></textarea>
+               </div>
+             </div>
 
-           </div>
-         </div>
+
           <div class="form-group row" style="margin-top:-3%;">
            <label class="col-8 col-form-label" for="exampleTextarea">Course Outline</label>
            <div class="col-12">
-             <textarea class="form-control " ng-model="outline" id="exampleTextarea" rows="8"></textarea>
+             <div text-angular="text-angular" name="htmlcontent" ng-model="outline" ta-disabled='false'
+              ta-toolbar="[['bold','underline','italics','undo','redo', 'quote','p','pre','ul','ol', 'insertImage','insertLink','unlink']]"></div>
 
            </div>
          </div>
        </div>
-
+       <div class="form-group row">
+         <div class="col-sm-12  text-center " style="margin-left:2%;">
+           <button type="button" id="btnOk" ng-click="course.$valid && btnSaveNext()" ng-model="btnSave" class="btn btn-success " name="button">Save & Next</button>
+           <button type="button" class="btn btn-info " ng-click="btnSaveClose()" id="saveColse" >Save & Close</button>
+           <button type="button" class="btn btn-primary " ng-click="btnCancel()" id="cancel" >Cancel</button>
+         </div>
+       </div>
 
       </div>
       <!-- /.row -->
-
+    </form>
     </div>
 
 
