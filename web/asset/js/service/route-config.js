@@ -1,12 +1,13 @@
 
 app.config(function($routeProvider,$locationProvider){
+
     $routeProvider.when("/admin",{
             templateUrl:'template/login.html',
             controller: 'loginCtrl'
     }).when("/admin/course",{
             resolve:{
-              "check": function($location,$rootScope){
-                if(!$rootScope.loggedIn){
+              "check": function($location,$cookieStore){
+                if(!$cookieStore.get('loggedIn')){
                   $location.path('/admin');
                 }
               }
@@ -16,8 +17,8 @@ app.config(function($routeProvider,$locationProvider){
               activetab: 'course'
     }).when('/admin/create',{
       resolve:{
-        "check": function($location,$rootScope){
-          if(!$rootScope.loggedIn){
+        "check": function($location,$cookieStore){
+          if(!$cookieStore.get('loggedIn')){
             $location.path('/admin');
           }
         }
@@ -28,8 +29,8 @@ app.config(function($routeProvider,$locationProvider){
 
     }).when('/admin/update/:id',{
       resolve:{
-        "check": function($location,$rootScope){
-          if(!$rootScope.loggedIn){
+        "check": function($location,$cookieStore){
+          if(!$cookieStore.get('loggedIn')){
             $location.path('/admin');
           }
         }
