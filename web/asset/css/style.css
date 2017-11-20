@@ -472,3 +472,14 @@ figure:hover img{
   border :1px solid #EEE;
   border-raidus : 3px!important;
 }
+.icon-log{
+  margin-top: 3%;
+}
+.icon-log a{
+  color:#33cee6;
+  text-decoration: none;
+
+}
+.dropdown-menu a:hover{
+  color: #17A2B8;
+}

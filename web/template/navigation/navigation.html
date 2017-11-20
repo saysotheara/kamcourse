@@ -1,0 +1,32 @@
+<!-- Navigation -->
+<div class="bar navbar-dark bg-info fixed-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <a class="navbar-brand" href="#">Kamcourse</a>
+
+      </div>
+      <div class="col-sm-6" >
+        <input type="text" class="form-control-sm col-sm-12 search-input" name="" value="" placeholder="search Here.....">
+      </div>
+      <div class="col-sm-3" ng-controller="loginCtrl">
+        <div class="dropdown float-right icon-log" >
+
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="ml-4" ng-if="hasLogIn != true"><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a></li>
+            <li class="ml-4" ng-if="hasLogIn == true"><a href="#"  ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> logout</a></li>
+            <li class="ml-4" ng-if="hasLogIn == true"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
+
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
