@@ -21,6 +21,7 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
   };
 
   $scope.btnSaveClose = function(){
+      
       var url = baseUrl+'/api/course';
       var youtube = 'N/A';
       if($scope.video != null){

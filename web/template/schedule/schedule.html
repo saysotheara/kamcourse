@@ -38,17 +38,14 @@
                 <td >{{schedule.schedule_time}}</td>
                 <td><p>{{schedule.schedule_description}}</p></td>
                 <td>
-                  <a href="" >
-                    <i class="fa fa-picture-o" aria-hidden="true"></i>
-                    {{schedule.schedule_cover.substring(25)}}
-                  </a>
+                  <thumbnail file-type="image" source="{{schedule.schedule_cover}}" max-height="100" max-width="100"></thumbnail>
                 </td>
                 <td><p>{{schedule.schedule_other_info}}</p></td>
                 <td>
-                  <a href="" ng-click="btnEditSche(schedule.schedule_id)" >
+                  <a href="" class="text-primary" ng-click="btnEditSche(schedule.schedule_id)" >
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                   </a>
-                  <a href="" ng-click="deleteSche(schedule.schedule_id)">
+                  <a href="" class="text-danger" ng-click="deleteSche(schedule.schedule_id)">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                   </a>
                 </td>

@@ -1,4 +1,4 @@
-frontEnd.controller("userCtrl",function($http,$scope,$location,$routeParams){
+app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     $scope.activePath = null;
     var baseUrl = window.location.origin+'/kamcourse';
     var url = $location.absUrl();

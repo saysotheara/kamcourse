@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="KamcourseApp" >
 
   <head>
 
@@ -11,7 +11,7 @@
     <title>Kamcourse</title>
 
     <!-- Bootstrap core CSS -->
-    
+
     <link href="asset/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="asset/font/css/font-awesome.min.css" rel="stylesheet">
     <link href="asset/css/style.css" rel="stylesheet">
@@ -24,24 +24,8 @@
 
   </head>
 
-  <body ng-app="KamcourseApp" >
-
-    <!-- Navigation -->
-    <div class="bar navbar-dark bg-info fixed-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-3">
-            <a class="navbar-brand" href="#">Kamcourse</a>
-
-          </div>
-          <div class="col-sm-6">
-            <input type="text" class="form-control-sm col-sm-12 search-input" name="" value="" placeholder="search Here.....">
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div ng-view></div>
+  <body >
+    <ng-view></ng-view>
 
 
     <!-- /.container -->
@@ -61,8 +45,11 @@
 
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
     <script src="asset/vendor/jquery/jquery.min.js"></script>
+    <script src="asset/vendor/popper/popper.min.js"></script>
+    <script src="asset/js/bootstrap-datepicker.min.js"></script>
+
+
 
     <script src="asset/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="asset/js/angular-1.6.6/angular.min.js" charset="utf-8"></script>
@@ -70,6 +57,10 @@
     <script src="asset/js/angular-1.6.6/angular-animate.min.js" charset="utf-8"></script>
     <script src="asset/js/angular-1.6.6/angular-sanitize.min.js" charset="utf-8"></script>
     <script src="asset/js/angular-1.6.6/angular-thumbnails.min.js" charset="utf-8"></script>
+    <script src="asset/js/angular-1.6.6/angular-cookies.js" charset="utf-8"></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>
+
 
 
     <script src="asset/js/service/main-service.js" charset="utf-8"></script>
@@ -78,10 +69,16 @@
     <script src="asset/js/controller/class.js" charset="utf-8"></script>
     <script src="asset/js/controller/category.js" charset="utf-8"></script>
 
-    <script src="asset/js/controller/frontEnd/course.js" charset="utf-8"></script>
+    <script src="asset/js/controller/course.js" charset="utf-8"></script>
     <script src="asset/js/controller/student.js" charset="utf-8"></script>
     <script src="asset/js/controller/facilitator.js" charset="utf-8"></script>
+
     <script src="asset/js/controller/admin.js" charset="utf-8"></script>
+
+
+
+    <script src="asset/js/controller/frontEnd/course.js" charset="utf-8"></script>
+
 
 
   </body>

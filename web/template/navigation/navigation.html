@@ -17,9 +17,11 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li class="ml-4" ng-if="hasLogIn != true"><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a></li>
-            <li class="ml-4" ng-if="hasLogIn == true"><a href="#"  ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> logout</a></li>
-            <li class="ml-4" ng-if="hasLogIn == true"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
+            <li class="ml-4" ng-if="hasLogIn != true"><a href="#!/admin"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a></li>
+            <li class="ml-4" ng-if="hasLogIn == true"><a href=""  ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> logout</a></li>
+            <li class="ml-4" ng-if="hasLogIn == true"><a href="#!/admin/course" ><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
+            <li class="ml-4" ng-if="hasLogIn == true"><a href="#!/home" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> view Site</a></li>
+
 
           </ul>
         </div>

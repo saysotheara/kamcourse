@@ -136,8 +136,6 @@ app.config(function($routeProvider,$locationProvider){
     controller: "FacilitatorController"
 
     // URL Path Not Found
-  }).otherwise({
-      redirectTo: '/admin/course'
   });
     //category
     $routeProvider.when('/admin/category/create',{
@@ -205,22 +203,19 @@ app.config(function($routeProvider,$locationProvider){
       templateUrl: 'template/schedule/create.html',
       controller: 'categoryCtl'
     });
-
-});
-frontEnd.config(function($routeProvider,$locationProvider){
     $routeProvider.when('/course',{
       templateUrl: "template/course/frontEnd/course1.html",
       controller: "userCtrl",
-      activetab: 'course'
-  }).when('/course/:id',{
-      templateUrl: "template/course/frontEnd/detail.html",
-      controller: "userCtrl"
-  }).when('/home',{
-    templateUrl: 'template/home.html',
-    controller: 'userCtrl'
-  }).otherwise({
-      redirectTo: '/home'
-  });
-
+          activetab: 'course'
+      }).when('/course/:id',{
+          templateUrl: "template/course/frontEnd/detail.html",
+          controller: "userCtrl"
+      }).when('/home',{
+        templateUrl: 'template/home.html',
+        controller: 'userCtrl'
+      }).otherwise({
+        templateUrl:'template/Error/404.html',
+        controller:'CourseController'
+      });
 
 });

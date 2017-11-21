@@ -1,4 +1,4 @@
-app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams){
+app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams,$window){
    $scope.$route = $route;
   $scope.activePath = null;
   var baseUrl = window.location.origin+'/kamcourse/api';
@@ -228,5 +228,8 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
           });
         }
       };
+      $scope.canCel = function(){
+        $window.history.back();
+      }
 
 });

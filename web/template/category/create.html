@@ -1,4 +1,4 @@
-
+<any ng-include="'template/navigation/navigation.html'"></any>
     <!-- Page Content -->
     <div class="container" >
       <div class="row main form"  >
@@ -20,9 +20,9 @@
        <div class="form-group row">
          <label class="col-8 col-form-label" for="exampleTextarea">Description</label>
          <div class="col-12">
-           <textarea class="form-control " ng-model="description" id="exampleTextarea" rows="8"></textarea>
-
-         </div>
+           <div text-angular="text-angular" name="htmlcontent" ng-model="description" ta-disabled='false'
+            ta-toolbar="[['bold','underline','italics','undo','redo', 'quote','p','pre','ul','ol', 'insertImage','insertLink','unlink']]"></div>
+        </div>
        </div>
 
 
@@ -42,18 +42,20 @@
           <div class="form-group row" >
            <label class="col-8 col-form-label" for="exampleTextarea">other Info</label>
            <div class="col-12">
-             <textarea class="form-control " ng-model="other_info" id="exampleTextarea" rows="8"></textarea>
+             <div text-angular="text-angular" name="htmlcontent" ng-model="other_info" ta-disabled='false'
+              ta-toolbar="[['bold','underline','italics','undo','redo', 'quote','p','pre','ul','ol', 'insertImage','insertLink','unlink']]"></div>
+
 
            </div>
          </div>
-         <div class=" form-group row">
-           <div class="col-sm-12  text-center ">
-             <button type="button" id="btnOk" ng-click="insertCategory()" ng-model="btnSave" class="btn btn-success " name="button">Save</button>
-             <button type="button" class="btn btn-info " id="saveColse" name="button">cancel</button>
-           </div>
+
+       </div>
+       <div class=" form-group row">
+         <div class="col-sm-12  text-center ml-3 ">
+           <button type="button" id="btnOk" ng-click="insertCategory()" ng-model="btnSave" class="btn btn-success " name="button">Save</button>
+           <button type="button" class="btn btn-info " ng-click="canCel()" id="saveColse" name="button">cancel</button>
          </div>
        </div>
-
 
       </div>
       <!-- /.row -->
