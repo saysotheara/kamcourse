@@ -483,3 +483,36 @@ figure:hover img{
 .dropdown-menu a:hover{
   color: #17A2B8;
 }
+.pagination-sm > li {
+    text-align: center;
+    min-width: 10px;
+    border: 1px solid green;
+    padding: 5px;
+}
+.pagination-sm > li >a {
+
+  text-decoration: none;
+  color:#66a3ff;
+}
+.pagination-sm > li:hover{
+  background: #f2f2f2;
+
+}
+
+.pagination-sm>.active,.pagination-sm>.active>a,.pagination-sm>.active:hover{
+  background: #3399ff;
+  color: white;
+}
+.pagination-sm>.disabled,.pagination-sm>.disabled>a:focus{
+  cursor: not-allowed;
+}
+/*.pagination-sm li > a {
+
+  height: 50px;
+  border: 1px solid blue;
+  color: green;
+
+}*/
+.pagination-prev,.pagination-first,.pagination-next,.pagination-last a{
+
+}

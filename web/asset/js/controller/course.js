@@ -7,6 +7,10 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
   $scope.getCourse = function(){
       $http.get(baseUrl+'/api/course').then(function(response){
         $scope.courseData = response.data;
+        $scope.bigTotalItems = $scope.courseData.length;
+        $scope.bigItemsPerPage = 5;
+        $scope.maxSize = 6;
+        $scope.bigCurrentPage = 1;
       });
   };
   $scope.getCategory = function(){
@@ -21,7 +25,7 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
   };
 
   $scope.btnSaveClose = function(){
-      
+
       var url = baseUrl+'/api/course';
       var youtube = 'N/A';
       if($scope.video != null){
@@ -221,6 +225,7 @@ $scope.getGallery = function(){
     $scope.selectPic = function (img) {
       $scope.photo = img;
     };
+
 
 
 });
