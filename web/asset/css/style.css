@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 *, *::before, *::after{
   -moz-box-sizing: border-box;
        box-sizing: border-box;
@@ -483,16 +484,29 @@ figure:hover img{
 .dropdown-menu a:hover{
   color: #17A2B8;
 }
+.pagination-sm{
+  margin-left: 20%;
+}
 .pagination-sm > li {
     text-align: center;
-    min-width: 10px;
-    border: 1px solid green;
-    padding: 5px;
+    height: 30px;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin: 0 1%;
+    border:solid 1px #c2c0c2;
+    border-top-left-radius:75px;
+    border-top-right-radius:75px;
+    border-bottom-left-radius:75px;
+    border-bottom-right-radius:75px;
+
+
+
 }
 .pagination-sm > li >a {
-
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
   text-decoration: none;
-  color:#66a3ff;
+  color:#2ca1ba;
 }
 .pagination-sm > li:hover{
   background: #f2f2f2;
@@ -500,11 +514,13 @@ figure:hover img{
 }
 
 .pagination-sm>.active,.pagination-sm>.active>a,.pagination-sm>.active:hover{
-  background: #3399ff;
+  background: #2ca1ba;
   color: white;
 }
-.pagination-sm>.disabled,.pagination-sm>.disabled>a:focus{
+.pagination-sm>.disabled,.pagination-sm>.disabled a,.pagination-sm>.disabled a:focus{
   cursor: not-allowed;
+  color:#ababab;
+  background: #f2f2f2;
 }
 /*.pagination-sm li > a {
 

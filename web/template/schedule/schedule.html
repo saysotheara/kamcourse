@@ -34,7 +34,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="schedule in scheduleList | filter:searchSchedule | orderBy:'schedule_time'">
+              <tr ng-repeat="schedule in scheduleList.slice(((bigCurrentPage-1)*bigItemsPerPage), ((bigCurrentPage)*bigItemsPerPage)) | filter:searchSchedule | orderBy:'schedule_time'">
                 <td >{{schedule.schedule_time}}</td>
                 <td><p>{{schedule.schedule_description}}</p></td>
                 <td>
@@ -54,6 +54,11 @@
 
             </tbody>
           </table>
+          <div class="col-sm-12 ">
+            <div class="mt-4 ">
+              <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" items-per-page="bigItemsPerPage" max-size="maxSize" class="pagination-sm " boundary-link-numbers="true" rotate="false"></ul>
+            </div>
+          </div>
         </div>
 
       </div>

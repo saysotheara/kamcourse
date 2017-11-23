@@ -8,7 +8,7 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
       $http.get(baseUrl+'/api/course').then(function(response){
         $scope.courseData = response.data;
         $scope.bigTotalItems = $scope.courseData.length;
-        $scope.bigItemsPerPage = 5;
+        $scope.bigItemsPerPage = 4;
         $scope.maxSize = 6;
         $scope.bigCurrentPage = 1;
       });

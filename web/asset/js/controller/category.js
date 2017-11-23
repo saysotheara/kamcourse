@@ -71,6 +71,10 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
         var url = baseUrl+'/category';
         $http.get(url).then(function(response){
           $scope.categoryList = response.data;
+          $scope.bigTotalItems = $scope.categoryList.length;
+          $scope.bigItemsPerPage = 5;
+          $scope.maxSize = 6;
+          $scope.bigCurrentPage = 1;
         });
       };
       //event Insert
@@ -157,6 +161,10 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
         var url = baseUrl+'/schedule';
         $http.get(url).then(function(response){
           $scope.scheduleList = response.data;
+          $scope.bigTotalItems = $scope.scheduleList.length;
+          $scope.bigItemsPerPage = 5;
+          $scope.maxSize = 6;
+          $scope.bigCurrentPage = 1;
         });
       };
       // event btn Insert schedule

@@ -34,7 +34,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="category in categoryList | filter:searchCategory | orderBy:'category_name'">
+              <tr ng-repeat="category in categoryList.slice(((bigCurrentPage-1)*bigItemsPerPage), ((bigCurrentPage)*bigItemsPerPage)) | filter:searchCategory | orderBy:'category_name'">
                 <td >{{category.category_name}}</td>
                 <td><p>{{category.category_description}}</p></td>
                 <td>
@@ -58,6 +58,11 @@
 
             </tbody>
           </table>
+          <div class="col-sm-12 ">
+            <div class="mt-4 ">
+              <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" items-per-page="bigItemsPerPage" max-size="maxSize" class="pagination-sm " boundary-link-numbers="true" rotate="false"></ul>
+            </div>
+          </div>
         </div>
 
       </div>

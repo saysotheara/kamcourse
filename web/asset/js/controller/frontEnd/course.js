@@ -6,6 +6,10 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     $scope.getListCourse = function(){
       $http.get(baseUrl+'/api/course').then(function(response){
         $scope.listCourse = response.data;
+        $scope.bigTotalItems = $scope.listCourse.length;
+        $scope.bigItemsPerPage = 4;
+        $scope.maxSize = 6;
+        $scope.bigCurrentPage = 1;
 
         $scope.lastCourse = [];
         var count = 0;
