@@ -28,17 +28,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `kc_tbl_class` (
   `class_id` int(11) NOT NULL AUTO_INCREMENT,
-  `class_course` varchar(100) NOT NULL,
-  `class_schedule` varchar(100) NOT NULL,
-  `class_facilitator` varchar(100) NOT NULL,
-  `class_start_date` date NOT NULL,
-  `class_duration` varchar(10) NOT NULL,
-  `class_fee` int(11) NOT NULL,
-  `class_description` varchar(255) NOT NULL,
-  `class_cover` varchar(100) NOT NULL,
-  `class_video` varchar(100) NOT NULL,
-  `class_status` varchar(10) NOT NULL,
-  `class_other_info` varchar(255) NOT NULL,
+  `class_course` int(11) NOT NULL,
+  `class_schedule` int(11) NOT NULL,
+  `class_facilitator` int(11) NOT NULL,
+  `class_status` varchar(10) NULL,
   PRIMARY KEY (`class_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

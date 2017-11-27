@@ -10,8 +10,12 @@
         <div class="col-sm-6"  >
             <div class="form-group row">
                 <label for="example-text-input" class="col-3 col-form-label">Course Name</label>
-                <div class="col-9">
-                    <input class="form-control" ng-model="course-name" type="text" placeholder="Course Name">
+                <div class="col-9" ng-init="getCourse()">
+                  <select class="form-control" name="course" ng-model="course" >
+                    <option  ng-selected="true">--Select course--</option>
+                    <option ng-repeat="course in courses" value="{{course.course_id}}">{{course.course_name}}</option>
+
+                  </select>
                 </div>
             </div>
         </div>
@@ -19,12 +23,10 @@
         <div class="col-sm-6"  >
             <div class="form-group row">
                 <label for="example-text-input" class="col-3 col-form-label">Schedule</label>
-                <div class="col-9">
-                    <select class="form-control" name="category" ng-model="course-schedule" >
+                <div class="col-9" ng-init="getSchedule()">
+                    <select class="form-control" name="schedule" ng-model="schedule" >
                       <option  ng-selected="true" value="">--Select schedule--</option>
-
-
-
+                      <option  ng-repeat="schedule in schedules" value="{{schedule.schedule_time}}">{{schedule.schedule_time}}</option>
                     </select>
                 </div>
             </div>
@@ -33,12 +35,10 @@
         <div class="col-sm-6"  >
             <div class="form-group row">
                 <label for="example-text-input" class="col-3 col-form-label">Facilitator</label>
-                <div class="col-9">
-                    <select class="form-control" name="category" ng-model="course-facilitator" >
-                      <option  ng-selected="true" value="">--Select facilitator--</option>
-
-
-
+                <div class="col-9" ng-init="getFacilitator()">
+                    <select class="form-control" name="facilitator" ng-model="facilitator" >
+                      <option  ng-selected="true" >--Select facilitator--</option>
+                      <option  ng-repeat="facilitator in facilitators" value="{{facilitator.facilitator_firstname}}" >{{facilitator.facilitator_firstname}}</option>
                     </select>
                 </div>
             </div>

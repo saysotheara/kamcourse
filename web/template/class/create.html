@@ -1,0 +1,78 @@
+    <any ng-include="'template/navigation/navigation.html'"></any>
+    <!-- Page Content -->
+    <div class="container" >
+      <form name="course">
+      <div class="row main form"  >
+
+          <div class="col-sm-12">
+            <h4 style="color:#17A2B8; margin-top:1%;">Create New Class</h4>
+            <hr>
+          </div>
+
+
+        <!-- course name -->
+        <div class="col-sm-12 text-center"  >
+          <div class="form-group row ">
+            <label class="col-3 col-form-label" for="exampleSelect1">Course</label>
+            <div class="col-7" ng-init="getCourse()">
+              <select class="form-control " name="classCourse" ng-model="classCourse" >
+                <option ng-selected="true" value="">--Select Course--</option>
+                <option ng-repeat="course in courses" value="{{course.course_id}}">{{course.course_name}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- schedule name -->
+          <div class="form-group row">
+            <label class="col-3 col-form-label" for="exampleSelect1">schedule</label>
+            <div class="col-7" ng-init="getSchedule()">
+              <select class="form-control" name="classSchedule" ng-model="classSchedule" >
+                <option  ng-selected="true" value="">--Select Schedule--</option>
+                <option ng-repeat="schedule in schedules" value="{{schedule.schedule_id}}">{{schedule.schedule_time}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- facilitator name -->
+          <div class="form-group row">
+            <label class="col-3 col-form-label" for="exampleSelect1">facilitator</label>
+            <div class="col-7" ng-init="getFacilitator()">
+              <select class="form-control" name="classFacilitator" ng-model="classFacilitator" >
+                <option  ng-selected="true" value="">--Select Schedule--</option>
+                <option ng-repeat="facilitator in facilitators" value="{{facilitator.facilitator_id}}">{{facilitator.facilitator_firstname}} {{facilitator.facilitator_lastname}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- status -->
+          <div class="form-group row">
+            <label class="col-3 col-form-label" for="exampleSelect1">Status</label>
+            <div class="col-7">
+              <input class="form-control" name="video" ng-model="classStatus" type="text" placeholder="status">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-12  text-center " style="margin-left:2%;">
+            <button type="button" id="btnOk" ng-click="course.$valid && btnSaveNext()" ng-model="btnSave" class="btn btn-success " name="button">Save & Next</button>
+            <button type="button" class="btn btn-info " ng-click="btnSaveClose()" id="saveColse" >Save & Close</button>
+            <button type="button" class="btn btn-primary " ng-click="btnCancel()" id="cancel" >Cancel</button>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      <!-- /.row -->
+    </form>
+    <div style="heigh:100px;" >
+
+    </div>
+    </div>
+
+
+    <br>
+
+
+    <!-- /.container -->
+
+    <!-- Footer -->

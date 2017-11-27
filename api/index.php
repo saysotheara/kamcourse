@@ -466,7 +466,37 @@ $app->delete('/schedule/{id}',function($request,$response,$args){
   responseJSON_ID( $sql_query, $id);
 });
 //--Class
+$app->post('/class',function(){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+  $date = date('Y-m-d H:i:s');
 
+  try {
+      $sql_query = "INSERT INTO kc_tbl_class (class_course,class_schedule,
+        class_facilitator,class_status,create_date,update_date)
+      VALUES (:class_course, :class_schedule, :class_facilitator,:class_status,'$date','$date')";
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("class_course", $request->class_course);
+      $stmt->bindParam("class_schedule", $request->class_schedule);
+      $stmt->bindParam("class_facilitator", $request->class_facilitator);
+
+      $stmt->bindParam("class_status", $request->class_status);
+
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+});
+$app->get('/class',function(){
+  $sql_query = "SELECT cl.class_id,cl.class_course,cl.class_schedule,cl.class_facilitator,cl.class_status,cl.create_date,cl.update_date
+  ,co.course_name,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
+   FROM kc_tbl_course_schedule";
+  responseJSON( $sql_query );
+});
+});
 
 $app->run();
 

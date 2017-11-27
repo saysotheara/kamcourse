@@ -58,7 +58,7 @@ app.config(function($routeProvider,$locationProvider){
           }
         }
       },
-        templateUrl: "template/class/class-add.html",
+        templateUrl: "template/class/create.html",
         controller: "ClassController"
     }).when('/admin/class/update',{
       resolve:{
@@ -135,7 +135,7 @@ app.config(function($routeProvider,$locationProvider){
     templateUrl: "template/facilitator/update_facilitator.html",
     controller: "FacilitatorController"
 
-    // URL Path Not Found
+
   });
     //category
     $routeProvider.when('/admin/category/create',{
@@ -217,5 +217,6 @@ app.config(function($routeProvider,$locationProvider){
         templateUrl:'template/Error/404.html',
         controller:'CourseController'
       });
+
 
 });
