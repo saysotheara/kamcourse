@@ -178,6 +178,8 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
               'time':$scope.time,
               'description':$scope.description,
               'cover':$scope.photo,
+              'start_date':$scope.start_date,
+              'turn':$scope.turn,
               'other_info':$scope.other_info
 
           },{
@@ -203,6 +205,8 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
           $scope.time = response.data.schedule_time;
           $scope.description = response.data.schedule_description;
           $scope.photo = response.data.schedule_cover;
+          $scope.start_date = response.data.schedule_start_date;
+          $scope.turn = response.data.schedule_turn;
           $scope.other_info = response.data.schedule_other_info;
         });
       };
@@ -214,6 +218,8 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
             'time':$scope.time,
             'description':$scope.description,
             'cover':$scope.photo,
+            'start_date':$scope.start_date,
+            'turn':$scope.turn,
             'other_info':$scope.other_info
 
         },{

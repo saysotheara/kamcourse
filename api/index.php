@@ -427,6 +427,9 @@ $app->post('/schedule',function(){
       $stmt->bindParam("description", $request->description);
       $stmt->bindParam("cover", $request->cover);
       $stmt->bindParam("other_info", $request->other_info);
+
+
+
       $stmt->execute();
       $dbCon = null;
   }
@@ -453,6 +456,7 @@ $app->put('/schedule',function(){
       $stmt->bindParam("description", $request->description);
       $stmt->bindParam("cover", $request->cover);
       $stmt->bindParam("other_info", $request->other_info);
+
       $stmt->execute();
       $dbCon = null;
   }
@@ -480,7 +484,8 @@ $app->post('/class',function(){
       $stmt->bindParam("class_course", $request->class_course);
       $stmt->bindParam("class_schedule", $request->class_schedule);
       $stmt->bindParam("class_facilitator", $request->class_facilitator);
-
+      $stmt->bindParam("class_start_date", $request->start_date);
+      $stmt->bindParam("class_turn", $request->turn);
       $stmt->bindParam("class_status", $request->class_status);
 
       $stmt->execute();
@@ -491,13 +496,49 @@ $app->post('/class',function(){
   }
 });
 $app->get('/class',function(){
-  $sql_query = "SELECT cl.class_id,cl.class_course,cl.class_schedule,cl.class_facilitator,cl.class_status,cl.create_date,cl.update_date
-  ,co.course_name,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
-   FROM kc_tbl_course_schedule";
+  $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
+  cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
+  co.course_cover,co.course_video,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
+   FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
+   inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
+   inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id";
   responseJSON( $sql_query );
 });
+$app->get('/class/{id}',function($request,$response,$args){
+  $id = $args['id'];
+  $sql_query = "SELECT * FROM kc_tbl_class WHERE class_id = $id ";
+  responseJSON_ID( $sql_query, $id);
 });
+$app->put('/class',function(){
+  $date = date('Y-m-d H:i:s');
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
 
+  try {
+      $sql_query = "UPDATE  kc_tbl_class SET class_course= :class_course,class_schedule=:class_schedule,class_facilitator= :class_facilitator,class_status= :class_status
+      , class_start_date=:start_date ,class_turn=:turn,update_date= '$date' WHERE class_id = :class_id";
+
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("class_id", $request->class_id);
+      $stmt->bindParam("class_course", $request->class_course);
+      $stmt->bindParam("class_schedule", $request->class_schedule);
+      $stmt->bindParam("class_facilitator", $request->class_facilitator);
+      $stmt->bindParam("class_status", $request->class_status);
+      $stmt->bindParam("start_date", $request->start_date);
+      $stmt->bindParam("turn", $request->turn);
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage().'}}';
+  }
+});
+$app->delete('/class/{id}',function($request,$response,$args){
+  $id = $args['id'];
+  $sql_query = "DELETE FROM kc_tbl_class WHERE class_id = $id ";
+  responseJSON_ID( $sql_query, $id);
+});
 $app->run();
 
 ?>

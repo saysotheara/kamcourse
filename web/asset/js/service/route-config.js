@@ -60,7 +60,7 @@ app.config(function($routeProvider,$locationProvider){
       },
         templateUrl: "template/class/create.html",
         controller: "ClassController"
-    }).when('/admin/class/update',{
+    }).when('/admin/class/update/:id',{
       resolve:{
         "check": function($location,$cookieStore){
           if(!$cookieStore.get('loggedIn')){
@@ -68,7 +68,7 @@ app.config(function($routeProvider,$locationProvider){
           }
         }
       },
-        templateUrl: "template/class/class-update.html",
+        templateUrl: "template/class/update.html",
         controller: "ClassController"
 
         // Student

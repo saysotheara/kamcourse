@@ -3,29 +3,30 @@
     <!-- Page Content -->
     <div class="container"  >
       <div class="row main home"  >
-        <div class="col-sm-8" ng-init="getCourse()" >
+        <div class="col-sm-8" ng-init="getDataClass()">
           <!-- list-course -->
-          <div class="row subject" ng-repeat="course in courseData" >
+          <div class="row subject" ng-repeat="class in listClass" >
                 <div class="col-sm-4" >
                   <div class="course">
-                     <thumbnail file-type="image" source="{{course.course_cover}}" max-height="260" max-width="260"></thumbnail>
+                     <thumbnail file-type="image" source="{{class.course_cover}}" max-height="260" max-width="260"></thumbnail>
                     <div class=" text-center price ">
-                      <p >{{course.course_fee}}$/course</p>
+                      <p >{{class.course_fee}}$/course</p>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-6"  >
                   <div class="short-info ">
-                    <p><strong>Course: </strong> {{course.course_name}}</p>
+                    <p><strong>Course: </strong> {{class.course_name}}</p>
                     <hr >
-                    <p><strong>Shedule: </strong> {{course.schedule}}</p>
-                    <p><strong>Start Date: </strong>{{course.start_date | date:'dd-MM-yyyy' }}</p>
+                    <p><strong>Shedule: </strong> {{class.schedule_time}}</p>
+                    <p><strong>Turn: </strong> {{class.class_turn}}</p>
+                    <p><strong>Start Date: </strong>{{class.class_start_date | date:'dd-MMMM-yyyy' }}</p>
                   </div>
                 </div>
                 <div class="col-sm-2 ">
                   <div class="admin-btn text-center">
-                    <button ng-click="btnUpdate(course.course_id)" class="btn btn-sm bg-blue float-sm-right">Update</button>
-                    <button type="button" ng-click="deleteCourse(course.course_id)" class="btn btn-sm  bg-danger float-sm-right" >Delete</button>
+                    <button ng-click="btnUpdate(class.class_id)" class="btn btn-sm bg-blue float-sm-right">Update</button>
+                    <button type="button" ng-click="deleteClass(class.class_id)" class="btn btn-sm  bg-danger float-sm-right" >Delete</button>
                   </div>
                 </div>
           </div>

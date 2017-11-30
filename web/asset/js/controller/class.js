@@ -1,5 +1,5 @@
 
-app.controller("ClassController", function($scope, $http, $location, $routeParams,$route){
+app.controller("ClassController", function($scope, $http, $location, $routeParams,$route,$window){
     $scope.$route = $route;
     $scope.activePath = null;
     var baseUrl = window.location.origin+'/kamcourse/api';
@@ -42,6 +42,8 @@ app.controller("ClassController", function($scope, $http, $location, $routeParam
                 'class_course':$scope.classCourse,
                 'class_schedule':$scope.classSchedule,
                 'class_facilitator':$scope.classFacilitator,
+                'start_date':$scope.startDate,
+                'turn': $scope.turn,
                 'class_status':$scope.classStatus
             },
             {
@@ -71,6 +73,8 @@ app.controller("ClassController", function($scope, $http, $location, $routeParam
                 'class_course':$scope.classCourse,
                 'class_schedule':$scope.classSchedule,
                 'class_facilitator':$scope.classFacilitator,
+                'start_date':$scope.startDate,
+                'turn': $scope.turn,
                 'class_status':$scope.classStatus,
 
             },
@@ -85,18 +89,70 @@ app.controller("ClassController", function($scope, $http, $location, $routeParam
                 $scope.classSchedule = '';
                 $scope.classFacilitator = '';
                 $scope.classStatus = '';
-                
+
             },function(response){
                 console.log(ERROR);
                 alert("Failed to create a new class");
             }
         );
     };
+    // get class
+    $scope.getDataClass = function(){
+      $http.get(baseUrl+'/class').then(function(response){
+        $scope.listClass = response.data;
+      });
+    };
     $scope.btnCancel = function(){
       $window.history.back();
     };
-
-
+    // button update class
+    $scope.btnUpdate = function(id){
+      $scope.activePath = $location.path('/admin/class/update/'+id);
+    };
+    $scope.filterClass = function(){
+      var id = $routeParams.id;
+      $http.get(baseUrl+'/class/'+id).then(function(response){
+        $scope.id = response.data.class_id;
+        $scope.classCourse = response.data.class_course;
+        $scope.classSchedule = response.data.class_schedule;
+        $scope.classFacilitator = response.data.class_facilitator;
+        $scope.startDate = response.data.class_start_date;
+        $scope.turn = response.data.class_turn;
+        $scope.classStatus = response.data.class_status;
+      });
+    };
+    $scope.updateClass = function(){
+      $http.put(baseUrl+'/class',
+        {
+            'class_id':$scope.id,
+            'class_course':$scope.classCourse,
+            'class_schedule':$scope.classSchedule,
+            'class_facilitator':$scope.classFacilitator,
+            'start_date':$scope.startDate,
+            'turn': $scope.turn,
+            'class_status':$scope.classStatus,
+        },
+        {
+          headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+          }
+        }).then(function (response) {
+            alert('update Successfully!');
+            $scope.btnCancel();
+        },function (ERROR) {
+          alert('update error!');
+        });
+    };
+      // delete class
+    $scope.deleteClass = function(id){
+      var deleteData = confirm('Are you sure want to delete class ID: '+id+' ?');
+      var url = baseUrl+'/class/'+id;
+      if(deleteData){
+        $http.delete(url).then(function(response){
+          $scope.getDataClass();
+        });
+      }
+    };
 
 
 });

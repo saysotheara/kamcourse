@@ -16,9 +16,16 @@
             <div class="col-9">
               <input class="form-control " ng-model="schedule_id" type="hidden" >
 
-              <input class="form-control mydate" ng-model="time" type="text" placeholder="schedule Time">
+              <input class="form-control " ng-model="time" type="text" placeholder="schedule Time">
             </div>
           </div>
+          <!-- start date -->
+           <div class="form-group row">
+             <label for="example-text-input" class="col-3 col-form-label">Start Date</label>
+             <div class="col-9">
+               <input class="form-control mydate" ng-model="start_date" type="text" placeholder="Start Date">
+             </div>
+           </div>
        <div class="form-group row">
          <label class="col-8 col-form-label" for="exampleTextarea">Description</label>
          <div class="col-12">
@@ -41,6 +48,18 @@
             </div>
 
          </div>
+         <div class="form-group row" >
+           <label for="example-text-input" class="col-3 col-form-label">Turn</label>
+           <div class="col-9">
+             <select class="form-control" ng-model="turn" >
+               <option  ng-selected="true" value="">--Select Turn--</option>
+               <option value="Monday-Friday">Monday-Friday</option>
+               <option  value="Saturday-Sunday">Saturday-Sunday</option>
+               <option  value="Mon-Fir(night)">Mon-Fir(night)</option>
+               <option  value="Sat-Sun(night)">Sat-Sun(night)</option>
+             </select>
+           </div>
+        </div>
           <div class="form-group row" >
            <label class="col-8 col-form-label" for="exampleTextarea">other Info</label>
            <div class="col-12">
