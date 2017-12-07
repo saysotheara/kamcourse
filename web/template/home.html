@@ -37,7 +37,7 @@
           </div>
           <div class="row"   style="margin-top:2%; margin-left:0.2%;" ng-bind-html="myHtml" ></div>
           <div class="row lastest" ng-init="getListCourse()" >
-            <div class="col-sm-3 col-left " ng-repeat="last in lastCourse" ng-click="detail(last.course_id)">
+            <div class="col-sm-3 col-left " ng-repeat="last in lastCourse" ng-click="detail(last.class_id)">
 
                 <thumbnail file-type="image" source="{{last.course_cover}}"  max-width="178"></thumbnail>
                     <div class="courseTitle text-center">

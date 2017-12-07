@@ -90,7 +90,10 @@ $app->get('/gallery', function() {
 
 
 $app->get('/course', function() {
-    $sql_query = "SELECT * FROM kc_tbl_course";
+    $sql_query = "SELECT co.course_id,co.course_name,co.course_description,co.course_outline
+    ,co.course_duration,co.course_fee,co.course_cover,co.course_video,co.course_create_date
+    ,co.course_update_date,co.course_other_info,cat.category_name FROM kc_tbl_course co INNER JOIN kc_tbl_course_category cat
+    ON co.course_category = cat.category_id";
     responseJSON( $sql_query );
 });
 
@@ -477,8 +480,8 @@ $app->post('/class',function(){
 
   try {
       $sql_query = "INSERT INTO kc_tbl_class (class_course,class_schedule,
-        class_facilitator,class_status,create_date,update_date)
-      VALUES (:class_course, :class_schedule, :class_facilitator,:class_status,'$date','$date')";
+        class_facilitator,class_status,create_date,update_date,class_start_date,class_turn)
+      VALUES (:class_course, :class_schedule, :class_facilitator,:class_status,'$date','$date',:class_start_date,:class_turn)";
       $dbCon = getConnection();
       $stmt = $dbCon->prepare($sql_query);
       $stmt->bindParam("class_course", $request->class_course);
@@ -503,6 +506,16 @@ $app->get('/class',function(){
    inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
    inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id";
   responseJSON( $sql_query );
+});
+$app->get('/class/user/{id}',function($request,$response,$args){
+  $id = $args['id'];
+  $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
+  cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
+  co.course_cover,co.course_video,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
+   FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
+   inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
+   inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id WHERE cl.class_id = $id ";
+  responseJSON_ID( $sql_query, $id);
 });
 $app->get('/class/{id}',function($request,$response,$args){
   $id = $args['id'];

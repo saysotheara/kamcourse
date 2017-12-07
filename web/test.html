@@ -28,25 +28,22 @@
   </head>
 
   <body >
-    <ng-view></ng-view>
+    <div flow-init="{target: '/upload'}"
+     flow-files-submitted="$flow.upload()"
+     flow-file-success="$file.msg = $message">
 
+  <input type="file" flow-btn/>
+  Input OR Other element as upload button
+  <span class="btn" flow-btn>Upload File</span>
 
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-info">
-      <div class="container">
-        <div style="text-align: center; margin-bottom: 10px;">
-            <a href="/kamcourse/web/#!/admin/course">New Course</a>&nbsp;|&nbsp;
-            <a href="/kamcourse/web/#!/admin/class">New Class</a>&nbsp;|&nbsp;
-            <a href="/kamcourse/web/#!/admin/student">New Student</a>&nbsp;|&nbsp;
-            <a href="/kamcourse/web/#!/admin/facilitator">New Facilitator</a>
-        </div>
-        <p class="m-0 text-center text-white">Copyright &copy; kamcourse 2017</p>
-      </div>
-      <!-- /.container -->
-
-    </footer>
+  <table>
+    <tr ng-repeat="file in $flow.files">
+        <td>{{$index+1}}</td>
+        <td>{{file.name}}</td>
+        <td>{{file.msg}}</td>
+    </tr>
+  </table>
+</div>
 
     <script src="asset/vendor/jquery/jquery.min.js"></script>
     <script src="asset/vendor/popper/popper.min.js"></script>
@@ -71,16 +68,10 @@
     <script src="asset/js/service/main-service.js" charset="utf-8"></script>
     <script src="asset/js/service/route-config.js" charset="utf-8"></script>
 
-    <script src="asset/js/controller/class.js" charset="utf-8"></script>
-    <script src="asset/js/controller/category.js" charset="utf-8"></script>
-
-    <script src="asset/js/controller/course.js" charset="utf-8"></script>
-    <script src="asset/js/controller/student.js" charset="utf-8"></script>
-    <script src="asset/js/controller/facilitator.js" charset="utf-8"></script>
-    <script src="asset/js/ui-carousel/dist/ui-carousel.js" charset="utf-8"></script>
-    <script src="asset/js/controller/admin.js" charset="utf-8"></script>
-
-
+    <script src="asset/js/ng-flow/dist/ng-flow-standalone.min.js"></script>
+    <!-- or include the files separately -->
+    <script src="asset/js/flow.js/dist/flow.min.js"></script>
+    <script src="asset/js/ng-flow/dist/ng-flow.min.js"></script>
 
     <script src="asset/js/controller/frontEnd/course.js" charset="utf-8"></script>
 

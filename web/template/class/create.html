@@ -41,6 +41,26 @@
               </select>
             </div>
           </div>
+          <!-- start date -->
+          <div class="form-group row">
+            <label class="col-3 col-form-label" for="exampleSelect1">Start Date</label>
+            <div class="col-7">
+              <input class="form-control mydate"  ng-model="startDate" type="text" placeholder="start Date">
+            </div>
+          </div>
+          <!-- class Turn -->
+          <div class="form-group row" >
+            <label for="example-text-input" class="col-3 col-form-label">study Time</label>
+            <div class="col-7">
+              <select class="form-control" ng-model="turn" >
+                <option  ng-selected="true" value="">--Select Study Time--</option>
+                <option value="Monday-Friday">Monday-Friday</option>
+                <option  value="Saturday-Sunday">Saturday-Sunday</option>
+                <option  value="Mon-Fir(night)">Mon-Fir(night)</option>
+                <option  value="Sat-Sun(night)">Sat-Sun(night)</option>
+              </select>
+            </div>
+         </div>
           <!-- status -->
           <div class="form-group row">
             <label class="col-3 col-form-label" for="exampleSelect1">Status</label>
@@ -64,12 +84,18 @@
       </div>
       <!-- /.row -->
     </form>
-  
+
     </div>
 
 
     <br>
-
+    <script type="text/javascript">
+    $('.mydate').datepicker({
+       format: "yyyy-mm-dd",
+       clearBtn: true,
+       autoclose: true
+     });
+    </script>
 
     <!-- /.container -->
 

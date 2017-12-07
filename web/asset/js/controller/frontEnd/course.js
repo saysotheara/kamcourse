@@ -4,7 +4,7 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     var url = $location.absUrl();
 
     $scope.getListCourse = function(){
-      $http.get(baseUrl+'/api/course').then(function(response){
+      $http.get(baseUrl+'/api/class').then(function(response){
         $scope.listCourse = response.data;
         $scope.bigTotalItems = $scope.listCourse.length;
         $scope.bigItemsPerPage = 4;
@@ -32,7 +32,7 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
     };
     $scope.showDetail = function(){
       var id = $routeParams.id;
-      var url = baseUrl+'/api/course/'+id;
+      var url = baseUrl+'/api/class/user/'+id;
       $http.get(url).then(function(response){
         $scope.courseData = response.data;
       });

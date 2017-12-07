@@ -1,5 +1,5 @@
 
-app.controller("CourseController", function($scope,$route,$http,$location,$routeParams){
+app.controller("CourseController", function($scope,$route,$http,$location,$routeParams,$timeout){
   $scope.$route = $route;
   $scope.activePath = null;
   var baseUrl = window.location.origin+'/kamcourse';
@@ -114,9 +114,7 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
         $scope.id = response.data.course_id;
         $scope.name = response.data.course_name;
         $scope.category = response.data.course_category;
-
         $scope.duration = response.data.course_duration;
-
         $scope.fee = response.data.course_fee;
         $scope.photo = response.data.course_cover;
         $scope.video = response.data.course_video;
@@ -191,7 +189,8 @@ $scope.getGallery = function(){
     };
     $scope.postGallery = function(url,data,con){
       $http.post(url,data,con).then(function(response){
-        $scope.getGallery();
+
+        $scope.onTimeOut();
         $scope.src = null;
         console.log(response.data);
         },function(data){
@@ -205,6 +204,8 @@ $scope.getGallery = function(){
                 $scope.files = element.files;
                 $scope.src = event.target.result;
                 $scope.hasFile = 'file';
+                $scope.counter = 0;
+                $scope.status = '';
            });
           }
           reader.readAsDataURL(element.files[0]);
@@ -225,6 +226,22 @@ $scope.getGallery = function(){
     $scope.selectPic = function (img) {
       $scope.photo = img;
     };
+
+  $scope.max = 100;
+  $scope.counter = 0;
+  $scope.status = '';
+  $scope.tabUpload = 'none';
+  $scope.onTimeOut = function(){
+    if($scope.counter<$scope.max){
+      $scope.counter++;
+      $scope.status = $scope.counter+'%';
+      mytimeout = $timeout($scope.onTimeOut,50);
+    }else if ($scope.counter == 100) {
+      $scope.tabUpload = 'none';
+      $scope.status = 'completed!';
+      $scope.getGallery();
+    }
+  };
 
 
 

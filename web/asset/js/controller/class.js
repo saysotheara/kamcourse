@@ -88,6 +88,8 @@ app.controller("ClassController", function($scope, $http, $location, $routeParam
                 $scope.classCourse = '';
                 $scope.classSchedule = '';
                 $scope.classFacilitator = '';
+                $scope.startDate = '';
+                $scope.turn = '';
                 $scope.classStatus = '';
 
             },function(response){
@@ -100,6 +102,10 @@ app.controller("ClassController", function($scope, $http, $location, $routeParam
     $scope.getDataClass = function(){
       $http.get(baseUrl+'/class').then(function(response){
         $scope.listClass = response.data;
+        $scope.bigTotalItems = $scope.listClass.length;
+        $scope.bigItemsPerPage = 4;
+        $scope.maxSize = 6;
+        $scope.bigCurrentPage = 1;
       });
     };
     $scope.btnCancel = function(){

@@ -23,10 +23,10 @@
               </div>
               <div class="col-sm-8 "  >
                 <div class=" " style="margin-left:14%; color: #333;">
-                  <p><strong>Start Date: </strong>{{courseData.start_date | date:'dd-MM-yyyy' }}</p>
+                  <p><strong>Start Date: </strong>{{courseData.class_start_date | date:'dd-MMMM-yyyy' }}</p>
                   <p><strong>Duration: </strong>{{courseData.course_duration }}</p>
-                  <p><strong>Shedule: </strong> </p>
-                  <p><strong>Study Time: </strong></p>
+                  <p><strong>Shedule: </strong>{{courseData.schedule_time }} </p>
+                  <p><strong>Study Time: </strong>{{courseData.class_turn }}</p>
 
                 </div>
             </div>
@@ -45,8 +45,6 @@
 
         <div class=" bg-white course-slider" style="height:170px;  ">
 
-
-
           <div id="course" class="carousel slide  " style="top:5%;" data-ride="carousel">
 
             <div class="carousel-inner " role="listbox" ng-init="getListCourse()" >
@@ -54,7 +52,7 @@
               <div class="carousel-item active"  >
                 <div class="col-sm-12 " >
                   <div class="row " >
-                    <div class="col-sm-4 course-recommend" data-ng-repeat="recommend in listCourse " ng-click="detail(recommend.course_id)" >
+                    <div class="col-sm-4 course-recommend" data-ng-repeat="recommend in listCourse |  limitTo:3 " ng-click="detail(recommend.course_id)" >
                       <thumbnail file-type="image" source="{{recommend.course_cover}}"  max-width="213"></thumbnail>
 
 
@@ -70,24 +68,12 @@
 
                 </div>
               </div>
-              <a class="carousel-control-prev" href="" id="prev" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="" id="nextCon" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+
 
             </div>
 
             </div>
-            <!-- <ui-carousel slides="ctrl.slides" slides-to-show="3" slides-to-scroll="1" initial-slide="1" autoplay="true" autoplay-speed="2000" dots="true">
 
-              <carousel-item>
-                <h3>{{ item + 1 }}</h3>
-              </carousel-item>
-            </ui-carousel> -->
             </div>
             <br>
 
