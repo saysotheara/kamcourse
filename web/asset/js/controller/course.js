@@ -171,6 +171,7 @@ $scope.getGallery = function(){
       var uploadUrl = baseUrl+'/api/gallery';
       if($scope.hasFile){
           $scope.image = $scope.files[0];
+          var size = $scope.files[0].size;
           var file = $scope.image;
           var fromData = new FormData();
               fromData.append('file', file);
@@ -178,7 +179,12 @@ $scope.getGallery = function(){
               transformRequest: angular.identity,
               headers: {'Content-Type': undefined,'Process-Data': false}
               };
-          $scope.postGallery(uploadUrl,fromData,config);
+          if(size >= 2097152 ){
+            $scope.lagreFile = true;
+          }else {
+            $scope.postGallery(uploadUrl,fromData,config);
+
+          }
       }else if($scope.urlPic){
           var data = {'image': $scope.urlPic};
           var config = {
@@ -206,6 +212,7 @@ $scope.getGallery = function(){
                 $scope.hasFile = 'file';
                 $scope.counter = 0;
                 $scope.status = '';
+                $scope.lagreFile = false;
            });
           }
           reader.readAsDataURL(element.files[0]);
