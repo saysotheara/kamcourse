@@ -1,8 +1,8 @@
 
-app.controller("CourseController", function($scope,$route,$http,$location,$routeParams,$timeout){
+app.controller("CourseController", function($scope,$route,$http,$location,$routeParams,$timeout,BASE){
   $scope.$route = $route;
   $scope.activePath = null;
-  var baseUrl = window.location.origin+'/kamcourse';
+  var baseUrl = window.location.origin+BASE;
   var currentUrl = $location.absUrl();
   $scope.getCourse = function(){
       $http.get(baseUrl+'/api/course').then(function(response){
@@ -235,7 +235,7 @@ $scope.getGallery = function(){
     if($scope.counter<$scope.max){
       $scope.counter++;
       $scope.status = $scope.counter+'%';
-      mytimeout = $timeout($scope.onTimeOut,50);
+      mytimeout = $timeout($scope.onTimeOut,30);
     }else if ($scope.counter == 100) {
       $scope.tabUpload = 'none';
       $scope.status = 'completed!';

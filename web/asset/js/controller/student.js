@@ -1,13 +1,13 @@
 
-app.controller("StudentController", function($scope, $route,$http, $location, $routeParams){
+app.controller("StudentController", function($scope, $route,$http, $location, $routeParams,BASE){
 	 $scope.$route = $route;
 	$scope.activePath = null;
-  	var baseUrl = window.location.origin;
+  	var baseUrl = window.location.origin+BASE;
     //$config['baseUrl']='http://localhost/kamcourse/';
   	var url = $location.absUrl();
   	var dataId = null;
 	$scope.getAll = function(){
-        $http.get(baseUrl+'/kamcourse/api/student').then(function(response){
+        $http.get(baseUrl+'/api/student').then(function(response){
           $scope.studentData = response.data;
 
         });
@@ -15,7 +15,7 @@ app.controller("StudentController", function($scope, $route,$http, $location, $r
 
       $scope.removeStudent = function(id){
       var deL = confirm('Are you sure want to delete It?');
-      var url = baseUrl+'/kamcourse/api/student/'+id;
+      var url = baseUrl+'/api/student/'+id;
       if(deL==true){
         $http.delete(url).then(function(response){
         $scope.activePath = $location.path('/admin/student/');
@@ -28,7 +28,7 @@ app.controller("StudentController", function($scope, $route,$http, $location, $r
         };
 
         $scope.btnSaveNexts = function(){
-      var url = baseUrl+'/kamcourse/api/student';
+      var url = baseUrl+'/api/student';
        $http.post(url,{
         'fname':$scope.fname,
         'lname':$scope.lname,
@@ -66,7 +66,7 @@ app.controller("StudentController", function($scope, $route,$http, $location, $r
       };
 $scope.filterstudent= function(){
       var id = $routeParams.id;
-      var url = baseUrl+'/kamcourse/api/student/'+id;
+      var url = baseUrl+'/api/student/'+id;
       $http.get(url).then(function(response){
         console.log(response);
         $scope.id = response.data.student_id;
@@ -88,7 +88,7 @@ $scope.filterstudent= function(){
 
 $scope.updatestudent = function(){
       var id = $scope.id;
-      var url = baseUrl+'/kamcourse/api/student/'+id;
+      var url = baseUrl+'/api/student/'+id;
       $http.put(url,{
         'id': id,
         'fname':$scope.fname,

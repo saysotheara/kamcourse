@@ -1,6 +1,6 @@
-app.controller("userCtrl",function($http,$scope,$location,$routeParams){
+app.controller("userCtrl",function($http,$scope,$location,$routeParams,BASE){
     $scope.activePath = null;
-    var baseUrl = window.location.origin+'/kamcourse';
+    var baseUrl = window.location.origin+BASE;
     var url = $location.absUrl();
 
     $scope.getListCourse = function(){
@@ -37,8 +37,8 @@ app.controller("userCtrl",function($http,$scope,$location,$routeParams){
         $scope.courseData = response.data;
       });
     };
-    var category = [{name:'Mechanical Engineering',color:'/kamcourse/web/asset/img/web1.png'},{name:'Civil Engineering',color:'/kamcourse/web/asset/img/web.png'},{name:'Architechture',color:'/kamcourse/web/asset/img/web3.png'},{name:'IT Engineering',color:'/kamcourse/web/asset/img/web1.png'},{name:'Electrical Engineering',color:'/kamcourse/web/asset/img/web3.png'}
-                    ,{name:'Japanes Languages',color:'/kamcourse/web/asset/img/web.png'}];
+    var category = [{name:'Mechanical Engineering',color:BASE+'/web/asset/img/web1.png'},{name:'Civil Engineering',color:BASE+'/web/asset/img/web.png'},{name:'Architechture',color:BASE+'/web/asset/img/web3.png'},{name:'IT Engineering',color:BASE+'/web/asset/img/web1.png'},{name:'Electrical Engineering',color:BASE+'/web/asset/img/web3.png'}
+                    ,{name:'Japanes Languages',color:BASE+'/web/asset/img/web.png'}];
     var row = '';
     angular.forEach(category,function(value,index){
         if( index < 2){

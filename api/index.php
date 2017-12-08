@@ -110,7 +110,7 @@ $app->post('/gallery',function($request, $response){
        $extension = pathinfo($filename->getClientFilename(), PATHINFO_EXTENSION);
        $rename = time().'.'.$extension;
       $imgFile = "/web/asset/img/".$rename;
-      $image = '/kamcourse'.$imgFile;
+      $image = $imgFile;
        $filename->moveTo('..'.$imgFile);
     }else{
       $postdata = file_get_contents("php://input");

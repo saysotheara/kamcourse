@@ -70,7 +70,7 @@
             <label for="example-text-input" class="col-3 col-form-label">Picture</label>
             <div class="col-9">
               <input class="form-control" ng-model="photo" name="photo"   id="pic" type="text" required placeholder="Picture url">
-              <img src="{{photo}}" width="200" height="200" alt="">
+              <img src="{{base+photo}}" width="200" height="200" alt="">
               <div role="alert">
                 <span class="error" ng-show="course.photo.$error.text" style="color:red;">
                   Not valid file!</span>
@@ -144,7 +144,7 @@
                         <a href="" class="float-right remove-pic" ng-click="deletePic(gallery.gallery_id)">
                           <i class="fa fa-times-circle-o  fa-lg" aria-hidden="true"></i>
                         </a>
-                        <img src="{{gallery.gallery_image}}" ng-click="selectPic(gallery.gallery_image)"  data-dismiss="modal" width="100%" height="150" alt="">
+                        <img src="{{base+gallery.gallery_image}}" ng-click="selectPic(gallery.gallery_image)"  data-dismiss="modal" width="100%" height="150" alt="">
                     </div>
                   </div>
                 </div>

@@ -1,12 +1,12 @@
 
-app.controller("FacilitatorController", function($scope, $http, $location, $routeParams){
+app.controller("FacilitatorController", function($scope, $http, $location, $routeParams,BASE){
 $scope.activePath = null;
-  	var baseUrl = window.location.origin;
+  	var baseUrl = window.location.origin+BASE;
     //$config['baseUrl']='http://localhost/kamcourse/';
   	var url = $location.absUrl();
   	var dataId = null;
 	$scope.getAll = function(){
-        $http.get(baseUrl+'/kamcourse/api/facilitator').then(function(response){
+        $http.get(baseUrl+'/api/facilitator').then(function(response){
           $scope.facilitatorData = response.data;
 
         });
@@ -14,21 +14,21 @@ $scope.activePath = null;
 
       $scope.removefacilitator = function(id){
       var deL = confirm('Are you sure want to delete It?');
-      var url = baseUrl+'/kamcourse/api/facilitator/'+id;
+      var url = baseUrl+'/api/facilitator/'+id;
       if(deL){
         $http.delete(url).then(function(response){
       $scope.activePath = $location.path('/admin/facilitator/');
           $scope.getAll();
             });
           }else if(!deL){
-          
+
             $scope.activePath = $location.path('/admin/facilitator/');
           }
           ;
         };
 
         $scope.btnSaveNexts = function(){
-      var url = baseUrl+'/kamcourse/api/facilitator';
+      var url = baseUrl+'/api/facilitator';
        $http.post(url,{
         'fname':$scope.fname,
         'lname':$scope.lname,
@@ -67,7 +67,7 @@ $scope.activePath = null;
       };
 $scope.filterfacilitator= function(){
       var id = $routeParams.id;
-      var url = baseUrl+'/kamcourse/api/facilitator/'+id;
+      var url = baseUrl+'/api/facilitator/'+id;
       $http.get(url).then(function(response){
         console.log(response);
         $scope.id = response.data.facilitator_id;
@@ -90,7 +90,7 @@ $scope.filterfacilitator= function(){
 
 $scope.updatefacilitator = function(){
       var id = $scope.id;
-      var url = baseUrl+'/kamcourse/api/facilitator/'+id;
+      var url = baseUrl+'/api/facilitator/'+id;
       $http.put(url,{
 
         'id':id,
@@ -115,5 +115,5 @@ $scope.updatefacilitator = function(){
         console.log('error');
       });
     };
-    
+
 });

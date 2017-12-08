@@ -8,7 +8,7 @@
           <div class="row subject" ng-repeat="class in listClass.slice(((bigCurrentPage-1)*bigItemsPerPage), ((bigCurrentPage)*bigItemsPerPage))" >
                 <div class="col-sm-4" >
                   <div class="course">
-                     <thumbnail file-type="image" source="{{class.course_cover}}" max-height="260" max-width="260"></thumbnail>
+                     <thumbnail file-type="image" source="{{base+class.course_cover}}" max-height="260" max-width="260"></thumbnail>
                     <div class=" text-center price ">
                       <p >{{class.course_fee}}$/course</p>
                     </div>

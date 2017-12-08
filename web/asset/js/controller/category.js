@@ -1,7 +1,7 @@
-app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams,$window){
+app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams,$window,BASE){
    $scope.$route = $route;
   $scope.activePath = null;
-  var baseUrl = window.location.origin+'/kamcourse/api';
+  var baseUrl = window.location.origin+BASE+'/api';
   var currentUrl = $location.absUrl();
   $scope.getGallery = function(){
     $http.get(baseUrl+'/gallery').then(function(response){

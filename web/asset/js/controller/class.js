@@ -1,8 +1,8 @@
 
-app.controller("ClassController", function($scope, $http, $location, $routeParams,$route,$window){
+app.controller("ClassController", function($scope, $http, $location, $routeParams,$route,$window,BASE){
     $scope.$route = $route;
     $scope.activePath = null;
-    var baseUrl = window.location.origin+'/kamcourse/api';
+    var baseUrl = window.location.origin+BASE+'/api';
     var url = $location.absUrl();
 
     // get data Course
