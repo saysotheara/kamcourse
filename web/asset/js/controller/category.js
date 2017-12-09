@@ -1,19 +1,20 @@
-app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams,$window,BASE){
+app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams,$window,$timeout,BASE){
    $scope.$route = $route;
   $scope.activePath = null;
   var baseUrl = window.location.origin+BASE+'/api';
   var currentUrl = $location.absUrl();
+  // uplod Image
   $scope.getGallery = function(){
     $http.get(baseUrl+'/gallery').then(function(response){
       $scope.dataGallery = response.data;
     });
   };
-
       $scope.hasFile = null;
       $scope.uploadFile = function() {
         var uploadUrl = baseUrl+'/gallery';
         if($scope.hasFile){
             $scope.image = $scope.files[0];
+            var size = $scope.files[0].size;
             var file = $scope.image;
             var fromData = new FormData();
                 fromData.append('file', file);
@@ -21,7 +22,14 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined,'Process-Data': false}
                 };
-            $scope.postGallery(uploadUrl,fromData,config);
+            if(size >= 2097152 ){
+              $scope.lagreFile = true;
+              $scope.progress = false;
+            }else {
+              $scope.progress = true;
+              $scope.postGallery(uploadUrl,fromData,config);
+
+            }
         }else if($scope.urlPic){
             var data = {'image': $scope.urlPic};
             var config = {
@@ -32,7 +40,8 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
       };
       $scope.postGallery = function(url,data,con){
         $http.post(url,data,con).then(function(response){
-          $scope.getGallery();
+
+          $scope.onTimeOut();
           $scope.src = null;
           console.log(response.data);
           },function(data){
@@ -46,6 +55,9 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
                   $scope.files = element.files;
                   $scope.src = event.target.result;
                   $scope.hasFile = 'file';
+                  $scope.counter = 0;
+                  $scope.status = '';
+                  $scope.lagreFile = false;
              });
             }
             reader.readAsDataURL(element.files[0]);
@@ -55,8 +67,11 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
       $scope.files = null;
       };
       $scope.deletePic = function(id){
+        $scope.lagreFile = false;
+        $scope.progress = false;
         var remove = confirm('delete picture id '+id);
         var url =  baseUrl+'/gallery/'+id;
+
         if(remove){
           $http.delete(url).then(function(response){
             $scope.getGallery();
@@ -66,6 +81,26 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
       $scope.selectPic = function (img) {
         $scope.photo = img;
       };
+      $scope.closeModule = function(){
+        $scope.lagreFile = false;
+        $scope.progress = false;
+      }
+
+    $scope.max = 100;
+    $scope.counter = 0;
+    $scope.status = '';
+
+    $scope.onTimeOut = function(){
+      if($scope.counter<$scope.max){
+        $scope.counter++;
+        $scope.status = $scope.counter+'%';
+        mytimeout = $timeout($scope.onTimeOut,30);
+      }else if ($scope.counter == 100) {
+        $scope.status = 'completed!';
+        $scope.getGallery();
+      }
+    };
+
       //get category data
       $scope.getCategory = function(){
         var url = baseUrl+'/category';

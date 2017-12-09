@@ -27,8 +27,6 @@
                 <th>Schedule Time</th>
                 <th>Description</th>
                 <th>Schedule Cover</th>
-                <th>Start Date</th>
-                <th>Turn</th>
                 <th>Other Info</th>
                 <th>Action</th>
 
@@ -40,10 +38,8 @@
                 <td >{{schedule.schedule_time}}</td>
                 <td><p>{{schedule.schedule_description}}</p></td>
                 <td>
-                  <thumbnail file-type="image" source="{{schedule.schedule_cover}}" max-height="100" max-width="100"></thumbnail>
+                  <thumbnail file-type="image" source="{{base+schedule.schedule_cover}}" max-height="100" max-width="100"></thumbnail>
                 </td>
-                <td><p>{{schedule.schedule_start_date}}</p></td>
-                <td><p>{{schedule.schedule_turn}}</p></td>
                 <td><p>{{schedule.schedule_other_info}}</p></td>
                 <td>
                   <a href="" class="text-primary" ng-click="btnEditSche(schedule.schedule_id)" >

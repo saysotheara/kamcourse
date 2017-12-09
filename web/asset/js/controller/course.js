@@ -161,6 +161,7 @@ $scope.deleteCourse = function(id){
     });
   }
 };
+// uplod Image
 $scope.getGallery = function(){
   $http.get(baseUrl+'/api/gallery').then(function(response){
     $scope.dataGallery = response.data;
@@ -181,7 +182,9 @@ $scope.getGallery = function(){
               };
           if(size >= 2097152 ){
             $scope.lagreFile = true;
+            $scope.progress = false;
           }else {
+            $scope.progress = true;
             $scope.postGallery(uploadUrl,fromData,config);
 
           }
@@ -222,8 +225,11 @@ $scope.getGallery = function(){
     $scope.files = null;
     };
     $scope.deletePic = function(id){
+      $scope.lagreFile = false;
+      $scope.progress = false;
       var remove = confirm('delete picture id '+id);
       var url =  baseUrl+'/api/gallery/'+id;
+
       if(remove){
         $http.delete(url).then(function(response){
           $scope.getGallery();
@@ -233,18 +239,22 @@ $scope.getGallery = function(){
     $scope.selectPic = function (img) {
       $scope.photo = img;
     };
+    $scope.closeModule = function(){
+      $scope.lagreFile = false;
+      $scope.progress = false;
+    }
 
   $scope.max = 100;
   $scope.counter = 0;
   $scope.status = '';
-  $scope.tabUpload = 'none';
+
   $scope.onTimeOut = function(){
     if($scope.counter<$scope.max){
       $scope.counter++;
       $scope.status = $scope.counter+'%';
       mytimeout = $timeout($scope.onTimeOut,30);
     }else if ($scope.counter == 100) {
-      $scope.tabUpload = 'none';
+
       $scope.status = 'completed!';
       $scope.getGallery();
     }
