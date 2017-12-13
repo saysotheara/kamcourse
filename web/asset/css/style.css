@@ -348,9 +348,8 @@ figcaption div{
   display: table-cell;
   vertical-align: middle;
   position: relative;
-
   opacity: 0;
-  color: #2c3e50;
+  color: #eff2f6;
   text-transform: uppercase;
 }
 
@@ -363,7 +362,7 @@ figcaption div:after{
   margin: auto;
   width: 0%;
   height: 2px;
-  background: #2c3e50;
+  background:  #eff2f6;
 }
 
 figure img{
@@ -374,11 +373,18 @@ figure img{
 }
 
 figure:hover figcaption{
- background: rgba(118, 141, 160,0.3);
+ background: rgba(118, 141, 160,0.6);
 }
-
+figure figcaption{
+ background: rgba(118, 141, 160,0.1);
+}
 figcaption:hover div{
-  opacity: 1;
+  opacity: 2;
+  top: 0;
+}
+figcaption div{
+  text-shadow:1px -2px 3px #424242;
+  opacity: 5;
   top: 0;
 }
 

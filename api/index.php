@@ -361,6 +361,7 @@ $app->get('/category',function(){
   $sql_query = "SELECT * FROM kc_tbl_course_category";
   responseJSON( $sql_query );
 });
+
 $app->get('/category/{id}',function($request, $response, $args){
   $id = $args['id'];
   $sql_query = "SELECT * FROM kc_tbl_course_category WHERE category_id = $id";
@@ -522,11 +523,11 @@ $app->get('/class/{id}',function($request,$response,$args){
   $sql_query = "SELECT * FROM kc_tbl_class WHERE class_id = $id ";
   responseJSON_ID( $sql_query, $id);
 });
+
 $app->put('/class',function(){
   $date = date('Y-m-d H:i:s');
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata);
-
   try {
       $sql_query = "UPDATE  kc_tbl_class SET class_course= :class_course,class_schedule=:class_schedule,class_facilitator= :class_facilitator,class_status= :class_status
       , class_start_date=:start_date ,class_turn=:turn,update_date= '$date' WHERE class_id = :class_id";
@@ -542,16 +543,58 @@ $app->put('/class',function(){
       $stmt->bindParam("turn", $request->turn);
       $stmt->execute();
       $dbCon = null;
-  }
+    }
   catch(PDOException $e) {
       echo '{"error": {"text":'. $e->getMessage().'}}';
   }
+});
+$app->get('/class/{category}',function($request,$response,$args){
+    $category = $args['category'];
+    $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
+    cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
+    co.course_cover,co.course_video,co.course_category,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
+     FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
+     inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
+     inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id WHERE co.course_category = $category ";
+   responseJSON( $sql_query );
 });
 $app->delete('/class/{id}',function($request,$response,$args){
   $id = $args['id'];
   $sql_query = "DELETE FROM kc_tbl_class WHERE class_id = $id ";
   responseJSON_ID( $sql_query, $id);
 });
+
+
+$app->post('/user',function(){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+  $date = date('Y-m-d H:i:s');
+
+  try {
+      $sql_query = "INSERT INTO kc_tbl_user (user_name,user_email,
+        user_phone,user_study_time,class_id,user_sex,create_date)
+      VALUES (:user_name,:user_email,:user_phone,:user_study_time,:class_id,:user_sex,'$date')";
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("user_name", $request->name);
+      $stmt->bindParam("user_sex", $request->sex);
+      $stmt->bindParam("user_email", $request->email);
+      $stmt->bindParam("user_phone", $request->phone);
+      $stmt->bindParam("user_study_time", $request->studyTime);
+      $stmt->bindParam("class_id", $request->classId);
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+});
+$app->get('/user/{class_id}',function($request,$response,$args){
+    $class_id = $args['class_id'];
+    $sql_query = "SELECT COUNT(class_id) As totalMember FROM kc_tbl_user WHERE class_id = $class_id ";
+  responseJSON_ID( $sql_query, $class_id);
+});
 $app->run();
+
 
 ?>
