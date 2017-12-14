@@ -9,8 +9,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item ">
-            <a class="nav-link" href="#!/home">
+          <li class="nav-item "  ng-class="{'active': $route.current.activeUser == 'user/home'}">
+            <a class="nav-link" href="#!/home" >
               <i class="fa fa-home " aria-hidden="true"></i>
 
                 Home
@@ -18,9 +18,9 @@
             </a>
           </li>
           <br>
-          <li class="nav-item active">
+          <li class="nav-item " ng-class="{'active': $route.current.activeUser == 'user/class'}">
 
-            <a class="nav-link" href="#!/course" ng-class="{'active': $route.current.activetab == 'course'}">
+            <a class="nav-link" href="#!/course" >
               <i class="fa fa-graduation-cap" aria-hidden="true"></i>
 
               Courses </a>

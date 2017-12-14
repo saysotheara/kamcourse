@@ -206,13 +206,19 @@ app.config(function($routeProvider,$locationProvider){
     $routeProvider.when('/course',{
       templateUrl: "template/course/frontEnd/course1.html",
       controller: "userCtrl",
-          activetab: 'course'
+      activeUser: 'user/class'
       }).when('/course/:id',{
           templateUrl: "template/course/frontEnd/detail.html",
-          controller: "userCtrl"
+          controller: "userCtrl",
+          activeUser: 'user/class'
       }).when('/home',{
         templateUrl: 'template/home.html',
-        controller: 'userCtrl'
+        controller: 'userCtrl',
+        activeUser: 'user/home'
+      }).when('/class/category/:categoryId',{
+          templateUrl: "template/course/frontEnd/course1.html",
+          controller: 'userCtrl',
+          activeUser: 'user/class'
       }).otherwise({
         templateUrl:'template/Error/404.html',
         controller:'CourseController'

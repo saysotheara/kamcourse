@@ -349,7 +349,7 @@ figcaption div{
   vertical-align: middle;
   position: relative;
   opacity: 0;
-  color: #eff2f6;
+  color: #edf6f7;
   text-transform: uppercase;
 }
 
@@ -376,7 +376,7 @@ figure:hover figcaption{
  background: rgba(118, 141, 160,0.6);
 }
 figure figcaption{
- background: rgba(118, 141, 160,0.1);
+ background: rgba(118, 141, 160,0.2);
 }
 figcaption:hover div{
   opacity: 2;

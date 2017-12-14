@@ -548,15 +548,25 @@ $app->put('/class',function(){
       echo '{"error": {"text":'. $e->getMessage().'}}';
   }
 });
-$app->get('/class/{category}',function($request,$response,$args){
-    $category = $args['category'];
-    $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
+// $app->get('/class/{category}',function($request,$response,$args){
+//     $category = $args['category'];
+//     $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
+//     cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
+//     co.course_cover,co.course_video,co.course_category,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
+//      FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
+//      inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
+//      inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id WHERE co.course_category = $category ";
+//    // responseJSON( $sql_query );
+// });
+$app->get('/class/category/{categoryId}',function($request,$response,$args){
+  $categoryId = $args['categoryId'];
+  $sql_query =" SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
     cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
     co.course_cover,co.course_video,co.course_category,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
      FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
      inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
-     inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id WHERE co.course_category = $category ";
-   responseJSON( $sql_query );
+     inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id WHERE co.course_category = $categoryId";
+      responseJSON( $sql_query );
 });
 $app->delete('/class/{id}',function($request,$response,$args){
   $id = $args['id'];
