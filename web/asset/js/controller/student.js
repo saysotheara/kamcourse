@@ -69,7 +69,7 @@ $scope.filterstudent= function(){
       var url = baseUrl+'/api/student/'+id;
       $http.get(url).then(function(response){
         console.log(response);
-        $scope.id = response.data.student_id;
+        $scope.id = parseInt(response.data.student_id);
         $scope.fname = response.data.student_firstname;
         $scope.lname = response.data.student_lastname;
         $scope.phone = response.data.student_phone;

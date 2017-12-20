@@ -118,10 +118,10 @@ app.controller("ClassController", function($scope, $http, $location, $routeParam
     $scope.filterClass = function(){
       var id = $routeParams.id;
       $http.get(baseUrl+'/class/'+id).then(function(response){
-        $scope.id = response.data.class_id;
-        $scope.classCourse = response.data.class_course;
-        $scope.classSchedule = response.data.class_schedule;
-        $scope.classFacilitator = response.data.class_facilitator;
+        $scope.id = parseInt(response.data.class_id);
+        $scope.classCourse = parseInt(response.data.class_course);
+        $scope.classSchedule = parseInt(response.data.class_schedule);
+        $scope.classFacilitator = parseInt(response.data.class_facilitator);
         $scope.startDate = response.data.class_start_date;
         $scope.turn = response.data.class_turn;
         $scope.classStatus = response.data.class_status;

@@ -1,6 +1,7 @@
 <?php
 
 require 'vendor/autoload.php';
+
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -62,7 +63,8 @@ function responseJSON($sql_query) {
         $stmt  = $dbCon->query($sql_query);
         $results = $stmt->fetchAll(PDO::FETCH_OBJ);
         $dbCon = null;
-        echo json_encode($results, JSON_NUMERIC_CHECK);
+        // echo json_encode($results, JSON_NUMERIC_CHECK);
+        return $results;
     }
     catch(PDOException $e) {
         echo '{"error": {"text":'. $e->getMessage() .'}}';
@@ -77,30 +79,33 @@ function responseJSON_ID($sql_query, $id) {
         $stmt->execute();
         $results = $stmt->fetchObject();
         $dbCon = null;
-        echo json_encode($results, JSON_NUMERIC_CHECK);
+        return $results;
     }
     catch(PDOException $e) {
         echo '{"error": {"text":'. $e->getMessage() .'}}';
     }
 }
-$app->get('/gallery', function() {
+$app->get('/gallery', function($request, $response) {
     $sql_query = "SELECT * FROM kc_tbl_gallery";
-    responseJSON( $sql_query );
+    $data = responseJSON( $sql_query );
+    return $response->withJson($data,200);
 });
 
 
-$app->get('/course', function() {
+$app->get('/course', function($request, $response) {
     $sql_query = "SELECT co.course_id,co.course_name,co.course_description,co.course_outline
     ,co.course_duration,co.course_fee,co.course_cover,co.course_video,co.course_create_date
     ,co.course_update_date,co.course_other_info,cat.category_name FROM kc_tbl_course co INNER JOIN kc_tbl_course_category cat
     ON co.course_category = cat.category_id";
-    responseJSON( $sql_query );
+    $data = responseJSON( $sql_query );
+    return $response->withJson($data,200);
 });
 
 $app->get('/course/{id}', function($request, $response, $args) {
     $id = $args['id'];
     $sql_query = "SELECT * FROM kc_tbl_course WHERE course_id = $id";
-    responseJSON_ID( $sql_query, $id);
+    $data = responseJSON_ID( $sql_query, $id);
+    return $response->withJson($data,200);
 });
 $app->post('/gallery',function($request, $response){
   $file = $request->getUploadedFiles();
@@ -112,22 +117,19 @@ $app->post('/gallery',function($request, $response){
       $imgFile = "/web/asset/img/".$rename;
       $image = $imgFile;
        $filename->moveTo('..'.$imgFile);
-    }else{
-      $postdata = file_get_contents("php://input");
-      $request = json_decode($postdata);
-      $image = $request->image;
+
+    try {
+       $date = date('Y-m-d H:i:s');
+       $sql_query = "INSERT INTO kc_tbl_gallery (gallery_image,gallery_upload_date,gallery_other_info) VALUES (:image,'$date','$date')";
+       $dbCon = getConnection();
+       $stmt = $dbCon->prepare($sql_query);
+       $stmt->bindParam("image",$image);
+       $stmt->execute();
+       $dbCon = null;
+       $response->write('uploaded');
+     } catch (Exception $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
     }
-  try {
-     $date = date('Y-m-d H:i:s');
-     $sql_query = "INSERT INTO kc_tbl_gallery (gallery_image,gallery_upload_date,gallery_other_info) VALUES (:image,'$date','$date')";
-     $dbCon = getConnection();
-     $stmt = $dbCon->prepare($sql_query);
-     $stmt->bindParam("image",$image);
-     $stmt->execute();
-     $dbCon = null;
-     $response->write('uploaded');
-   } catch (Exception $e) {
-    echo '{"error": {"text":'. $e->getMessage() .'}}';
   }
 });
 
@@ -185,12 +187,14 @@ $app->put('/course/{id}', function($request, $response, $args) {
 $app->delete('/course/{id}', function($request, $response, $args) {
     $id = $args['id'];
     $sql_query = "DELETE  FROM kc_tbl_course WHERE course_id = $id";
-    responseJSON_ID( $sql_query, $id);
+    $data = responseJSON_ID( $sql_query, $id);
+    return $response->withJson($data,200);
 });
 $app->delete('/gallery/{id}', function($request, $response, $args) {
     $id = $args['id'];
     $sql_query = "DELETE  FROM kc_tbl_gallery WHERE gallery_id = $id";
-    responseJSON_ID( $sql_query, $id);
+    $data = responseJSON_ID( $sql_query, $id);
+    return $response->withJson($data,200);
 });
 
 // _________________student________________________
@@ -198,26 +202,20 @@ $app->delete('/gallery/{id}', function($request, $response, $args) {
 $app->post('/student', function() {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
-    //$date = date('Y-m-d H:i:s');
+    $date = date('Y-m-d H:i:s');
 
     try {
-        $sql_query = "INSERT INTO kc_tbl_student (student_firstname, student_lastname, student_phone, student_email, student_sex, student_media, student_address, student_via_platform,student_create_date,student_update_date,student_active_date  , student_other_info) VALUES ( :fname, :lname, :phone, :email, :sex, :media, :address, :platform,:create,:updates,:active ,:other_info)";
+        $sql_query = "INSERT INTO kc_tbl_student (student_firstname,student_lastname,student_phone,student_email,student_create_date,student_update_date,student_pass,class_id) VALUES
+         ( :fname, :lname, :phone, :email,'$date','$date',:password,:classId)";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
-
-
         $stmt->bindParam("fname", $request->fname);
         $stmt->bindParam("lname", $request->lname);
         $stmt->bindParam("phone", $request->phone);
         $stmt->bindParam("email", $request->email);
-        $stmt->bindParam("sex", $request->sex);
-        $stmt->bindParam("media", $request->media);
-        $stmt->bindParam("address", $request->address);
-        $stmt->bindParam("platform", $request->platform);
-        $stmt->bindParam("create", $request->create);
-        $stmt->bindParam("updates", $request->updates);
-        $stmt->bindParam("active", $request->active);
-        $stmt->bindParam("other_info", $request->other_info);
+        $stmt->bindParam("password", $request->password);
+        $stmt->bindParam("classId", $request->classId);
+
         $stmt->execute();
         $dbCon = null;
     }
@@ -256,34 +254,47 @@ $app->put('/student/{id}', function($request, $response, $args) {
     }
 });
 
-$app->get('/student', function() {
+$app->get('/student', function($request,$response) {
     $sql_query = "SELECT * FROM kc_tbl_student";
-    responseJSON( $sql_query );
+    $data = responseJSON( $sql_query );
+    return $response->withJson($data,200);
 });
 
 $app->get('/student/{id}', function($request, $response, $args) {
     $id = $args['id'];
     $sql_query = "SELECT * FROM kc_tbl_student WHERE student_id = $id";
-    responseJSON_ID( $sql_query, $id);
+    $data = responseJSON_ID( $sql_query, $id);
+    return $response->withJson($data,200);
 });
 $app->delete('/student/{id}', function($request, $response, $args) {
     $id=$args['id'];
     $sql_query = "DELETE FROM kc_tbl_student WHERE student_id = $id ";
-
-    responseJSON_ID( $sql_query, $id);
+    $data = responseJSON_ID( $sql_query, $id);
+    return $response->withJson($data,200);
 });
+// $app->get('/auth/student',function($request,$response,$args){
+//   $postdata = file_get_contents("php://input");
+//   $request = json_decode($postdata);
+//   $email = $request->username;
+//   $sql_query = "SELECT student_email,student_pass FROM kc_tbl_student WHERE student_email = $email ";
+//   $data = responseJSON_ID( $sql_query,$email);
+//   return $response->withJson($data,200);
+//
+// });
 
 //___________facilitator___________
 
-$app->get('/facilitator', function() {
+$app->get('/facilitator', function($request,$response) {
     $sql_query = "SELECT * FROM kc_tbl_facilitator";
-    responseJSON( $sql_query );
+    $data = responseJSON( $sql_query );
+    return $response->withJson($data,200);
 });
 
 $app->get('/facilitator/{id}', function($request, $response, $args) {
     $id=$args['id'];
     $sql_query = "SELECT * FROM kc_tbl_facilitator WHERE facilitator_id = $id";
-    responseJSON_ID( $sql_query, $id);
+    $data = responseJSON_ID( $sql_query, $id);
+    return $response->withJson($data,200);
 });
 
 $app->post('/facilitator', function() {
@@ -353,19 +364,21 @@ $app->put('/facilitator/:id', function($id) {
 $app->delete('/facilitator/{id}', function($request, $response, $args) {
     $id=$args['id'];
     $sql_query = "DELETE FROM kc_tbl_facilitator WHERE facilitator_id = $id ";
-
-    responseJSON_ID( $sql_query, $id);
+    $data = responseJSON_ID( $sql_query, $id);
+    return $response->withJson($data,200);
 });
 //category
-$app->get('/category',function(){
+$app->get('/category',function($request,$response){
   $sql_query = "SELECT * FROM kc_tbl_course_category";
-  responseJSON( $sql_query );
+  $data = responseJSON( $sql_query );
+  return $response->withJson($data,200);
 });
 
 $app->get('/category/{id}',function($request, $response, $args){
   $id = $args['id'];
   $sql_query = "SELECT * FROM kc_tbl_course_category WHERE category_id = $id";
-  responseJSON_ID( $sql_query, $id);
+  $data = responseJSON_ID( $sql_query, $id);
+  return $response->withJson($data,200);
 
 });
 $app->post('/category',function(){
@@ -415,9 +428,10 @@ $app->delete('/category/{id}',function($request, $response, $args){
 
 });
 //schedule
-$app->get('/schedule',function(){
+$app->get('/schedule',function($request,$response){
   $sql_query = "SELECT * FROM kc_tbl_course_schedule";
-  responseJSON( $sql_query );
+  $data = responseJSON( $sql_query );
+  return $response->withJson($data,200);
 });
 $app->post('/schedule',function(){
   $postdata = file_get_contents("php://input");
@@ -444,7 +458,8 @@ $app->post('/schedule',function(){
 $app->get('/schedule/{id}',function($request,$response,$args){
   $id = $args['id'];
   $sql_query = "SELECT * FROM kc_tbl_course_schedule WHERE schedule_id = $id";
-  responseJSON_ID( $sql_query, $id);
+  $data = responseJSON_ID( $sql_query, $id);
+  return $response->withJson($data,200);
 });
 $app->put('/schedule',function(){
   $postdata = file_get_contents("php://input");
@@ -471,7 +486,8 @@ $app->put('/schedule',function(){
 $app->delete('/schedule/{id}',function($request,$response,$args){
   $id = $args['id'];
   $sql_query = "DELETE FROM kc_tbl_course_schedule WHERE schedule_id = $id ";
-  responseJSON_ID( $sql_query, $id);
+  $data = responseJSON_ID( $sql_query, $id);
+  return $response->withJson($data,200);
 });
 //--Class
 $app->post('/class',function(){
@@ -499,14 +515,15 @@ $app->post('/class',function(){
       echo '{"error": {"text":'. $e->getMessage() .'}}';
   }
 });
-$app->get('/class',function(){
+$app->get('/class',function($request,$response){
   $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
   cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
   co.course_cover,co.course_video,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
    FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
    inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
    inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id";
-  responseJSON( $sql_query );
+  $data = responseJSON( $sql_query );
+  return $response->withJson($data,200);
 });
 $app->get('/class/user/{id}',function($request,$response,$args){
   $id = $args['id'];
@@ -516,12 +533,14 @@ $app->get('/class/user/{id}',function($request,$response,$args){
    FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
    inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
    inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id WHERE cl.class_id = $id ";
-  responseJSON_ID( $sql_query, $id);
+  $data = responseJSON_ID( $sql_query, $id);
+  return $response->withJson($data,200);
 });
 $app->get('/class/{id}',function($request,$response,$args){
   $id = $args['id'];
   $sql_query = "SELECT * FROM kc_tbl_class WHERE class_id = $id ";
-  responseJSON_ID( $sql_query, $id);
+  $data = responseJSON_ID( $sql_query, $id);
+  return $response->withJson($data,200);
 });
 
 $app->put('/class',function(){
@@ -548,16 +567,6 @@ $app->put('/class',function(){
       echo '{"error": {"text":'. $e->getMessage().'}}';
   }
 });
-// $app->get('/class/{category}',function($request,$response,$args){
-//     $category = $args['category'];
-//     $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
-//     cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
-//     co.course_cover,co.course_video,co.course_category,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
-//      FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
-//      inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
-//      inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id WHERE co.course_category = $category ";
-//    // responseJSON( $sql_query );
-// });
 $app->get('/class/category/{categoryId}',function($request,$response,$args){
   $categoryId = $args['categoryId'];
   $sql_query =" SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
@@ -566,12 +575,16 @@ $app->get('/class/category/{categoryId}',function($request,$response,$args){
      FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
      inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
      inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id WHERE co.course_category = $categoryId";
-      responseJSON( $sql_query );
+    $data = responseJSON( $sql_query );
+      return $response->withJson($data,200);
 });
 $app->delete('/class/{id}',function($request,$response,$args){
   $id = $args['id'];
   $sql_query = "DELETE FROM kc_tbl_class WHERE class_id = $id ";
-  responseJSON_ID( $sql_query, $id);
+  $data = responseJSON_ID( $sql_query, $id);
+  return $response->withJson($data,200);
+
+
 });
 
 
@@ -602,8 +615,12 @@ $app->post('/user',function(){
 $app->get('/user/{class_id}',function($request,$response,$args){
     $class_id = $args['class_id'];
     $sql_query = "SELECT COUNT(class_id) As totalMember FROM kc_tbl_user WHERE class_id = $class_id ";
-  responseJSON_ID( $sql_query, $class_id);
+    $data = responseJSON_ID( $sql_query, $class_id);
+    return $response->withJson($data,200);
+
 });
+//users
+
 $app->run();
 
 

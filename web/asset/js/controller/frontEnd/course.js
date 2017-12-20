@@ -1,9 +1,10 @@
-app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$timeout,BASE){
+app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$cookieStore,$timeout,BASE){
     $scope.$route = $route;
     $scope.activePath = null;
+    $scope.userAuth =  $cookieStore.get('userLog');
     var baseUrl = window.location.origin+BASE;
     var url = $location.absUrl();
-
+      $scope.src = "http://placehold.it/380x500";
     $scope.getListCourse = function(){
       var idCategory = $routeParams.categoryId;
       if(idCategory){
@@ -60,15 +61,15 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$t
     };
 
     $scope.registerCourse = function(){
-      var url = baseUrl+'/api/user';
+      var url = baseUrl+'/api/student';
       var classId = $routeParams.id;
       $http.post( url,
         {
-            'name':$scope.name,
-            'sex':$scope.sex,
+            'fname':$scope.fname,
+            'lname':$scope.lname,
             'email':$scope.email,
             'phone':$scope.phone,
-            'studyTime': $scope.studyTime,
+            'password':$scope.password,
             'classId':classId
         },
         {
@@ -78,6 +79,8 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$t
         }).then(function(response){
             console.log(response);
             alert('you have registed!');
+            $cookieStore.put('userLog',true);
+            $scope.display = true;
               $scope.totalMember();
         });
     };
@@ -87,7 +90,17 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$t
         $scope.members = response.data;
         console.log(response);
       })
-    }
+    };
+    $scope.uploadedFile = function(element) {
+          var reader = new FileReader();
+          reader.onload = function(event) {
+           $scope.$apply(function($scope) {
+                $scope.files = element.files;
+                $scope.src = event.target.result;
+           });
+          }
+          reader.readAsDataURL(element.files[0]);
+    };
 
 
 });

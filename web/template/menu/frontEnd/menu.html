@@ -37,11 +37,9 @@
 
               Contacts</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
-
-              Traning</a>
+          <li class="nav-item" ng-show="userAuth" ng-class="{'active': $route.current.activeUser == 'user/profile'}">
+            <a class="nav-link" href="#!/user/profile">
+              <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>Profile</a>
           </li>
         </ul>
       </div>

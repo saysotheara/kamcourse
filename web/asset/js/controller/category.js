@@ -236,7 +236,7 @@ app.controller('categoryCtl',function($scope,$http,$route,$location,$routeParams
         var id = $routeParams.id;
         var url = baseUrl+'/schedule/'+id;
         $http.get(url).then(function(response){
-          $scope.schedule_id = response.data.schedule_id;
+          $scope.schedule_id = parseInt(response.data.schedule_id);
           $scope.time = response.data.schedule_time;
           $scope.description = response.data.schedule_description;
           $scope.photo = response.data.schedule_cover;

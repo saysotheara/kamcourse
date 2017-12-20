@@ -1,0 +1,90 @@
+<header  class="bg-header" ng-include="'template/menu/frontEnd/menu.html'">
+</header>
+    <!-- Page Content -->
+    <div class="container"  >
+      <div class="row main home"  >
+        <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8"  >
+          <!-- list-course -->
+          <div class="row subject mt-1 mx-1" >
+                <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4" >
+                    <div class="course">
+                    </div>
+
+                </div>
+                <div class=" col-sm-6 col-xs-6 col-md-6 col-lg-6"  >
+                  <div class="short-info ">
+
+
+                  </div>
+                </div>
+
+          </div>
+
+        </div>
+        <!-- right-bar -->
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style=" margin-top:2%;">
+                <div class="card-block text-center mt-2">
+                  <div class="profile  mx-auto">
+                    <div class="img-box">
+                      <img src="{{src}}"  alt="..." width="150" height="150" class="img-profile">
+                      <div class="profileImg text-center">
+                        <p class="change-pic"><i class="fa fa-camera-retro fa-2x"></i></p>
+                        <input type="file" id="file" ng-model="image" onchange="angular.element(this).scope().uploadedFile(this)"  accept="image/*" style="display:none">
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style="height:400px; margin-top:2%;">
+                <div class="card-block">
+
+                  <strong>Name: </strong>
+                  <strong>Sex: </strong>
+                  <strong>Birth: </strong>
+                  <strong>address: </strong>
+                  <strong>Phone: </strong>
+                  <strong>Email: </strong>
+
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <br>
+
+
+<script type="text/javascript">
+  $('.change-pic').on('click',function(){
+    $('#file').click();
+  })
+</script>
+
+
+
+
+    <!-- /.container -->
+
+    <!-- Footer -->

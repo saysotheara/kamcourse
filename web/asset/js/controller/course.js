@@ -2,6 +2,7 @@
 app.controller("CourseController", function($scope,$route,$http,$location,$routeParams,$timeout,BASE){
   $scope.$route = $route;
   $scope.activePath = null;
+
   var baseUrl = window.location.origin+BASE;
   var currentUrl = $location.absUrl();
   $scope.getCourse = function(){
@@ -16,6 +17,7 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
   $scope.getCategory = function(){
     $http.get(baseUrl+'/api/category').then(function(response){
       $scope.categoryData = response.data;
+      console.log(response.data);
     });
   };
 
@@ -111,11 +113,11 @@ app.controller("CourseController", function($scope,$route,$http,$location,$route
     var id = $routeParams.id;
     var url = baseUrl+'/api/course/'+id;
       $http.get(url).then(function(response){
-        $scope.id = response.data.course_id;
+        $scope.id = parseInt(response.data.course_id);
         $scope.name = response.data.course_name;
-        $scope.category = response.data.course_category;
+        $scope.category = parseInt(response.data.course_category);
         $scope.duration = response.data.course_duration;
-        $scope.fee = response.data.course_fee;
+        $scope.fee = parseInt(response.data.course_fee);
         $scope.photo = response.data.course_cover;
         $scope.video = response.data.course_video;
         $scope.description = response.data.course_description;

@@ -7,21 +7,21 @@
       <div class="col-sm-8 ">
 
         <!-- list-course -->
-        <div class="row subject" ng-init="showDetail()" >
+        <div class="row subject mx-1 mt-2" ng-init="showDetail()" >
           <div class="col-sm-12  " >
             <h3 style="color:#333;">{{courseData.course_name}}</h3>
             <hr>
           </div>
-              <div class="col-sm-4" >
-                <div class="course" style="margin-left:1%;">
-                  <thumbnail file-type="image" source="{{base+courseData.course_cover}}" max-height="260"  max-width="260"></thumbnail>
-
+              <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4 mx-2" >
+                <div class="course">
+                  <thumbnail file-type="image" source="{{base+courseData.course_cover}}" max-height="260"  max-width="240"></thumbnail>
+                </div>
                   <div class=" text-center price ">
                     <p >{{courseData.course_fee}}$/course</p>
                   </div>
-                </div>
+
               </div>
-              <div class="col-sm-8 "  >
+              <div class="col-sm-6 "  >
                 <div class=" " style="margin-left:14%; color: #333;">
                   <p><strong>Start Date: </strong>{{courseData.class_start_date | date:'dd-MMMM-yyyy' }}</p>
                   <p><strong>Duration: </strong>{{courseData.course_duration }}</p>
@@ -90,21 +90,17 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card " style=" margin-top:2%;">
-
               <div class="card-block top-course">
-
                 <div class="row">
                   <div class="col-sm-10  text-center" style="margin: 0 auto;">
                     <div class="alert alert-success " role="alert">
                       There are still room available for student to join this course. Please click button below to join course.
                     </div>
                     <button type="button" class="btn btn-info join" name="button" style="margin-top:-2%; margin-bottom:2%;">Join Course</button>
-
                   </div>
                 </div>
               </div>
               </div>
-
             </div>
           </div>
           <div class="row">
@@ -119,21 +115,15 @@
                   <p>website: www.ppit.edu</p>
                   <p>Address: st #421 phnom phen......</p>
                 </div>
-
                 </div>
               </div>
             </div>
-
-
           </div>
-
         </div>
-
-
       </div>
     </div>
     <!-- /.row -->
-    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="register" tabindex="-1" ng-hide="display" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -144,16 +134,18 @@
         </div>
         <div class="modal-body">
           <form>
+
             <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Full Name:</label>
-              <input type="text" class="form-control" ng-model="name" id="recipient-name">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Sex:</label>
-              <select class="form-control" ng-model="sex" >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
+              <div class="row">
+                <label for="recipient-name" class="col-sm-6 col-form-label">Frist Name:</label>
+                <label for="recipient-name" class="col-sm-6 col-form-label">Last Name:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" ng-model="fname" id="recipient-name">
+                </div>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" ng-model="lname" id="recipient-name">
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Email:</label>
@@ -162,12 +154,14 @@
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Phone:</label>
               <input type="text" class="form-control" ng-model="phone" id="recipient-name">
-              <input type="hidden" ng-model="role" name="role" value="2">
             </div>
-
             <div class="form-group">
-              <label for="message-text" class="col-form-label">Study Time:</label>
-              <input class="form-control mydate"  ng-model="studyTime" type="text" placeholder="study Time">
+              <label for="recipient-name" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" ng-model="password" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Re-passsword:</label>
+              <input type="password" class="form-control" ng-model="repassword" id="recipient-name">
             </div>
           </form>
         </div>

@@ -70,7 +70,7 @@ $scope.filterfacilitator= function(){
       var url = baseUrl+'/api/facilitator/'+id;
       $http.get(url).then(function(response){
         console.log(response);
-        $scope.id = response.data.facilitator_id;
+        $scope.id = parseInt(response.data.facilitator_id);
         $scope.fname = response.data.facilitator_firstname;
         $scope.lname = response.data.facilitator_lastname;
         $scope.phone = response.data.facilitator_phone;
