@@ -1,38 +1,66 @@
 <header  class="bg-header" ng-include="'template/menu/frontEnd/menu.html'">
 </header>
     <!-- Page Content -->
-    <div class="container"  >
+    <div class="container" ng-init="getProfile()" >
       <div class="row main home"  >
         <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8"  >
           <!-- list-course -->
-          <div class="row subject mt-1 mx-1" >
-                <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4" >
-                    <div class="course">
-                    </div>
+          <div class="row subject mt-1 mx-1" ng-init="getStudentActivity()" >
 
-                </div>
-                <div class=" col-sm-6 col-xs-6 col-md-6 col-lg-6"  >
-                  <div class="short-info ">
+            <table class="table table-sm text-center" style="color:black;">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Class</th>
+                  <th>description</th>
+                  <th>Feed</th>
+                  <th>study Time</th>
+                  <th>Enroll </th>
+                  <th>Start </th>
+                  <th>Active</th>
 
 
-                  </div>
-                </div>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="act in activity">
+                  <th scope="row">{{act.history_id}}</th>
+                  <td>{{act.course_name}}</td>
+                  <td>{{act.course_description}}</td>
+                  <td>{{act.course_fee}}$</td>
+                  <td>{{act.class_turn}}</td>
+                  <td>{{act.history_enroll_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{act.class_start_date | date:'dd-MM-yyyy'}}</td>
+                  <td>
+                    <i ng-if=" convertDate(act.history_enroll_date) < convertDate(act.class_start_date) "class="fa fa-circle" aria-hidden="true" style="color:green;"></i>
+                    <i ng-if=" convertDate(act.history_enroll_date) > convertDate(act.class_start_date) "class="fa fa-circle" aria-hidden="true" style="color:red;"></i>
+
+                  </td>
+
+
+
+                </tr>
+                </table>
 
           </div>
 
         </div>
         <!-- right-bar -->
         <div class="col-sm-4">
+          <form class="" >
+
           <div class="row">
             <div class="col-sm-12">
               <div class="card " style=" margin-top:2%;">
                 <div class="card-block text-center mt-2">
                   <div class="profile  mx-auto">
                     <div class="img-box">
-                      <img src="{{src}}"  alt="..." width="150" height="150" class="img-profile">
+                      <div class="myProfile">
+                        <img src="{{base+cover}}" ng-src="{{src}}"  alt="" width="150" height="150" class="img-profile">
+                      </div>
                       <div class="profileImg text-center">
                         <p class="change-pic"><i class="fa fa-camera-retro fa-2x"></i></p>
-                        <input type="file" id="file" ng-model="image" onchange="angular.element(this).scope().uploadedFile(this)"  accept="image/*" style="display:none">
+                        <input type="file" id="file" ng-model="file" onchange="angular.element(this).scope().uploadedFile(this)"  accept="image/*" style="display:none">
                       </div>
                     </div>
                   </div>
@@ -45,17 +73,61 @@
 
 
           </div>
-          <div class="row">
+          <div class="row" >
             <div class="col-sm-12">
               <div class="card " style="height:400px; margin-top:2%;">
-                <div class="card-block">
+                <div class="card-block" style="color:#333;">
 
-                  <strong>Name: </strong>
-                  <strong>Sex: </strong>
-                  <strong>Birth: </strong>
-                  <strong>address: </strong>
-                  <strong>Phone: </strong>
-                  <strong>Email: </strong>
+
+                      <div class="form-group row">
+                        <label for="example-text-input" class="col-3 col-form-label mx-2">Name:</label>
+                        <div class="col-4">
+                          <input class="form-control fname"  ng-model="fname"  type="text" required placeholder="Frist Name">
+                        </div>
+                        <div class="col-4 " style="margin-left:-8%;">
+                          <input class="form-control lname"  ng-model="lname"  type="text" required placeholder="Last Name">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="example-text-input" class="col-3 col-form-label mx-2">sex:</label>
+                        <div class="col-7">
+                          <select class="form-control sex" ng-model="sex" >
+                          <option  ng-selected="true" value="">--Select Sex--</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="example-text-input" class="col-3 col-form-label mx-2  ">Birth:</label>
+                        <div class="col-7">
+                          <input class="form-control birth mydate" ng-model="birth" type="text" required placeholder="Day of Birth">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="example-text-input" class="col-3 col-form-label mx-2 ">address:</label>
+                        <div class="col-7">
+                          <input class="form-control address"  ng-model="address"   type="text" required placeholder="address">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="example-text-input" class="col-3 col-form-label mx-2">phone:</label>
+                        <div class="col-7">
+                          <input class="form-control phone"  ng-model="phone"   type="text" required placeholder="Phone">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="example-text-input" class="col-3 col-form-label mx-2 ">Email:</label>
+                        <div class="col-7">
+                          <input class="form-control email" ng-model="email"   type="email" required placeholder="Email">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-12 ">
+                          <button type="button" name="button" ng-click="updateProfile()" class="btn btn-primary float-right">update</button>
+                        </div>
+                      </div>
+
 
 
 
@@ -68,6 +140,7 @@
 
 
           </div>
+        </form>
 
         </div>
       </div>
@@ -79,7 +152,12 @@
 <script type="text/javascript">
   $('.change-pic').on('click',function(){
     $('#file').click();
-  })
+  });
+  $('.mydate').datepicker({
+     format: "yyyy-mm-dd",
+     clearBtn: true,
+     autoclose: true
+   });
 </script>
 
 

@@ -538,6 +538,13 @@ figure:hover img{
 .img-profile{
   border-radius: 200px 200px 200px 200px;
 
+
+}
+.myProfile{
+  border-radius: 200px 200px 200px 200px;
+  background: url('http://placehold.it/380x500');
+   background-size: 150px 150px;
+   height: 150px
 }
 
 .img-box{
@@ -555,6 +562,7 @@ figure:hover img{
 	top: 0;
 	bottom: 0;
   border-radius: 200px 200px 200px 200px;
+
 }
 .img-box:after,.profileImg{
     -webkit-transition: all 0.5s ease-in-out 0s;
@@ -581,7 +589,20 @@ figure:hover img{
   opacity: 0.7;
 }
 
-
+.fname,.lname,.sex,.birth,.address,.phone,.email{
+  border: none;
+}
+.fname:focus,.lname:focus,.sex:focus,.birth:focus,.address:focus,.phone:focus,.email:focus{
+  color:#17a2b8;
+}
+.sex{
+    -moz-appearance: none;
+     text-indent: 0.01px;
+     text-overflow: '';
+}
+.fname::-moz-placeholder,.lname::-moz-placeholder{
+  font-size: 14px;
+}
 /*.pagination-sm li > a {
 
   height: 50px;

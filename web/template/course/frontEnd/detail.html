@@ -96,7 +96,14 @@
                     <div class="alert alert-success " role="alert">
                       There are still room available for student to join this course. Please click button below to join course.
                     </div>
+                  <!-- <ANY ng-if="userLog != true"> -->
+                    <button type="button" class="btn btn-info " ng-if="userAuth != true" name="button" ng-click="register()" style="margin-top:-2%; margin-bottom:2%;">Join Course</button>
+                    <button type="button" class="btn btn-info " ng-if="userAuth == true" name="button" ng-click="join()" style="margin-top:-2%; margin-bottom:2%;">Join Course</button>
+
+                  <!-- </ANY> -->
+                  <!-- <ANY ng-if="userLog = true">
                     <button type="button" class="btn btn-info join" name="button" style="margin-top:-2%; margin-bottom:2%;">Join Course</button>
+                  </ANY> -->
                   </div>
                 </div>
               </div>
@@ -123,7 +130,7 @@
       </div>
     </div>
     <!-- /.row -->
-    <div class="modal fade" id="register" tabindex="-1" ng-hide="display" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal fade" id="register" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -167,11 +174,31 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" ng-click="registerCourse()">Join</button>
+          <button type="button" class="btn btn-primary btnJoin" ng-click="registerCourse()" value="{{joined}}">Join</button>
         </div>
       </div>
     </div>
   </div>
+  <div class="modal fade" id="join" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Register Course</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          Do you want to join this course?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btnJoin" ng-click="registerClass()">Join</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 <script type="text/javascript">
@@ -189,6 +216,9 @@ $('.mydate').datepicker({
    clearBtn: true,
    autoclose: true
  });
+ // $('.btnJoin').on('click',function(){
+ //     $('#register').modal('hide');
+ // });
 </script>
 
 

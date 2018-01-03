@@ -199,58 +199,78 @@ $app->delete('/gallery/{id}', function($request, $response, $args) {
 
 // _________________student________________________
 
-$app->post('/student', function() {
+$app->post('/student', function($request,$response) {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
     $date = date('Y-m-d H:i:s');
 
     try {
-        $sql_query = "INSERT INTO kc_tbl_student (student_firstname,student_lastname,student_phone,student_email,student_create_date,student_update_date,student_pass,class_id) VALUES
-         ( :fname, :lname, :phone, :email,'$date','$date',:password,:classId)";
+        $sql_query = "INSERT INTO kc_tbl_student (student_firstname, student_lastname,
+          student_phone, student_email, student_create_date, student_update_date) VALUES
+         ( :student_firstname, :student_lastname, :student_phone, :student_email,'$date','$date')";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
-        $stmt->bindParam("fname", $request->fname);
-        $stmt->bindParam("lname", $request->lname);
-        $stmt->bindParam("phone", $request->phone);
-        $stmt->bindParam("email", $request->email);
-        $stmt->bindParam("password", $request->password);
-        $stmt->bindParam("classId", $request->classId);
+        $stmt->bindParam("student_firstname", $request->fname);
+        $stmt->bindParam("student_lastname", $request->lname);
+        $stmt->bindParam("student_phone", $request->phone);
+        $stmt->bindParam("student_email", $request->email);
 
         $stmt->execute();
+        $results = $dbCon->lastInsertId();
         $dbCon = null;
+
+        return $response->withJson($results,200);
     }
     catch(PDOException $e) {
-        echo '{"error": {"text":'. $e->getMessage() .'}}';
+        $data = '{"error": {"text":'. $e->getMessage() .'}}';
+        return $response->withJson($data,500);
     }
 });
 
-$app->put('/student/{id}', function($request, $response, $args) {
-
-    $postdata = file_get_contents("php://input");
-    $request = json_decode($postdata);
+$app->post('/student/{id}', function($request, $response, $args) {
+    $id = $args['id'];
+    $date = date('Y-m-d H:i:s');
+    $profile= $request->getUploadedFiles();
+    $fname = $request->getParam('fname');
+    $lname = $request->getParam('lname');
+    $phone = $request->getParam('phone');
+    $email = $request->getParam('email');
+    $sex = $request->getParam('sex');
+    $birth = $request->getParam('birth');
+    $address = $request->getParam('address');
+    $dbCon = getConnection();
+     if($profile){
+       $filename = $profile['file'];
+       if ($filename->getError() === UPLOAD_ERR_OK) {
+          $extension = pathinfo($filename->getClientFilename(), PATHINFO_EXTENSION);
+          $rename = time().'.'.$extension;
+          $imgFile = "/web/asset/img/profile/".$rename;
+          $image = $imgFile;
+          $filename->moveTo('..'.$imgFile);
+          $sql_query = "UPDATE kc_tbl_student SET student_firstname = :fname, student_lastname = :lname, student_phone = :phone, student_email = :email, student_sex = :sex, student_address = :address,student_update_date = '$date',student_cover = :cover,student_birth = :birth WHERE student_id = :id";
+          $stmt = $dbCon->prepare($sql_query);
+          $stmt->bindParam("cover", $image);
+        }
+      }else {
+        $sql_query = "UPDATE kc_tbl_student SET student_firstname = :fname, student_lastname = :lname, student_phone = :phone, student_email = :email, student_sex = :sex, student_address = :address,student_update_date = '$date',student_birth = :birth WHERE student_id = :id";
+        $stmt = $dbCon->prepare($sql_query);
+      }
 
     try {
-        $sql_query = "UPDATE kc_tbl_student SET student_firstname = :fname, student_lastname = :lname, student_phone = :phone, student_email = :email, student_sex = :sex, student_media = :media, student_address = :address, student_via_platform= :platform,student_create_date=:create,student_update_date=:updates,student_active_date=:active ,student_other_info = :other_info WHERE student_id = :id";
-        $dbCon = getConnection();
-        $stmt = $dbCon->prepare($sql_query);
-        $stmt->bindParam("id", $request->id);
-        $stmt->bindParam("fname", $request->fname);
-        $stmt->bindParam("lname", $request->lname);
-        $stmt->bindParam("phone", $request->phone);
-        $stmt->bindParam("email", $request->email);
-        $stmt->bindParam("sex", $request->sex);
-        $stmt->bindParam("media", $request->media);
-        $stmt->bindParam("address", $request->address);
-        $stmt->bindParam("platform", $request->platform);
-        $stmt->bindParam("create", $request->create);
-        $stmt->bindParam("updates", $request->updates);
-        $stmt->bindParam("active", $request->active);
-        $stmt->bindParam("other_info", $request->other_info);
+        $stmt->bindParam("id", $id);
+        $stmt->bindParam("fname",$fname);
+        $stmt->bindParam("lname",$lname);
+        $stmt->bindParam("phone",$phone);
+        $stmt->bindParam("email",$email);
+        $stmt->bindParam("sex",$sex);
+        $stmt->bindParam("birth",$birth);
+        $stmt->bindParam("address",$address);
         $stmt->execute();
         $dbCon = null;
+        return $response->withJson('update',200);
     }
     catch(PDOException $e) {
-        echo '{"error": {"text":'. $e->getMessage() .'}}';
+        return $response->withJson('{"error": {"text":'. $e->getMessage() .'}}',400);
     }
 });
 
@@ -272,15 +292,54 @@ $app->delete('/student/{id}', function($request, $response, $args) {
     $data = responseJSON_ID( $sql_query, $id);
     return $response->withJson($data,200);
 });
-// $app->get('/auth/student',function($request,$response,$args){
-//   $postdata = file_get_contents("php://input");
-//   $request = json_decode($postdata);
-//   $email = $request->username;
-//   $sql_query = "SELECT student_email,student_pass FROM kc_tbl_student WHERE student_email = $email ";
-//   $data = responseJSON_ID( $sql_query,$email);
-//   return $response->withJson($data,200);
-//
-// });
+$app->post('/students/join',function($request,$response){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+  $date = date('Y-m-d H:i:s');
+  try {
+      $sql_query = "INSERT INTO kc_tbl_student_history (history_student_id,history_class_id,history_enroll_date)
+       VALUES (:studentID, :classID,'$date')";
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("studentID", $request->studentID);
+      $stmt->bindParam("classID", $request->classID);
+      $stmt->execute();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+});
+$app->get('/students/join/{id}',function($request,$response,$args){
+    $studentID = $args['id'];
+    $sql_query = "SELECT hs.history_id,hs.history_class_id,hs.history_enroll_date,cl.class_start_date,cl.class_course,
+                  cl.class_turn,co.course_name,co.course_description,co.course_fee,co.course_cover FROM kc_tbl_student_history hs inner Join
+                  kc_tbl_class cl on hs.history_class_id = cl.class_id inner join kc_tbl_course co on cl.class_course = co.course_id
+                  WHERE hs.history_student_id = $studentID  ";
+
+    $data = responseJSON( $sql_query );
+    return $response->withJson($data,200);
+});
+
+$app->post('/auth/student',function($request,$response,$args){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+  try{
+  $sql_query = "SELECT student_id FROM kc_tbl_student WHERE student_email = :email AND student_pass =:password  ";
+  $dbCon = getConnection();
+  $stmt = $dbCon->prepare($sql_query);
+  $stmt->bindParam("email", $request->username);
+  $stmt->bindParam("password", $request->password);
+  $stmt->execute();
+  $data  = $stmt->fetchObject();
+  $dbCon = null;
+  return $response->withJson($data,200);
+}
+catch(PDOException $e) {
+  return $response->withJson('{"error": {"text":'. $e->getMessage() .'}}',400);
+}
+
+});
 
 //___________facilitator___________
 
@@ -586,7 +645,6 @@ $app->delete('/class/{id}',function($request,$response,$args){
 
 
 });
-
 
 $app->post('/user',function(){
   $postdata = file_get_contents("php://input");
