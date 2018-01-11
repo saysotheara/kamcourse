@@ -1,0 +1,174 @@
+<ANY ng-init="getListCourse()">
+<header  class="bg-header">
+  <!-- Navigation -->
+  <div class="bar navbar-dark bg-info fixed-top" >
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <a class="navbar-brand" href="#">Kamcourse</a>
+
+        </div>
+        <div class="col-sm-6" >
+                <input type="text" class="form-control-sm col-sm-12 search-input" ng-model="mySearch" value="" placeholder="search Here.....">
+        </div>
+
+        <div class="col-sm-3  " ng-controller="loginCtrl">
+          <div class="dropdown  float-right icon-log"  >
+
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-user-o" aria-hidden="true"></i>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu"​ >
+              <li class="ml-4" ng-if="(userLog || hasLogIn) != true"><a href="#!/admin"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a></li>
+              <li class="ml-4" ng-if="(userLog || hasLogIn) == true"><a href=""  ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> logout</a></li>
+              <li class="ml-4" ng-if="hasLogIn == true"><a href="#!/admin/course" ><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
+              <li class="ml-4" ng-if="hasLogIn == true"><a href="#!/home" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> view Site</a></li>
+
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="menu">
+    <nav class=" navbar-expand-lg ">
+
+      <div class="container">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item "  ng-class="{'active': $route.current.activeUser == 'user/home'}">
+              <a class="nav-link" href="#!/home" >
+                <i class="fa fa-home " aria-hidden="true"></i>
+
+                  Home
+
+              </a>
+            </li>
+            <br>
+            <li class="nav-item " ng-class="{'active': $route.current.activeUser == 'user/class'}">
+
+              <a class="nav-link" href="#!/course" >
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+
+                Courses </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-id-badge" aria-hidden="true"></i>
+
+                Students</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!/contact">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+
+                Contacts</a>
+            </li>
+            <li class="nav-item" ng-if="userAuth == true" ng-class="{'active': $route.current.activeUser == 'user/profile'}">
+              <a class="nav-link" href="#!/user/profile">
+                <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>Profile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+</header>
+    <!-- Page Content -->
+    <div class="container"  >
+      <div class="row main home"  >
+        <div class="col-sm-8"  >
+
+          <!-- list-course -->
+          <div class="row subject mt-1 mx-1" ng-repeat="course in listCourse.slice(((bigCurrentPage-1)*bigItemsPerPage), ((bigCurrentPage)*bigItemsPerPage)) | filter:mySearch"  ng-click="detail(course.class_id)">
+                <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4"  >
+
+                  <div class="course" >
+                    <thumbnail file-type="image" source="{{base+course.course_cover}}" max-height="260"  max-width="240"></thumbnail>
+                  </div>
+                    <div class=" text-center price ">
+                      <p >{{course.course_fee}}$/course</p>
+                    </div>
+
+                </div>
+                <div class=" col-sm-8 col-xs-8 col-md-6 col-lg-8 "  >
+                  <div class="short-info ">
+                    <p><strong>Course: </strong> {{course.course_name}}</p>
+                    <hr>
+                    <p><strong>Shedule: </strong> {{course.schedule_time}}</p>
+                    <p><strong>Start Date: </strong>{{course.class_start_date | date:'dd-MMMM-yyyy' }}</p>
+                  </div>
+                </div>
+
+          </div>
+          <div class="row subject mt-1 mx-1"  >
+                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 ">
+                  <div class="mt-4 ">
+                    <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" items-per-page="bigItemsPerPage" max-size="maxSize" class="pagination-sm " boundary-link-numbers="true" rotate="false"></ul>
+                  </div>
+                </div>
+          </div>
+
+
+
+
+        </div>
+        <!-- right-bar -->
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style="height:100px; margin-top:2%;">
+                <div class="card-block text-center">
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style="height:400px; margin-top:2%;">
+                <div class="card-block">
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <br>
+
+
+
+
+</ANY>
+
+
+    <!-- /.container -->
+
+    <!-- Footer -->
+
+
+
+
+<!-- /.container -->
+
+<!-- Footer -->

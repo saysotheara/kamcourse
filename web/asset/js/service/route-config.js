@@ -223,6 +223,9 @@ app.config(function($routeProvider,$locationProvider){
           templateUrl: 'template/profile/profile.html',
           controller: 'userCtrl',
           activeUser: 'user/profile'
+      }).when('/search',{
+        templateUrl: 'template/search.html',
+        controller: 'searchCtrl'
       }).otherwise({
         templateUrl:'template/Error/404.html',
         controller:'CourseController'
