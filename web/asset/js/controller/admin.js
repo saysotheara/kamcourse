@@ -31,11 +31,17 @@ app.controller("loginCtrl",function($scope,$routeParams,$http,$location,$rootSco
     }
   };
   $scope.logout = function(){
+    if($scope.hasLogIn == true){
       $cookieStore.remove('loggedIn');
+      $location.path('/admin');
+    }else {
       $cookieStore.remove('userLog');
       $cookieStore.remove('userId');
+      $location.path('/course');
+    };
 
-      // $scope.activePath = $location.path('/admin');
+
+
 
   };
 
