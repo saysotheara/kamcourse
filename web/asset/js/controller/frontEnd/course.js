@@ -85,22 +85,32 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
               $scope.totalMember();
         });
     };
+
     $scope.registerClass = function(){
-        var url = baseUrl+'/api/students/join';
-        $http.post(url,
-          {
-              'studentID':$cookieStore.get('userId'),
-              'classID':$routeParams.id,
-          },
-          {
-              headers: {
-                  'Content-Type': 'application/json; charset=utf-8'
-              }
-          }).then(function(response){
-            $('#join').modal('hide');
-            alert('Done');
-          });
+      var url = baseUrl+'/api/students/join';
+      $http.post(url,
+        {
+            'studentID':$cookieStore.get('userId'),
+            'classID':$routeParams.id,
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        }).then(function(response){
+          console.log(response);
+          $('#join').modal('hide');
+          if(response.data == '1'){
+            alert('Thank you for joining this class!');
+
+          }else {
+            alert("this class is Joined already! ");
+
+          }
+
+        });
     };
+
     $scope.getStudentActivity = function(){
       var url = baseUrl+'/api/students/join/'+$cookieStore.get('userId');
       $http.get(url).then(function(response){

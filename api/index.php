@@ -297,19 +297,41 @@ $app->post('/students/join',function($request,$response){
   $request = json_decode($postdata);
   $date = date('Y-m-d H:i:s');
   try {
-      $sql_query = "INSERT INTO kc_tbl_student_history (history_student_id,history_class_id,history_enroll_date)
-       VALUES (:studentID, :classID,'$date')";
+      $sql_query = "SELECT * FROM kc_tbl_student_history WHERE history_class_id = :classID and history_student_id = :studentID";
       $dbCon = getConnection();
       $stmt = $dbCon->prepare($sql_query);
       $stmt->bindParam("studentID", $request->studentID);
       $stmt->bindParam("classID", $request->classID);
+      $stmt->execute();
+      $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+      $dbCon = null;
+      if(!empty($results)){
+          return $response->withJson('0',200);
+      }else {
+        joinClass($request->studentID,$request->classID);
+          return $response->withJson('1',200);
+      }
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+});
+function joinClass($studentID,$classID){
+  $date = date('Y-m-d H:i:s');
+  try {
+      $sql_query = "INSERT INTO kc_tbl_student_history (history_student_id,history_class_id,history_enroll_date)
+       VALUES (:studentID, :classID,'$date')";
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("studentID", $studentID);
+      $stmt->bindParam("classID", $classID);
       $stmt->execute();
       $dbCon = null;
   }
   catch(PDOException $e) {
       echo '{"error": {"text":'. $e->getMessage() .'}}';
   }
-});
+};
 $app->get('/students/join/{id}',function($request,$response,$args){
     $studentID = $args['id'];
     $sql_query = "SELECT hs.history_id,hs.history_class_id,hs.history_enroll_date,cl.class_start_date,cl.class_course,
@@ -320,6 +342,7 @@ $app->get('/students/join/{id}',function($request,$response,$args){
     $data = responseJSON( $sql_query );
     return $response->withJson($data,200);
 });
+
 
 $app->post('/auth/student',function($request,$response,$args){
   $postdata = file_get_contents("php://input");
@@ -365,8 +388,6 @@ $app->post('/facilitator', function() {
         $sql_query = "INSERT INTO kc_tbl_facilitator (facilitator_firstname, facilitator_lastname, facilitator_phone, facilitator_email, facilitator_sex, facilitator_media, facilitator_address, facilitator_profile, facilitator_via_platform, facilitator_create_date, facilitator_update_date, facilitator_active_date, facilitator_other_info) VALUES ( :fname, :lname, :phone, :email, :sex, :media, :address, :profile,:platform,:create,:updates,:active ,:other_info)";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
-
-
         $stmt->bindParam("fname", $request->fname);
         $stmt->bindParam("lname", $request->lname);
         $stmt->bindParam("phone", $request->phone);

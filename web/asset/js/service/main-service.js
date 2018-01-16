@@ -16,12 +16,6 @@ app.service('sharedProperties', function () {
         };
     });
 app.controller('searchCtrl',function($scope,$http,$route,$location,$rootScope,BASE,sharedProperties){
-  // $scope.searchAble = function(){
-  //   var baseUrl = window.location.origin+BASE;
-  //   $http.get(baseUrl+'/api/class').then(function(response){
-  //     $scope.listClass = response.data;
-  //   });
-    // }
 
     $scope.searchAble = function(){
     $location.path('/search');

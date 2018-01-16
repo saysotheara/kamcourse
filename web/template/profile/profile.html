@@ -30,7 +30,7 @@
                   <td>{{act.history_enroll_date | date:'dd-MM-yyyy' }}</td>
                   <td>{{act.class_start_date | date:'dd-MM-yyyy'}}</td>
                   <td>
-                    <i ng-if=" convertDate(act.history_enroll_date) < convertDate(act.class_start_date) "class="fa fa-circle" aria-hidden="true" style="color:green;"></i>
+                    <i ng-if=" convertDate(act.history_enroll_date) <= convertDate(act.class_start_date) "class="fa fa-circle" aria-hidden="true" style="color:green;"></i>
                     <i ng-if=" convertDate(act.history_enroll_date) > convertDate(act.class_start_date) "class="fa fa-circle" aria-hidden="true" style="color:red;"></i>
 
                   </td>
