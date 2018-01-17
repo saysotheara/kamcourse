@@ -7,6 +7,11 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\UploadedFile;
 use Slim\Middleware\TokenAuthentication;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+//Load composer's autoloader
+require 'mailler/vendor/autoload.php';
 $config = [
     'settings' => [
         'displayErrorDetails' => true
@@ -14,36 +19,7 @@ $config = [
 ];
 
 $app = new App($config);
-$authenticator = function($request, TokenAuthentication $tokenAuth){
-    /**
-     * Try find authorization token via header, parameters, cookie or attribute
-     * If token not found, return response with status 401 (unauthorized)
-     */
-    $token = $tokenAuth->findToken($request);
-    /**
-     * Call authentication logic class
-     */
-    $auth = new \app\Auth();
-    /**
-     * Verify if token is valid on database
-     * If token isn't valid, must throw an UnauthorizedExceptionInterface
-     */
-    $auth->getUserByToken($token);
-};
-/**
- * Add token authentication middleware
- */
-$app->add(new TokenAuthentication([
-    'path' =>   '/api/course',
-    'authenticator' => $authenticator,
 
-]));
-$app->get('/apiTest',function($request, $response){
-  $response->write('token');
-});
-$app->get('/testprs',function($request,$response){
-  $response->write('Hello')->withAttribute('name','who');
-});
 function getConnection() {
     try {
         $db_username = "usr_kamcourse";
@@ -85,6 +61,35 @@ function responseJSON_ID($sql_query, $id) {
         echo '{"error": {"text":'. $e->getMessage() .'}}';
     }
 }
+$app->get('/mail',function(){
+  $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+try {
+    //Server settings
+    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = 'khmengkhmer.it@gmail.com';                 // SMTP username
+    $mail->Password = 'khmer.IT@1234';                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 587;                                    // TCP port to connect to
+
+    //Recipients
+    $mail->setFrom('ratanahai2468@gmail.com', 'ratana Hai');
+    $mail->addAddress('hairatana@gmail.com');     // Add a recipient
+
+    //Content
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = 'Here is the subject';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+}
+});
 $app->get('/gallery', function($request, $response) {
     $sql_query = "SELECT * FROM kc_tbl_gallery";
     $data = responseJSON( $sql_query );
