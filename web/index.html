@@ -13,7 +13,7 @@
 
     <!-- Bootstrap core CSS -->
 
-    <link href="asset/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="asset/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="asset/font/css/font-awesome.min.css" rel="stylesheet">
     <link href="asset/css/style.css" rel="stylesheet">
     <link href="asset/css/bootstrap-datepicker.min.css" rel="stylesheet">
@@ -31,15 +31,8 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-info">
-      <div class="container">
-        <div style="text-align: center; margin-bottom: 10px;">
-            <a href="/kamcourse/web/#!/admin/course">New Course</a>&nbsp;|&nbsp;
-            <a href="/kamcourse/web/#!/admin/class">New Class</a>&nbsp;|&nbsp;
-            <a href="/kamcourse/web/#!/admin/student">New Student</a>&nbsp;|&nbsp;
-            <a href="/kamcourse/web/#!/admin/facilitator">New Facilitator</a>
-        </div>
-        <p class="m-0 text-center text-white">Copyright &copy; kamcourse 2017</p>
+    <footer class="py-5 bg-info" ng-controller="DateCtrl">
+        <p class="m-0 text-center text-white">Copyright &copy; kamcourse {{DateYear | date:'yyyy' }}</p>
       </div>
       <!-- /.container -->
 
@@ -51,7 +44,7 @@
 
 
 
-    <script src="asset/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="asset/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="asset/js/angular-1.6.6/angular.min.js" charset="utf-8"></script>
     <script src="asset/js/angular-1.6.6/angular-route.min.js" charset="utf-8"></script>
     <script src="asset/js/angular-1.6.6/angular-animate.min.js" charset="utf-8"></script>
@@ -70,6 +63,8 @@
 
     <script src="asset/js/controller/class.js" charset="utf-8"></script>
     <script src="asset/js/controller/category.js" charset="utf-8"></script>
+    <script src="asset/js/controller/vertify.js" charset="utf-8"></script>
+
 
     <script src="asset/js/controller/course.js" charset="utf-8"></script>
     <script src="asset/js/controller/student.js" charset="utf-8"></script>

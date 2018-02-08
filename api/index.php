@@ -32,7 +32,9 @@ function getConnection() {
     }
     return null;
 }
+function configMail(){
 
+}
 function responseJSON($sql_query) {
     try {
         $dbCon = getConnection();
@@ -61,9 +63,10 @@ function responseJSON_ID($sql_query, $id) {
         echo '{"error": {"text":'. $e->getMessage() .'}}';
     }
 }
-$app->get('/mail',function(){
+function vertifyEmail($email,$urlLink){
+
   $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
-try {
+  try {
     //Server settings
     $mail->SMTPDebug = 2;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
@@ -73,23 +76,31 @@ try {
     $mail->Password = 'khmer.IT@1234';                           // SMTP password
     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                                    // TCP port to connect to
-
     //Recipients
-    $mail->setFrom('ratanahai2468@gmail.com', 'ratana Hai');
-    $mail->addAddress('hairatana@gmail.com');     // Add a recipient
-
+    $mail->setFrom('ratanahai2468@gmail.com', 'khmeng Khmer IT');
+    $mail->addAddress($email);     // Add a recipient
     //Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->Subject = 'Register Kamcourse.';
+    $mail->Body    = '<div style="width:60%;height:300px; border-top:solid 1px;" >
+                      <img src="http://ppit-edu.co/images/logo.png" style="margin-left:8%;" width="500" height="150">
+                      <h1 style="text-align:center;">Phnom Penh Institue of Technology </h1>
+                        <p style="margin-top:2%; margin-left:5%;"> Thank you for your register! Please click vertify button to
+                        comfirm your email.</p>
+                        <a href="'.$urlLink.$email.'">
+                      <button type="button" style="background:rgb(66, 215, 244); color:#ffff; width:80px; height:30px; text-align:center; border-bottom:solid 2px #34a4c9; margin-left:35%;
+                      border-top-left-radius:6px;border-top-right-radius:6px;border-bottom-left-radius:6px;
+                      border-bottom-right-radius:6px;">vertify</button></a>
+                      </div>';
+
+
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
-    echo 'Message has been sent';
-} catch (Exception $e) {
+    } catch (Exception $e) {
     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-}
-});
+  }
+};
 $app->get('/gallery', function($request, $response) {
     $sql_query = "SELECT * FROM kc_tbl_gallery";
     $data = responseJSON( $sql_query );
@@ -211,14 +222,16 @@ $app->post('/student', function($request,$response) {
 
     try {
         $sql_query = "INSERT INTO kc_tbl_student (student_firstname, student_lastname,
-          student_phone, student_email, student_create_date, student_update_date) VALUES
-         ( :student_firstname, :student_lastname, :student_phone, :student_email,'$date','$date')";
+          student_phone,student_email,student_pass, student_create_date, student_update_date) VALUES
+         ( :student_firstname, :student_lastname, :student_phone, :student_email,:password,'$date','$date')";
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql_query);
         $stmt->bindParam("student_firstname", $request->fname);
         $stmt->bindParam("student_lastname", $request->lname);
         $stmt->bindParam("student_phone", $request->phone);
         $stmt->bindParam("student_email", $request->email);
+        $stmt->bindParam("password", $request->password);
+
 
         $stmt->execute();
         $results = $dbCon->lastInsertId();
@@ -230,6 +243,27 @@ $app->post('/student', function($request,$response) {
         $data = '{"error": {"text":'. $e->getMessage() .'}}';
         return $response->withJson($data,500);
     }
+});
+$app->post('/check/register',function($request,$response){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+  try {
+      $sql_query = "SELECT student_email FROM kc_tbl_student WHERE student_email = :student_email";
+      $dbCon = getConnection();
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("student_email", $request->email);
+      $stmt->execute();
+      $results = $stmt->fetchObject();
+      $dbCon = null;
+  }
+  catch(PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+  if($results){
+    return $response->withJson('true',200);
+  }
+
+
 });
 
 $app->post('/student/{id}', function($request, $response, $args) {
@@ -367,6 +401,56 @@ catch(PDOException $e) {
   return $response->withJson('{"error": {"text":'. $e->getMessage() .'}}',400);
 }
 
+});
+$app->post('/user/vertify',function($request,$response,$args){
+
+  $postdata = file_get_contents("php://input");
+  $requestData = json_decode($postdata);
+  try {
+    $sql_query = "INSERT INTO kc_tbl_vertify (student_id,email,comfirm) VALUES(:student_id,:email,0)";
+    $dbCon = getConnection();
+    $stmt = $dbCon->prepare($sql_query);
+    $stmt->bindParam("student_id", $requestData->studentID);
+    $stmt->bindParam("email", $requestData->email);
+
+    $stmt->execute();
+    $dbCon = null;
+    $urlLink = explode('/api',$request->getUri()->getBaseUrl())[0].'/web/#!/comfirm/';
+    vertifyEmail($requestData->email,$urlLink);
+  } catch (PDOException $e) {
+    echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+
+});
+$app->post('/vertified',function($request,$response,$args){
+  $postdata = file_get_contents("php://input");
+  $requestData = json_decode($postdata);
+  try {
+    $dbCon = getConnection();
+
+    $sql_query = "SELECT email FROM kc_tbl_vertify WHERE email = :email";
+    $stmt = $dbCon->prepare($sql_query);
+    $stmt->bindParam("email", $requestData->email);
+    $stmt->execute();
+    $data  = $stmt->fetchObject();
+    $dbCon = null;
+  } catch (PDOException $e) {
+    echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
+  if($data){
+    try {
+      $dbCon = getConnection();
+
+      $sql_query = "UPDATE kc_tbl_vertify SET comfirm = '1' WHERE email = :email";
+      $stmt = $dbCon->prepare($sql_query);
+      $stmt->bindParam("email", $requestData->email);
+      $stmt->execute();
+      $dbCon = null;
+      return $response->withJson('true',200);
+    } catch (PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+    }
+  }
 });
 
 //___________facilitator___________
@@ -601,19 +685,21 @@ $app->post('/class',function(){
   }
 });
 $app->get('/class',function($request,$response){
+  $date = date('Y-m-d H:i:s');
   $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
-  cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
-  co.course_cover,co.course_video,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
+  cl.update_date,co.course_name,co.course_category,co.course_description,co.course_fee,co.course_duration,
+  co.course_outline,co.course_cover,co.course_video,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
    FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
    inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
-   inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id";
+   inner join kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id order by cl.update_date desc  ";
   $data = responseJSON( $sql_query );
   return $response->withJson($data,200);
 });
 $app->get('/class/user/{id}',function($request,$response,$args){
   $id = $args['id'];
   $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
-  cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
+  cl.update_date,co.course_name,co.course_category,co.course_description,co.course_fee,
+  co.course_duration,co.course_outline,
   co.course_cover,co.course_video,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
    FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
    inner join kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
@@ -696,15 +782,53 @@ $app->post('/user',function(){
       echo '{"error": {"text":'. $e->getMessage() .'}}';
   }
 });
-$app->get('/user/{class_id}',function($request,$response,$args){
-    $class_id = $args['class_id'];
-    $sql_query = "SELECT COUNT(class_id) As totalMember FROM kc_tbl_user WHERE class_id = $class_id ";
-    $data = responseJSON_ID( $sql_query, $class_id);
+//users
+$app->get('/popular/class',function($request,$response){
+  $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
+    cl.update_date,co.course_name,co.course_category,co.course_description,
+    co.course_fee,co.course_duration,co.course_outline,
+    co.course_cover,co.course_video,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
+    FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
+    inner join  kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
+    inner join  kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id
+    inner join  kc_tbl_student_history h on cl.class_id = h.history_class_id
+    group by h.history_class_id order by count(h.history_class_id) desc";
+  $data = responseJSON( $sql_query );
+  return $response->withJson($data,200);
+});
+$app->get('/recommend/course/{categoryId}',function($request,$response,$args){
+  $categoryId = $args['categoryId'];
+  $sql_query = "SELECT cl.class_id,cl.class_start_date,cl.class_turn,cl.class_status,cl.create_date,
+    cl.update_date,co.course_name,co.course_description,co.course_fee,co.course_duration,co.course_outline,
+    co.course_cover,co.course_video,s.schedule_time,f.facilitator_firstname,f.facilitator_lastname
+    FROM kc_tbl_class cl inner join kc_tbl_course co on cl.class_course= co.course_id
+    inner join  kc_tbl_course_schedule s on cl.class_schedule=s.schedule_id
+    inner join  kc_tbl_facilitator f on cl.class_facilitator=f.facilitator_id
+    where co.course_category = $categoryId order by cl.create_date desc";
+    $data = responseJSON( $sql_query );
     return $response->withJson($data,200);
+});
+$app->post('/contact',function($request,$response){
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+  $date = date('Y-m-d H:i:s');
+  try {
+    $sql_query = "INSERT INTO kc_tbl_contact (name,email,phone,comment,create_date)
+    VALUES (:name,:email,:phone,:comment,'$date')";
+    $dbCon = getConnection();
+    $stmt = $dbCon->prepare($sql_query);
+    $stmt->bindParam("name", $request->name);
+    $stmt->bindParam("email", $request->email);
+    $stmt->bindParam("phone", $request->phone);
+    $stmt->bindParam("comment", $request->comment);
+    $stmt->execute();
+    $dbCon = null;
+    return $response->withJson('true',200);
+  } catch (PDOException $e) {
+      echo '{"error": {"text":'. $e->getMessage() .'}}';
+  }
 
 });
-//users
-
 $app->run();
 
 

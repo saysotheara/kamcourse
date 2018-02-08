@@ -1,63 +1,60 @@
 <any ng-include="'template/navigation/navigation.html'"></any>
-<div class="menu">
-  <nav class=" navbar-expand-lg ">
+<nav class="navbar navbar-expand-lg navbar-white">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler bg-success-2 col-sm-12" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>Menu
+  </button>
 
-    <div class="container">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mx-auto mr-auto text-center">
+      <li class="nav-item ">
+        <a class="nav-link" href="#">
+          <i class="fa fa-home " aria-hidden="true"></i>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav  mx-auto ">
-          <li class="nav-item ">
-            <a class="nav-link" href="#">
-              <i class="fa fa-home " aria-hidden="true"></i>
+            Home
 
-                Home
+        </a>
+      </li>
+      <br>
+      <li class="nav-item" ng-class="{'active': $route.current.activetab == 'class'}">
 
-            </a>
-          </li>
-          <br>
-          <li class="nav-item" ng-class="{'active': $route.current.activetab == 'class'}">
+        <a class="nav-link" href="#!/admin/class">
+          <i class="fa fa-graduation-cap" aria-hidden="true"></i>
 
-            <a class="nav-link" href="#!/admin/class">
-              <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+          Class </a>
+      </li>
+      <li class="nav-item " ng-class="{'active': $route.current.activetab == 'course'}">
 
-              Class </a>
-          </li>
-          <li class="nav-item " ng-class="{'active': $route.current.activetab == 'course'}">
+        <a class="nav-link" href="#!/admin/course">
+          <i class="fa fa-graduation-cap" aria-hidden="true"></i>
 
-            <a class="nav-link" href="#!/admin/course">
-              <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+          Courses </a>
+      </li>
+      <li class="nav-item" ng-class="{'active': $route.current.activetab == 'student'}">
+        <a class="nav-link" href="#!/admin/student">
+          <i class="fa fa-id-badge" aria-hidden="true"></i>
 
-              Courses </a>
-          </li>
-          <li class="nav-item" ng-class="{'active': $route.current.activetab == 'student'}">
-            <a class="nav-link" href="#!/admin/student">
-              <i class="fa fa-id-badge" aria-hidden="true"></i>
+          Students</a>
+      </li>
+      <li class="nav-item " ng-class="{'active': $route.current.activetab == 'category'}">
+        <a class="nav-link" href="#!/admin/category">
+          <i class="fa fa-id-badge" aria-hidden="true"></i>
+          Category
+        </a>
+      </li>
+      <li class="nav-item " ng-class="{'active': $route.current.activetab == 'schedule'}">
+        <a class="nav-link" href="#!/admin/schedule">
+          <i class="fa fa-envelope" aria-hidden="true"></i>
+          Schedule
+          </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
 
-              Students</a>
-          </li>
-          <li class="nav-item " ng-class="{'active': $route.current.activetab == 'category'}">
-            <a class="nav-link" href="#!/admin/category">
-              <i class="fa fa-id-badge" aria-hidden="true"></i>
-              Category
-            </a>
-          </li>
-          <li class="nav-item " ng-class="{'active': $route.current.activetab == 'schedule'}">
-            <a class="nav-link" href="#!/admin/schedule">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-              Schedule
-              </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
+          Traning</a>
+      </li>
+    </ul>
 
-              Traning</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>
+  </div>
+</nav>

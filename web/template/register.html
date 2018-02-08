@@ -1,0 +1,127 @@
+<header  class="bg-header" ng-include="'template/menu/frontEnd/menu.html'">
+</header>
+  <!-- Page Content -->
+  <div class="container"  >
+    <div class="row main home"  >
+
+      <div class="col-sm-8 ">
+
+        <!-- list-course -->
+        <div class="row subject mx-1 mt-2" ng-init="showDetail()" >
+          <div class="col-sm-12  " >
+            <h3 style="color:#333;">Register</h3>
+            <hr>
+          </div>
+
+              <div class="col-sm-8 mx-4 ">
+                <div class=" " style="margin-left:14%; color: #333;">
+                  <form>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <label for="recipient-name" class="col-sm-6 col-form-label">Frist Name:</label>
+                        <label for="recipient-name" class="col-sm-6 col-form-label">Last Name:</label>
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" ng-model="fname" id="recipient-name">
+                        </div>
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" ng-model="lname" id="recipient-name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Email:</label>
+                      <input type="email" class="form-control" ng-model="email" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Phone:</label>
+                      <input type="text" class="form-control" ng-model="phone" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Password:</label>
+                      <input type="password" class="form-control" ng-model="password" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Re-passsword:</label>
+                      <input type="password" class="form-control" ng-model="repassword" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary btnJoin" ng-click="registerCourse()" value="{{joined}}">Join</button>
+                    </div>
+
+                  </form>
+
+
+                </div>
+            </div>
+
+      </div>
+      <br>
+    </div>
+
+      <!-- right-bar -->
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card " style=" margin-top:2%;">
+              <div class="card-block top-course">
+                <div class="col-sm-12">
+                  <div class="card " style="height:400px; margin-top:5%; color:#333;">
+                    <div class="card-block " style="margin-top:5%;margin-left:5%;">
+                    <strong>Contact Us:</strong>
+                    <div class="contact">
+                      <p>Tel: (855)12 555 434</p>
+                      <p>H/P: (855)12 643 653</p>
+                      <p>Email: ppit@gmail.com</p>
+                      <p>website: www.ppit.edu</p>
+                      <p>Address: st #421 phnom phen......</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+    <div class="modal fade" id="vertify" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Register Course</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <h3>Please ! comfirm your Email.</h3>
+              <a class="btn btn-primary" target="_blank" href="https://mail.google.com">Comfirm</a>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+<script type="text/javascript">
+
+ $('.change-pic').on('click',function(){
+   $('#file').click();
+ });
+ // $('.btnJoin').on('click',function(){
+ //     $('#register').modal('hide');
+ // });
+</script>
+
+
+
+
+
+
+  <!-- /.container -->
+
+<!-- Footer -->

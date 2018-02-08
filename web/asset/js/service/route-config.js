@@ -211,7 +211,7 @@ app.config(function($routeProvider,$locationProvider){
           templateUrl: "template/course/frontEnd/detail.html",
           controller: "userCtrl",
           activeUser: 'user/class'
-      }).when('/home',{
+      }).when('/',{
         templateUrl: 'template/home.html',
         controller: 'userCtrl',
         activeUser: 'user/home'
@@ -226,6 +226,16 @@ app.config(function($routeProvider,$locationProvider){
       }).when('/search',{
         templateUrl: 'template/search.html',
         controller: 'searchCtrl'
+      }).when('/register',{
+        templateUrl: 'template/register.html',
+        controller: 'userCtrl'
+      }).when('/comfirm/:email',{
+        templateUrl: 'template/vertify/email.html',
+        controller: 'userCtrl'
+      }).when('/contact',{
+        templateUrl: 'template/contact/contact.html',
+        controller: 'userCtrl',
+        activeUser: 'user/contact'
       }).otherwise({
         templateUrl:'template/Error/404.html',
         controller:'CourseController'

@@ -16,7 +16,6 @@ app.service('sharedProperties', function () {
         };
     });
 app.controller('searchCtrl',function($scope,$http,$route,$location,$rootScope,BASE,sharedProperties){
-
     $scope.searchAble = function(){
     $location.path('/search');
 
@@ -44,4 +43,7 @@ app.controller('searchCtrl',function($scope,$http,$route,$location,$rootScope,BA
     $scope.activePath = $location.path('/course/'+id);
   };
 
+});
+app.controller('DateCtrl',function($scope){
+  $scope.DateYear = new Date();
 });

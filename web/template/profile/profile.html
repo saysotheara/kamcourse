@@ -6,7 +6,7 @@
         <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8"  >
           <!-- list-course -->
           <div class="row subject mt-1 mx-1" ng-init="getStudentActivity()" >
-
+            <h3 style="color:#333;" class="text-center">Current Class</h3>
             <table class="table table-sm text-center" style="color:black;">
                 <thead>
                 <tr>
@@ -22,7 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="act in activity">
+                <tr ng-repeat="act in activity" ng-if="currentDate <= startDate(act.class_start_date)" >
                   <th scope="row">{{act.history_id}}</th>
                   <td>{{act.course_name}}</td>
                   <td>{{act.course_fee}}$</td>
@@ -30,8 +30,11 @@
                   <td>{{act.history_enroll_date | date:'dd-MM-yyyy' }}</td>
                   <td>{{act.class_start_date | date:'dd-MM-yyyy'}}</td>
                   <td>
-                    <i ng-if=" convertDate(act.history_enroll_date) <= convertDate(act.class_start_date) "class="fa fa-circle" aria-hidden="true" style="color:green;"></i>
-                    <i ng-if=" convertDate(act.history_enroll_date) > convertDate(act.class_start_date) "class="fa fa-circle" aria-hidden="true" style="color:red;"></i>
+
+                    <i ng-if=" convertDate(currentDate) >= convertDate(act.class_start_date) " class="fa fa-circle" aria-hidden="true" style="color:green;"></i>
+                    <i ng-if="convertDate(currentDate) < convertDate(act.class_start_date) " class="fa fa-circle" aria-hidden="true" style="color:#3333;"></i>
+
+
 
                   </td>
 
@@ -40,12 +43,44 @@
                 </tr>
                 </table>
 
+
           </div>
-          <div class="row subject mt-1 mx-1">
-              <div class="col-sm-12 mt-2">
-                <p><i class="fa fa-circle" aria-hidden="true" style="color:green;"></i><strong style="color:#333;"> : Available class</strong></p>
-                <p><i class="fa fa-circle" aria-hidden="true" style="color:red;"></i><strong style="color:#333;"> : Unavilable class</strong></p>
-              </div>
+          <div class="row subject mt-1 mx-1 ">
+            <h3 style="color:#333;" class="text-center">Previous Class</h3>
+            <table class="table table-sm text-center" style="color:black;">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Class</th>
+                  <th>Feed</th>
+                  <th>study Time</th>
+                  <th>Enroll </th>
+                  <th>Start </th>
+                  <th>Active</th>
+
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="act in activity" ng-if="currentDate > startDate(act.class_start_date)" >
+                  <th scope="row">{{act.history_id}}</th>
+                  <td>{{act.course_name}}</td>
+                  <td>{{act.course_fee}}$</td>
+                  <td>{{act.class_turn}}</td>
+                  <td>{{act.history_enroll_date | date:'dd-MM-yyyy' }}</td>
+                  <td>{{act.class_start_date | date:'dd-MM-yyyy'}}</td>
+                  <td>
+
+                    <i ng-if=" currentDate > startDate(act.class_start_date) "class="fa fa-circle" aria-hidden="true" style="color:red;"></i>
+
+                  </td>
+
+
+
+                </tr>
+                </table>
+
           </div>
 
         </div>
@@ -131,13 +166,6 @@
                           <button type="button" name="button" ng-click="updateProfile()" class="btn btn-primary float-right">update</button>
                         </div>
                       </div>
-
-
-
-
-
-
-
                 </div>
               </div>
             </div>

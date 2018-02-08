@@ -89,9 +89,8 @@
     <div class="container"  >
       <div class="row main home"  >
         <div class="col-sm-8"  >
-
           <!-- list-course -->
-          <div class="row subject mt-1 mx-1" ng-repeat="course in listCourse.slice(((bigCurrentPage-1)*bigItemsPerPage), ((bigCurrentPage)*bigItemsPerPage)) | filter:mySearch"  ng-click="detail(course.class_id)">
+          <div class="row subject mt-1 mx-1" ng-repeat="course in (filterItems = (listCourse | filter:mySearch)).slice(((bigCurrentPage-1)*bigItemsPerPage), ((bigCurrentPage)*bigItemsPerPage))" ng-click="detail(course.class_id)">
                 <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4"  >
 
                   <div class="course" >
@@ -115,10 +114,16 @@
           <div class="row subject mt-1 mx-1"  >
                 <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 ">
                   <div class="mt-4 ">
-                    <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" items-per-page="bigItemsPerPage" max-size="maxSize" class="pagination-sm " boundary-link-numbers="true" rotate="false"></ul>
+                    <ul uib-pagination total-items="filterItems.length" ng-model="bigCurrentPage" items-per-page="bigItemsPerPage" max-size="maxSize" class="pagination-sm " boundary-link-numbers="true" rotate="false"></ul>
                   </div>
+
                 </div>
+
           </div>
+      
+        <div class="alert alert-info mt-2 text-center" role="alert" ng-if="filterItems.length <= 0">
+          <strong>no result!</strong>
+        </div>
 
 
 

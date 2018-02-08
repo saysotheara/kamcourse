@@ -2,18 +2,24 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
     $scope.$route = $route;
     $scope.activePath = null;
     $scope.userAuth =  $cookieStore.get('userLog');
+    $scope.currentDate = new Date();
     var baseUrl = window.location.origin+BASE;
     var url = $location.absUrl();
+
     $scope.getListCourse = function(){
       var idCategory = $routeParams.categoryId;
       if(idCategory){
         $http.get(baseUrl+'/api/class/category/'+idCategory).then(function(response){
           $scope.listCourse = response.data;
-          $scope.listCourse = response.data;
-          $scope.bigTotalItems = $scope.listCourse.length;
-          $scope.bigItemsPerPage = 4;
-          $scope.maxSize = 6;
-          $scope.bigCurrentPage = 1;
+          if($scope.listCourse.length > 0){
+            $scope.bigTotalItems = $scope.listCourse.length;
+            $scope.bigItemsPerPage = 4;
+            $scope.maxSize = 6;
+            $scope.bigCurrentPage = 1;
+          }else {
+            $scope.noPage = true;
+          }
+
           $scope.topCourse($scope.listCourse);
         });
       }else {
@@ -28,6 +34,12 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
         });
       }
     };
+    $scope.popularClass = function(){
+      $http.get(baseUrl+'/api/popular/class').then(function(response){
+        console.log(response.data);
+        $scope.popular = response.data;
+      });
+    };
     $scope.topCourse = function(dataCourse){
       $scope.lastCourse = [];
       var count = 0;
@@ -40,15 +52,23 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
     };
     $scope.detail = function(id){
       $scope.activePath = $location.path('/course/'+id);
+
     };
     $scope.showDetail = function(){
       var id = $routeParams.id;
       var url = baseUrl+'/api/class/user/'+id;
       $http.get(url).then(function(response){
         $scope.courseData = response.data;
+        $scope.recommendCourse(response.data.course_category);
       });
-      $scope.totalMember();
 
+
+    };
+    $scope.recommendCourse = function(id){
+
+      $http.get(baseUrl+'/api/recommend/course/'+id).then(function(response){
+        $scope.recommends = response.data;
+      });
     };
     $scope.getCategory = function(){
       $http.get(baseUrl+'/api/category').then(function(response){
@@ -60,7 +80,22 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
     };
 
     $scope.registerCourse = function(){
+      $http.post(baseUrl+'/api/check/register',{'email':$scope.email},
+      {
+          headers: {
+              'Content-Type': 'application/json; charset=utf-8'
+          }
+      }).then(function(response){
+        if(response.data){
+          alert("your email is already used! Please change new email.");
+        }else {
+          $scope.createRegister();
+        }
+      });
+    };
+    $scope.createRegister = function(){
       var url = baseUrl+'/api/student';
+
       $http.post( url,
         {
             'fname':$scope.fname,
@@ -80,9 +115,11 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
             $cookieStore.put('userId',response.data);
             $cookieStore.put('userLog',true);
             $('#register').modal('hide');
-            $scope.registerClass();
+            // $scope.registerClass();
 
-              $scope.totalMember();
+            $scope.comfirmEmail($scope.email);
+            $('#vertify').modal('show');
+
         });
     };
 
@@ -167,7 +204,6 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
               }).then(function(response){
               alert('success');
               $scope.getProfile();
-
               console.log(response.data);
             });
           }
@@ -183,13 +219,14 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
       var myDate = new Date(date);
       return myDate;
     };
-    $scope.totalMember = function(){
-      var id = $routeParams.id;
-      $http.get(baseUrl+'/api/user/'+id).then(function(response){
-        $scope.members = response.data;
-        console.log(response);
-      })
-    };
+    $scope.startDate = function(date){
+      var numOfDay = 93;
+      var oldDate = new Date(date);
+      var newDate = oldDate.setDate(oldDate.getDate()+numOfDay);
+      console.log(newDate);
+      return newDate;
+
+    }
     $scope.uploadedFile = function(element) {
           var reader = new FileReader();
           reader.onload = function(event) {
@@ -202,6 +239,59 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
           }
           reader.readAsDataURL(element.files[0]);
     };
+    $scope.comfirmEmail = function(email){
+      var url = baseUrl+'/api/user/vertify';
+      $http.post(url,{
+          'studentID':$cookieStore.get('userId'),
+          'email':email
+      },
+      {
+          headers: {
+              'Content-Type': 'application/json; charset=utf-8'
+          }
+      }).then(function(response){
+          console.log(response);
+      });
+    };
+    $scope.vertify = function(){
+      var param = $routeParams.email;
+      var url = baseUrl+'/api/vertified';
+      $http.post(url,{
+          'email': $routeParams.email
+      },
+      {
+          headers: {
+              'Content-Type': 'application/json; charset=utf-8'
+          }
+      }).then(function(response){
+        console.log(response);
+        $scope.comfirm = response.data;
 
+      });
+    };
+  $scope.contact = function(){
+    $scope.getProfile();
+  };
+  $scope.sendContact = function(){
+    var url = baseUrl+'/api/contact';
+    $http.post(url,{
+        'name' : $scope.fname+' '+$scope.lname,
+        'email': $scope.email,
+        'phone': $scope.phone,
+        'comment':$scope.comments
+    },
+    {
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+    }).then(function(response){
+      console.log(response);
+      if(response.data){
+        alert("sending is successed!");
+      }else {
+        alert("have problem!");
+      }
+    });
+  };
 
 });

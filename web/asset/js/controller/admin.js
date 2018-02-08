@@ -37,7 +37,7 @@ app.controller("loginCtrl",function($scope,$routeParams,$http,$location,$rootSco
     }else {
       $cookieStore.remove('userLog');
       $cookieStore.remove('userId');
-      $location.path('/course');
+      $location.path('/');
     };
 
 

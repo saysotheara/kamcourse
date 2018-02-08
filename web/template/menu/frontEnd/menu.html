@@ -1,48 +1,36 @@
 <any ng-include="'template/navigation/navigation.html'"></any>
-<div class="menu">
-  <nav class=" navbar-expand-lg ">
+<nav class="navbar navbar-expand-lg navbar-white">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler bg-success-2 col-sm-12" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>Menu
+  </button>
 
-    <div class="container">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mx-auto mr-auto text-center">
+      <li class="nav-item " ng-class="{'active': $route.current.activeUser == 'user/home'}">
+        <a class="nav-link" href="#!/" ><i class="fa fa-home " aria-hidden="true"></i>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item "  ng-class="{'active': $route.current.activeUser == 'user/home'}">
-            <a class="nav-link" href="#!/home" >
-              <i class="fa fa-home " aria-hidden="true"></i>
+          Home
+        </a>
+      </li>
+      <li class="nav-item " ng-class="{'active': $route.current.activeUser == 'user/class'}">
 
-                Home
+        <a class="nav-link" href="#!/course" >
+          <i class="fa fa-graduation-cap" aria-hidden="true"></i>
 
-            </a>
-          </li>
-          <br>
-          <li class="nav-item " ng-class="{'active': $route.current.activeUser == 'user/class'}">
+          Courses </a>
+      </li>
+      <li class="nav-item" ng-class="{'active': $route.current.activeUser == 'user/contact'}">
+        <a class="nav-link" href="#!/contact">
+          <i class="fa fa-envelope" aria-hidden="true"></i>
 
-            <a class="nav-link" href="#!/course" >
-              <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+          Contacts</a>
+      </li>
+      <li class="nav-item" ng-if="userAuth == true " ng-class="{'active': $route.current.activeUser == 'user/profile'}">
+        <a class="nav-link" href="#!/user/profile">
+          <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>Profile</a>
+      </li>
+    </ul>
 
-              Courses </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fa fa-id-badge" aria-hidden="true"></i>
-
-              Students</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#!/contact">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-
-              Contacts</a>
-          </li>
-          <li class="nav-item" ng-if="userAuth == true " ng-class="{'active': $route.current.activeUser == 'user/profile'}">
-            <a class="nav-link" href="#!/user/profile">
-              <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>Profile</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>
+  </div>
+</nav>

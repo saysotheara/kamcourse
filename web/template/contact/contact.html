@@ -1,0 +1,88 @@
+<header  class="bg-header" ng-include="'template/menu/frontEnd/menu.html'">
+</header>
+    <!-- Page Content -->
+    <div class="container"  >
+      <div class="row main home"  >
+        <div class="col-sm-8" >
+          <!-- list-course -->
+          <div class="row subject mt-2 mx-1">
+                <div class=" col-sm-12 col-xs-12 col-md-12 col-lg-12 "  >
+                  <div class="col-sm-12 mt-2 " >
+                    <h3 style="color:#333;">Contact</h3>
+                    <hr>
+                  </div>
+
+                      <div class="col-sm-8 mx-2 " >
+                        <div class=" " style="color: #333;">
+                          <form ng-init="contact()" >
+                              <div class="form-group row"  >
+                                <label for="recipient-name"  class="col-sm-6 col-form-label">Frist Name:</label>
+                                <label for="recipient-name" class="col-sm-6 col-form-label">Last Name:</label>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control" ng-model="fname" id="recipient-name">
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control" ng-model="lname" id="recipient-name">
+                                </div>
+                              </div>
+
+                            <div class="form-group" >
+                              <label for="recipient-name" class="col-form-label">Email:</label>
+                              <input type="email" class="form-control" ng-model="email" id="recipient-name">
+                            </div>
+                            <div class="form-group" >
+                              <label for="recipient-name" class="col-form-label">Phone:</label>
+                              <input type="text" class="form-control" ng-model="phone" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                              <label for="recipient-name" class="col-form-label">Comments:</label>
+                              <textarea name="name" ng-model="comments" class="form-control" rows="8" cols="80"></textarea>
+                            </div>
+                            <div class="form-group">
+                              <button type="button" class="btn btn-success" ng-click="sendContact()">Send</button>
+                            </div>
+
+                          </form>
+
+
+                        </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+        <!-- right-bar -->
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card " style=" margin-top:2%;">
+                <div class="card-block top-course">
+                  <div class="col-sm-12">
+                    <div class="card " style="height:400px; margin-top:5%; color:#333;">
+                      <div class="card-block " style="margin-top:5%;margin-left:5%;">
+                      <strong>Contact Us:</strong>
+                      <div class="contact">
+                        <p>Tel: (855)12 555 434</p>
+                        <p>H/P: (855)12 643 653</p>
+                        <p>Email: ppit@gmail.com</p>
+                        <p>website: www.ppit.edu</p>
+                        <p>Address: st #421 phnom phen......</p>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <br>
+
+
+
+
+    <!-- /.container -->
+
+    <!-- Footer -->

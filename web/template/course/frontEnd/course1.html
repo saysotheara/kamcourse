@@ -5,20 +5,21 @@
       <div class="row main home"  >
         <div class="col-sm-8" ng-init="getListCourse()" >
           <!-- list-course -->
-          <div class="row subject mt-2 mx-1" ng-repeat="course in listCourse.slice(((bigCurrentPage-1)*bigItemsPerPage), ((bigCurrentPage)*bigItemsPerPage)) |filter:search"  ng-click="detail(course.class_id)">
+          <any ng-if="bigTotalItems > 0">
+          <div class="row subject mt-2 mx-1"  ng-repeat="course in listCourse.slice(((bigCurrentPage-1)*bigItemsPerPage), ((bigCurrentPage)*bigItemsPerPage)) |filter:search "  ng-click="detail(course.class_id)">
                 <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4"  >
 
-                  <div class="course" >
+                  <div class="course mouseOver" >
                     <thumbnail file-type="image" source="{{base+course.course_cover}}" max-height="260"  max-width="240"></thumbnail>
                   </div>
-                    <div class=" text-center price ">
+                    <div class=" text-center price mouseOver ">
                       <p >{{course.course_fee}}$/course</p>
                     </div>
 
                 </div>
                 <div class=" col-sm-8 col-xs-8 col-md-6 col-lg-8 "  >
                   <div class="short-info ">
-                    <p><strong>Course: </strong> {{course.course_name}}</p>
+                    <p class="mouseOver"><strong>Course: </strong> {{course.course_name}}</p>
                     <hr>
                     <p><strong>Shedule: </strong> {{course.schedule_time}}</p>
                     <p><strong>Start Date: </strong>{{course.class_start_date | date:'dd-MMMM-yyyy' }}</p>
@@ -28,12 +29,16 @@
           </div>
           <div class="row subject mt-1 mx-1"  >
                 <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 ">
-                  <div class="mt-4 ">
-                    <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" items-per-page="bigItemsPerPage" max-size="maxSize" class="pagination-sm " boundary-link-numbers="true" rotate="false"></ul>
+                  <div class="mt-4 " >
+                    <ul  uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" items-per-page="bigItemsPerPage" max-size="maxSize" class="pagination-sm " boundary-link-numbers="true" rotate="false"></ul>
                   </div>
+
                 </div>
           </div>
-
+        </any>
+        <div class="alert alert-info mt-2 text-center" role="alert" ng-if="noPage == true">
+          <strong>no class aviable!</strong>
+        </div>
 
 
 
@@ -44,14 +49,14 @@
             <div class="col-sm-12">
               <div class="card mt-2" >
                 <div class="card-header text-center" style="height:50px;background:#0275D8;">
-                  <p >Top Course</p>
+                  <p >popular Course</p>
                 </div>
                 <div class="card-block top-course">
 
 
-                    <div  class ="row "  >
-                      <div class="col-sm-12 text-center  mt-1 mb-1" ng-repeat="top in listCourse|limitTo:5" ng-click="detail(top.class_id)">
-                        <thumbnail file-type="image" source="{{base+top.course_cover}}"  max-width="200"></thumbnail>
+                    <div  class ="row " ng-init="popularClass()" >
+                      <div class="col-sm-12 text-center  mt-1 mb-1" ng-repeat="top in popular|limitTo:5" ng-click="detail(top.class_id)">
+                        <thumbnail class="mouseOver" file-type="image" source="{{base+top.course_cover}}"  max-width="200"></thumbnail>
                         <div class="logo-price">
                           <p>{{top.course_fee}}$</p>
                         </div>
@@ -68,7 +73,7 @@
 
 
           </div>
-        
+
 
         </div>
       </div>

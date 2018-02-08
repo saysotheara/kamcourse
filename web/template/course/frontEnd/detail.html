@@ -4,7 +4,7 @@
   <div class="container"  >
     <div class="row main home"  >
 
-      <div class="col-sm-8 ">
+      <div class="col-sm-8 " >
 
         <!-- list-course -->
         <div class="row subject mx-1 mt-2" ng-init="showDetail()" >
@@ -50,12 +50,12 @@
 
           <div id="course" class="carousel slide  " style="top:5%;" data-ride="carousel">
 
-            <div class="carousel-inner " role="listbox" ng-init="getListCourse()" >
+            <div class="carousel-inner " role="listbox" ng-init="recommendCourse()" >
 
               <div class="carousel-item active"  >
                 <div class="col-sm-12 " >
                   <div class="row " >
-                    <div class="col-sm-4 course-recommend" data-ng-repeat="recommend in listCourse |  limitTo:3 " ng-click="detail(recommend.class_id)" >
+                    <div class="col-sm-4 mouseOver course-recommend" data-ng-repeat="recommend in recommends |  limitTo:3 " ng-click="detail(recommend.class_id)" >
                       <thumbnail file-type="image" source="{{base+recommend.course_cover}}"  max-width="213"></thumbnail>
 
 
@@ -194,6 +194,23 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary btnJoin" ng-click="registerClass()">Join</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.row -->
+<div class="modal fade" id="vertify" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Register Course</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <h3>Please ! comfirm your Email.</h3>
+          <a class="btn btn-primary" target="_blank" href="https://mail.google.com">Comfirm</a>
       </div>
     </div>
   </div>
