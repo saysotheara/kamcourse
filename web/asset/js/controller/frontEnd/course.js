@@ -167,10 +167,6 @@ app.controller("userCtrl",function($scope,$route,$http,$location,$routeParams,$c
         $scope.address = response.data.student_address;
         $scope.birth = response.data.student_birth;
         $scope.cover = response.data.student_cover;
-
-
-
-
       });
 
     };
